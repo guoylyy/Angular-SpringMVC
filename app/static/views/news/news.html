@@ -1,0 +1,168 @@
+<div>
+
+    <h2>News</h2>
+
+    <script type = "text/ng-template" id="news-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myNewsLabel">Create or edit a News</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="news.id" readonly>
+                </div>
+
+                
+                <div class="form-group">
+                    <label>title:</label>
+                    
+                    <input type="text" class="form-control" name="title"
+                           ng-model="news.title" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>content:</label>
+                    
+                    <input type="text" class="form-control" name="content"
+                           ng-model="news.content" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>create_time:</label>
+                    
+                    <input type="text" class="form-control" name="create_time" ui-date="create_timeDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="news.create_time" ng-required="true"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>update_time:</label>
+                    
+                    <input type="text" class="form-control" name="update_time" ui-date="update_timeDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="news.update_time" ng-required="true"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>author:</label>
+                    
+                    <input type="text" class="form-control" name="author"
+                           ng-model="news.author" ng-required="false"
+                           ng-minlength=0 ng-maxlength=100/>
+                    <span class="error" ng-show="form.author.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.author.$error.maxlength">Must be at most 100 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>view_count:</label>
+                    
+                    <input type="number" class="form-control" name="view_count"
+                           ng-model="news.view_count" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.view_count.$error.min">Must be greater than or equal to .</span>
+                    <span class="error" ng-show="form.view_count.$error.max">Must be less than or equal to .</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>is_draft:</label>
+                    
+                    <input type="checkbox" name="is_draft"
+                           ng-model="news.is_draft" ng-required="true"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>publisher:</label>
+                    
+                    <input type="number" class="form-control" name="publisher"
+                           ng-model="news.publisher" ng-required="false"
+                           />
+                    <span class="error" ng-show="form.publisher.$error.min">Must be greater than or equal to .</span>
+                    <span class="error" ng-show="form.publisher.$error.max">Must be less than or equal to .</span>
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
+
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new News
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                
+                <th>title</th>
+                
+                <th>content</th>
+                
+                <th>create_time</th>
+                
+                <th>update_time</th>
+                
+                <th>author</th>
+                
+                <th>view_count</th>
+                
+                <th>is_draft</th>
+                
+                <th>publisher</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="news in news">
+                <td>{{news.id}}</td>
+                
+                <td>{{news.title }}</td>
+                
+                <td>{{news.content }}</td>
+                
+                <td>{{news.create_time  | date:'yyyy-MM-dd'}}</td>
+                
+                <td>{{news.update_time  | date:'yyyy-MM-dd'}}</td>
+                
+                <td>{{news.author }}</td>
+                
+                <td>{{news.view_count }}</td>
+                
+                <td>{{news.is_draft }}</td>
+                
+                <td>{{news.publisher }}</td>
+                
+                <td>
+                    <button type="submit"
+                            ng-click="update(news.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(news.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -6,5 +6,13 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 
+from app.models import news
+from app.models import user
+from app.models import message
+from app.models import conference
 from app.routes import index
 
+from app.routes import news
+from app.routes import users
+from app.routes import messages
+from app.routes import conferences

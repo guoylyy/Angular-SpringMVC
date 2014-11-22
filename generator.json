@@ -1,5 +1,243 @@
 {
 	"baseName": "news",
-	"entities": [],
+	"entities": [
+		{
+			"name": "news",
+			"attrs": [
+				{
+					"attrName": "title",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "content",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "create_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "update_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "author",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "100",
+					"enumValues": [],
+					"required": false
+				},
+				{
+					"attrName": "view_count",
+					"attrType": "Integer",
+					"min": "",
+					"max": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "is_draft",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "publisher",
+					"attrType": "Integer",
+					"min": "",
+					"max": "",
+					"enumValues": [],
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "user",
+			"attrs": [
+				{
+					"attrName": "account",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "200",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "password",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "500",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "name",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "100",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "role",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "20",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "email",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": false
+				},
+				{
+					"attrName": "registered_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "is_active",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "phone_number",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "50",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "description",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "500",
+					"enumValues": [],
+					"required": false
+				},
+				{
+					"attrName": "lastlogin_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "message",
+			"attrs": [
+				{
+					"attrName": "content",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "created_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "publisher",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": false
+				},
+				{
+					"attrName": "is_active",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "conference",
+			"attrs": [
+				{
+					"attrName": "intro_content",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "logistics_content",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "title",
+					"attrType": "String",
+					"minLength": "0",
+					"maxLength": "200",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "created_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "updated_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "view_count",
+					"attrType": "Integer",
+					"min": "",
+					"max": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "is_draft",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				}
+			]
+		}
+	],
 	"resources": []
 }
