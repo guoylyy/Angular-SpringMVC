@@ -1,4 +1,6 @@
 from app import db
+from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
+from sqlalchemy_imageattach.stores.fs import HttpExposedFileSystemStore, FileSystemStore
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -44,3 +46,9 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.id)
+
+
+class UserHeader(db.Model, Image):
+    __tablename__ = 'user_header'
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    user = db.relationship('User')
