@@ -9,15 +9,14 @@ class Conference(db.Model):
     
     title = db.Column(db.String)
     
-    created_time = db.Column(db.Date)
+    created_time = db.Column(db.DateTime)
     
-    updated_time = db.Column(db.Date)
+    updated_time = db.Column(db.DateTime)
     
     view_count = db.Column(db.Integer)
     
     is_draft = db.Column(db.Boolean)
     
-
     def to_dict(self):
         return dict(
             intro_content = self.intro_content,

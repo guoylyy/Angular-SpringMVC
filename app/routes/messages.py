@@ -1,12 +1,32 @@
 from app import app, db
-from app.models import message
+from app.models import message, user
 from flask import abort, jsonify, request
 import datetime
 import json
 
+@app.route('/news/message/send', methods = ['POST'])
+def send_message():
+    token = request.json['token']
+    u = user.User.query.filter(user.User.token == token).first()
+    if not u:
+        abort(404)
+    m = message.Message(
+        content = request.json['content'],
+        created_time = datetime.datetime.now(),
+        user_id = u.id,
+        publisher = u.name)
+    db.session.add(m)
+    db.session.commit()
+    return jsonify(m.to_dict()), 201
+
+
 @app.route('/news/messages', methods = ['GET'])
 def get_all_messages():
-    entities = message.Message.query.all()
+    """
+        List messge sorted by created_time
+        @limit:100
+    """
+    entities = message.Message.query.order_by(message.Message.created_time.desc()).limit(100)
     return json.dumps([entity.to_dict() for entity in entities])
 
 @app.route('/news/messages/<int:id>', methods = ['GET'])
@@ -30,6 +50,7 @@ def create_message():
 
 @app.route('/news/messages/<int:id>', methods = ['PUT'])
 def update_message(id):
+    #print request.json['content'] + 'fdsafsda fdsa fsa\n'
     entity = message.Message.query.get(id)
     if not entity:
         abort(404)

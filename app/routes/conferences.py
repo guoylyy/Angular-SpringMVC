@@ -4,6 +4,8 @@ from flask import abort, jsonify, request
 import datetime
 import json
 
+
+
 @app.route('/news/conferences', methods = ['GET'])
 def get_all_conferences():
     entities = conference.Conference.query.all()
