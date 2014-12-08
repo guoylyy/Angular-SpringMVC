@@ -27,7 +27,7 @@ def get_all_messages():
         @limit:100
     """
     entities = message.Message.query.order_by(message.Message.created_time.desc()).limit(100)
-    return json.dumps([entity.to_dict() for entity in entities])
+    return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/messages/<int:id>', methods = ['GET'])
 def get_message(id):

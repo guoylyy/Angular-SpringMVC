@@ -16,7 +16,7 @@
 
 ```
 Request
-Post: {"username":"xxx", "password":"fdsfa"}
+Post: {"account":"xxx", "password":"fdsfa"}
 ```
 
 ```
