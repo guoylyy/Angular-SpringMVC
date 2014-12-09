@@ -140,5 +140,10 @@ Respone:
 
 ## 4. 新闻 API
 
+### 4.1 获取主题列表
+
+url: news/topics
+
+
 
 

@@ -80,7 +80,7 @@ class Topic(db.Model):
         return dict(
             title = self.title,
             id = self.id,
-            images = self.get_images_json()
+            images = self.get_list_image()
         )
 
     def list(self):
@@ -90,6 +90,12 @@ class Topic(db.Model):
                 images = self.get_images_json(),
                 newses = self.get_newses_json()
             )
+
+    def get_list_image(self):
+        if self.images[0]:
+            return self.images[0].to_list_image()
+        else:
+            return None
 
     def get_newses_json(self):
         return [news.to_list_dict() for news in self.newss]
@@ -109,6 +115,9 @@ class TopicImage(db.Model):
                     id=self.id,
                     image_path=self.image.locate()
                 )
+    def to_list_image(self):
+        with store_context(fs_store):
+            return find_or_create_thumbnail(self, self.image,100).locate()
 
 class TopicImageStore(db.Model, Image):
     __tablename__ = 'topic_image_store'
@@ -120,3 +129,16 @@ class NewsImage(db.Model, Image):
     __tablename__ = 'news_image'
     news_image_id = db.Column(db.Integer, db.ForeignKey('news.id'), primary_key=True)
     news_image = db.relationship('News')
+
+class NewsFile(db.Model):
+    __tablename__ = "news_file"
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String)
+    filepath = db.Column(db.String)
+
+    def to_dict(self):
+        return dict(
+                id=self.id,
+                filename=self.filename,
+                filepath=self.filepath
+            )
