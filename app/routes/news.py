@@ -71,7 +71,7 @@ def get_news(id):
     entity = news.News.query.get(id)
     if not entity:
         abort(404)
-    return jsonify(entity.to_dict())
+    return json.dumps(entity.to_dict(),ensure_ascii=False)
 
 @app.route('/news/news', methods = ['POST'])
 def create_news():

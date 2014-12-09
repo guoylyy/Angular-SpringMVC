@@ -143,7 +143,32 @@ Respone:
 ### 4.1 获取主题列表
 
 url: news/topics
+method: get
 
+```
+Response:
+[{"images": "file:///Users/globit/git/news_api/app/extensions/userimages/topic-image-store/1/0/1.100x66.jpe?_ts=20141209000645000000", "id": 1, "title": "test topic"}]
+```
+
+### 4.2 获取一个主题的内容
+url: news/topic/<int:id>
+method: get
+
+```
+Response:
+{ "id": 1, "images": [ { "id": 1, "image_path": "file:///Users/globit/git/news_api/app/extensions/userimages/topic-image-store/1/0/1.690x460.jpe?_ts=20141209000421000000" } ], "newses": [], "title": "test topic" }
+
+```
+
+### 4.3 获取一个新闻的内容
+
+url: news/news/<int:id>
+method: get
+
+```
+Respone:
+{"publisher": 4, "update_time": "2014-12-09T00:00:00", "view_count": 111, "author": "郭", "content": "方法撒地方大舒服撒大哥的撒个的撒个的撒个大使馆撒个放大范德萨发大水范德萨发的发", "create_time": "2014-12-09T00:00:00", "title": "测试", "is_draft": true, "id": 1, "icon": "file:///Users/globit/git/news_api/app/extensions/userimages/news-image/1/0/1.690x460.jpe?_ts=20141209001228000000"}
+```
 
 
 
