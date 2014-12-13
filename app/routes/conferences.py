@@ -1,10 +1,42 @@
 from app import app, db
 from app.models import conference
 from flask import abort, jsonify, request
+from app.extensions import files
 import datetime
 import json
 
+@app.route('/news/conferences/<int:id>/file_upload/<string:ftype>', methods=['POST'])
+def upload_file(id, ftype):
+    entity = conference.Conference.query.get(id)
+    if entity is None:
+        abort(404)
+    if ftype in conference.ConferenceAttachmentTypeEnum:
+        filename = files.save(request.files['file'])
+        c = conference.ConferenceFile(conference_id=entity.id,
+                file_name=filename,file_path=files.url(filename),
+                file_type=ftype)
+        db.session.add(c)
+        db.session.commit()
+        return jsonify(dict(result='success'))
+    else:
+        abort(500)
 
+@app.route('/news/conferences/dict', methods=['GET'])
+def get_dict():
+    return json.dumps([dict(data=d) for d in conference.ConferenceAttachmentTypeEnum])
+
+@app.route('/news/conferences/<int:id>/get_file/<string:ftype>')
+def get_file(id,ftype):
+    entity = conference.Conference.query.get(id)
+    if entity is None:
+        abort(404)
+    if ftype in conference.ConferenceAttachmentTypeEnum:
+        l = conference.ConferenceFile.query.filter(
+                conference.ConferenceFile.conference_id==entity.id,
+                conference.ConferenceFile.file_type==ftype)
+        return json.dumps([e.to_dict() for e in l])
+    else:
+        abort(500)
 
 @app.route('/news/conferences', methods = ['GET'])
 def get_all_conferences():

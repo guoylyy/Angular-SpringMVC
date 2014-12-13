@@ -13,31 +13,31 @@ HEADER_SIZE_SMALL = 150
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     
-    account = db.Column(db.String)
+    account = db.Column(db.String(100))
     
-    password = db.Column(db.String)
+    password = db.Column(db.String(200))
     
-    name = db.Column(db.String)
+    name = db.Column(db.String(100))
 
-    nickname=db.Column(db.String)
+    nickname=db.Column(db.String(100))
     
-    role = db.Column(db.String)
+    role = db.Column(db.String(20))
     
-    email = db.Column(db.String)
+    email = db.Column(db.String(100))
     
     registered_time = db.Column(db.Date)
     
     is_active = db.Column(db.Boolean)
     
-    phone_number = db.Column(db.String)
+    phone_number = db.Column(db.String(50))
     
-    description = db.Column(db.String)
+    description = db.Column(db.Text)
     
     lastlogin_time = db.Column(db.Date)
     
-    myattr = db.Column(db.String)
+    myattr = db.Column(db.String(200))
     
-    token = db.Column(db.String)
+    token = db.Column(db.String(500))
 
     header_icon = image_attachment('UserHeader')
 

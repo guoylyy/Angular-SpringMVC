@@ -8,7 +8,7 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     updated_time = db.Column(db.DateTime)
-    name = db.Column(db.String)
+    name = db.Column(db.String(200))
     
     def to_dict(self):
         with store_context(fs_store):
@@ -28,8 +28,8 @@ class MainPageImage(db.Model):
     __tablename__ = 'main_page_image'
     id = db.Column(db.Integer, primary_key=True)
     order = db.Column(db.Integer)
-    name = db.Column(db.String)
-    link = db.Column(db.String)
+    name = db.Column(db.String(200))
+    link = db.Column(db.String(500))
     image = image_attachment('MainPageImageStore')
 
     def to_dict(self):

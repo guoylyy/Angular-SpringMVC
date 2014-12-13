@@ -5,11 +5,11 @@ from app.tools import _mk_timestamp
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     
-    content = db.Column(db.String)
+    content = db.Column(db.Text)
     
     created_time = db.Column(db.DateTime)
     
-    publisher = db.Column(db.String)
+    publisher = db.Column(db.String(100))
     
     is_active = db.Column(db.Boolean, default=True)
     

@@ -47,7 +47,8 @@ def update_name(id):
     u = user.User.query.filter(user.User.token == token).first()
     if u is None:
         abort(404)
-    if u.id is not id:
+    if u.id != id:
+        print "user id is wrong." #TODO: Support log system
         abort(500)
     u.name = request.json['name']
     u.nickname = request.json['nickname']

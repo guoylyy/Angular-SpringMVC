@@ -14,15 +14,15 @@ news_topic = db.Table('news_topic',
 class News(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     
-    title = db.Column(db.String)
+    title = db.Column(db.String(200))
     
-    content = db.Column(db.String)
+    content = db.Column(db.Text)
     
     create_time = db.Column(db.DateTime)
     
     update_time = db.Column(db.DateTime)
     
-    author = db.Column(db.String)
+    author = db.Column(db.String(100))
     
     view_count = db.Column(db.Integer)
     
@@ -34,6 +34,8 @@ class News(db.Model):
 
     topics = db.relationship('Topic', secondary=news_topic, backref=db.backref('news_topics',
             lazy='dynamic'))
+
+    files = db.relationship('NewsFile', backref="news", lazy="dynamic")
 
     def to_dict(self):
         with store_context(fs_store):
@@ -61,6 +63,9 @@ class News(db.Model):
                 icon=find_or_create_thumbnail(self,self.icon,100).locate()
                 )
 
+    def get_files(self):
+        return [f.to_dict() for f in self.files]
+        
     def __repr__(self):
         return '<News %r>' % (self.id)
 
@@ -70,7 +75,7 @@ class Topic(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     
-    title = db.Column(db.String)
+    title = db.Column(db.String(200))
 
     images = db.relationship('TopicImage',backref='topic',lazy='dynamic')
 
@@ -124,7 +129,6 @@ class TopicImageStore(db.Model, Image):
     topic_image_id = db.Column(db.Integer, db.ForeignKey('topic_image.id'), primary_key=True)
     topic_image = db.relationship('TopicImage')
 
-
 class NewsImage(db.Model, Image):
     __tablename__ = 'news_image'
     news_image_id = db.Column(db.Integer, db.ForeignKey('news.id'), primary_key=True)
@@ -133,12 +137,14 @@ class NewsImage(db.Model, Image):
 class NewsFile(db.Model):
     __tablename__ = "news_file"
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String)
-    filepath = db.Column(db.String)
+    news_id = db.Column(db.Integer, db.ForeignKey('news.id'))
+    filename = db.Column(db.String(200))
+    filepath = db.Column(db.String(500))
 
     def to_dict(self):
         return dict(
                 id=self.id,
+                news_id=self.news_id,
                 filename=self.filename,
                 filepath=self.filepath
             )

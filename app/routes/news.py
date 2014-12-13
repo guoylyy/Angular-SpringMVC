@@ -2,10 +2,30 @@ from app import app, db
 from app.models import news
 from flask import abort, jsonify, request
 from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
-from app.extensions import fs_store
+from app.extensions import fs_store, files
 from requests import get
 import datetime
 import json
+
+@app.route('/news/news/<int:id>/upload_pdf',methods=['POST'])
+def upload_pdf(id):
+    try:
+        filename = files.save(request.files['file'])
+        entity = news.NewsFile(news_id=id,filename=filename, filepath=files.url(filename))
+        db.session.add(entity)
+        db.session.commit()
+        return jsonify(dict(result='success'))
+    except Exception, e:
+        raise e
+        return jsonify(dict(result='error'))
+    
+@app.route('/news/news_attchments/<int:id>',methods=['GET'])
+def get_attachments(id):
+    entity = news.News.query.get(id)
+    if entity is None:
+        abort(404)
+    return json.dumps(entity.get_files())
+
 
 @app.route('/news/topic/add', methods = ['POST'])
 def add_topic():
