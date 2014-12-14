@@ -18,6 +18,9 @@ def update_mockimage():
 
 @app.route('/news/main_page_images', methods=['GET'])
 def main_page_images_url():
+	"""
+		TODO: Add internal link of post: post_id
+	"""
 	l = []
 	for i in range(5):
 		l.add(dict(id=i))

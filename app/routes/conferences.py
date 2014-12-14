@@ -37,28 +37,31 @@ def get_file(id,ftype):
 
 @app.route('/news/conferences', methods = ['GET'])
 def get_all_conferences():
-    """
-        TODO: Modify this api to support history confercne profile
-        Only history
-    """
     entities = conference.Conference.query.all()
     return json.dumps([entity.to_dict() for entity in entities])
 
-@app.route('/news/conferences/<int:id>', methods = ['GET'])
-def get_conference(id):
-    entity = conference.Conference.query.get(id)
+@app.route('/news/conferences/content', methods = ['GET'])
+def get_conference():
+    entity = conference.Conference.query.first()
     if not entity:
         abort(404)
     return jsonify(entity.to_dict())
 
 @app.route('/news/conferences', methods = ['POST'])
 def create_conference():
+    """
+        TODO: update item names
+    """
     entity = conference.Conference(
         intro_content = request.json['intro_content']
         , logistics_content = request.json['logistics_content']
+        , layout_content = request.json['logistics_content']
+        , agenda_content = request.json['logistics_content']
+        , group_content = request.json['logistics_content']
         , title = request.json['title']
         , created_time = datetime.datetime.strptime(request.json['created_time'], "%Y-%m-%d").date()
         , updated_time = datetime.datetime.strptime(request.json['updated_time'], "%Y-%m-%d").date()
+        , started_time = datetime.datetime.strptime(request.json['updated_time'], "%Y-%m-%d").date()
         , view_count = request.json['view_count']
         , is_draft = request.json['is_draft']
     )

@@ -7,12 +7,20 @@ class Conference(db.Model):
     intro_content = db.Column(db.Text)
     
     logistics_content = db.Column(db.Text)
+
+    group_content = db.Column(db.Text)
+
+    layout_content = db.Column(db.Text)
+
+    agenda_content = db.Column(db.Text)
     
     title = db.Column(db.String(100))
     
     created_time = db.Column(db.DateTime)
     
     updated_time = db.Column(db.DateTime)
+
+    started_time = db.Column(db.DateTime)
     
     view_count = db.Column(db.Integer)
     
@@ -22,9 +30,13 @@ class Conference(db.Model):
         return dict(
             intro_content = self.intro_content,
             logistics_content = self.logistics_content,
+            group_content = self.group_content,
+            layout_content = self.layout_content,
+            agenda_content = self.agenda_content,
             title = self.title,
             created_time = self.created_time.isoformat(),
             updated_time = self.updated_time.isoformat(),
+            started_time = self.started_time.isoformat(),
             view_count = self.view_count,
             is_draft = self.is_draft,
             id = self.id

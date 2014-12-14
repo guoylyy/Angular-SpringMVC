@@ -49,6 +49,7 @@ class A_UserInit(unittest.TestCase):
 	def test_create_user(self):
 		self.create_user()	
 
+
 class BaseTest(unittest.TestCase):
 	def setUp(self):
 		self.app = create_test_app()
@@ -71,6 +72,11 @@ class BaseTest(unittest.TestCase):
 		json_data_length = len(json_data)
 		headers.append(('Content-Length', json_data_length))
 		return headers
+
+	def check_code(self, rep, expect_code):
+		if rep.status_code is not expect_code:
+			print rep.data
+		assert rep.status_code is expect_code
 
 class B_MessageTest(BaseTest):
 	def test_get_all_message(self):
@@ -170,7 +176,7 @@ class F_ConferenceTest(BaseTest):
 		rep = self.client.post(BASEURL + 'conferences',
 			headers=self.get_headers(json_data),
 			data=json_data)
-		assert rep.status_code is 201
+		self.check_code(rep, 201)
 
 		conference = json.loads(rep.data)
 		print '\nTest get conference file\n'
@@ -179,6 +185,6 @@ class F_ConferenceTest(BaseTest):
 		assert rep.status_code is 200
 
 		print '\nTest get all profile of conference\n'
-		rep = self.client.get(BASEURL + 'conferences/' + str(conference['id']),
+		rep = self.client.get(BASEURL + 'conferences/content',
 			headers=self.get_headers(""))
 		assert rep.status_code is 200

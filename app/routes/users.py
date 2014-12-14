@@ -56,6 +56,22 @@ def update_name(id):
     db.session.commit()
     return jsonify(u.to_dict())
 
+@app.route('/news/user/<int:id>/update_icon', methods = ['POST'])
+def update_icon(id):
+    """
+        Update user's header icon
+    """
+    token = request.json['token']
+    u = user.User.query.filter(user.User.token == token).first()
+    if u is None:
+        abort(404)
+    if u.id != id:
+        print "user id is wrong." #TODO: Support log system
+        abort(500)
+    filename = files.save(request.files['file']) # get file and save as header icon
+    return jsonify(dict(result='success'))
+
+
 @app.route('/news/users', methods = ['GET'])
 def get_all_users():
     entities = user.User.query.all()

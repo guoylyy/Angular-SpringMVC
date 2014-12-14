@@ -20,7 +20,7 @@ Post: {"account":"xxx", "password":"fdsfa"}
 ```
 
 ```
-Respone:
+Response:
 {
     "account": "system2",
   "password" : "1234",
@@ -49,7 +49,7 @@ Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa"}
 ```
 
 ```
-Respone:
+Response:
 {
     "account": "system2",
   "password" : "1234",
@@ -84,7 +84,7 @@ url: news/messages
 method: get
 
 ```
-Respone:
+Response:
 [
     {
         "content": "fdsfasfasfas",
@@ -123,7 +123,7 @@ Request:
 
 ```
 ```
-Respone:
+Response:
 	{
   "content": "fdsfasfasfas",
   "created_time": 1417999460.0,
@@ -166,9 +166,37 @@ url: news/news/<int:id>
 method: get
 
 ```
-Respone:
+Response:
 {"publisher": 4, "update_time": "2014-12-09T00:00:00", "view_count": 111, "author": "郭", "content": "方法撒地方大舒服撒大哥的撒个的撒个的撒个大使馆撒个放大范德萨发大水范德萨发的发", "create_time": "2014-12-09T00:00:00", "title": "测试", "is_draft": true, "id": 1, "icon": "file:///Users/globit/git/news_api/app/extensions/userimages/news-image/1/0/1.690x460.jpe?_ts=20141209001228000000"}
 ```
 
 
+## 5. 会展 API
+
+### 5.1 获取会展介绍
+
+这里的会展介绍包含了介绍、交通住宿、组委会、会场布局、会议日程。都是以 HTML 的形式返回到前端，和夏老板讨论了觉得这样更加科学。
+
+* url: conferences/content
+* method: get
+
+```
+Response:
+
+```
+
+
+### 5.2 获取会议报告和会议PDF列表
+
+会议报告和会议PDF都是列表，这里返回列表项目的值和列表内容 PDF 的下载链接。
+
+* url: conferences/<int:id>/get_file/<string:ftype>  
+	* id: Integer 会展 ID
+	* ftype: REPORT|PDF
+* method: get
+
+```
+Response:
+
+```
 
