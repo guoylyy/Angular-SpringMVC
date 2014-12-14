@@ -1,5 +1,5 @@
 import unittest
-from test import A_UserInit,B_MessageTest,C_UserApiTest,D_ImageTest
+from test import A_UserInit,B_MessageTest,C_UserApiTest,D_ImageTest,E_NewsTest,F_ConferenceTest
 
 """
 	Test Environment Configuration

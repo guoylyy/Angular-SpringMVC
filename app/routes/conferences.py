@@ -27,12 +27,9 @@ def get_dict():
 
 @app.route('/news/conferences/<int:id>/get_file/<string:ftype>')
 def get_file(id,ftype):
-    entity = conference.Conference.query.get(id)
-    if entity is None:
-        abort(404)
     if ftype in conference.ConferenceAttachmentTypeEnum:
         l = conference.ConferenceFile.query.filter(
-                conference.ConferenceFile.conference_id==entity.id,
+                conference.ConferenceFile.conference_id==id,
                 conference.ConferenceFile.file_type==ftype)
         return json.dumps([e.to_dict() for e in l])
     else:
@@ -40,6 +37,10 @@ def get_file(id,ftype):
 
 @app.route('/news/conferences', methods = ['GET'])
 def get_all_conferences():
+    """
+        TODO: Modify this api to support history confercne profile
+        Only history
+    """
     entities = conference.Conference.query.all()
     return json.dumps([entity.to_dict() for entity in entities])
 

@@ -41,8 +41,9 @@ class A_UserInit(unittest.TestCase):
 	
 	def get_headers(self,json_data):
 		headers = [('Content-Type', 'application/json')]
-		json_data_length = len(json_data)
-		headers.append(('Content-Length', json_data_length))
+		if len(json_data) > 0:
+			json_data_length = len(json_data)
+			headers.append(('Content-Length', json_data_length))
 		return headers
 
 	def test_create_user(self):
@@ -74,12 +75,16 @@ class BaseTest(unittest.TestCase):
 class B_MessageTest(BaseTest):
 	def test_get_all_message(self):
 		"""
-			Test CURD of message
+			Test CURD of message.
+				- Get all message
 		"""
 		rep = self.client.get(BASEURL + 'messages')
 		assert rep.status_code is 200
 
 	def test_send_message(self):
+		"""
+			Test user send message to system.
+		"""
 		data = dict(
 			content='test message',
 			token=self.token)
@@ -90,6 +95,9 @@ class B_MessageTest(BaseTest):
 
 class C_UserApiTest(BaseTest):
 	def test_get_userprofile(self):
+		"""
+			Test user profile getter
+		"""
 		data = dict(
 			token=self.token)
 		json_data = json.dumps(data)
@@ -99,6 +107,9 @@ class C_UserApiTest(BaseTest):
 		assert rep.status_code is 200
 
 	def test_update_username_nickname(self):
+		"""
+			Test update username and nickname
+		"""
 		name = 'user' + str(random.randint(1,10000))
 		self.u['name'] = name
 		self.u['nickname'] = 'nicknick'+ str(random.randint(1,10000))
@@ -115,9 +126,59 @@ class D_ImageTest(BaseTest):
 		assert rep.status_code is 200
 
 class E_NewsTest(BaseTest):
-	def test_addnews(self):
+	def test_add_news(self):
+		print '\nInit NewsTest'
+		data = dict(title = 'test title'
+			,content = 'test content'
+			, create_time = '2014-12-10'
+			, update_time = '2014-12-10'
+			, author = 'fdsafsa'
+			, view_count = 0
+			, is_draft = False
+			, publisher = 0)
+		json_data = json.dumps(data)
+		rep = self.client.post(BASEURL + 'news',
+    		headers = self.get_headers(json_data),
+    		data=json_data)
+		assert rep.status_code is 201
+		self.news = json.loads(rep.data)
+
+	def test_news_crud(self):
 		pass
 
 	def test_topic(self):
 		pass
 
+class F_ConferenceTest(BaseTest):
+	def test_get_conference_dict(self):
+		rep = self.client.get(BASEURL + 'conferences/dict',
+			headers = self.get_headers(""))		
+		assert rep.status_code is 200
+
+	def test_confernce_crud(self):
+		print '\nTest add a conference...\n' 
+		data = dict(
+ 			intro_content = 'test content'
+        	, logistics_content = 'test content'
+        	, title = 'test title'
+        	, created_time = '2014-12-10'
+        	, updated_time = '2014-12-10'
+        	, view_count = 0
+        	, is_draft = False
+		)
+		json_data = json.dumps(data)
+		rep = self.client.post(BASEURL + 'conferences',
+			headers=self.get_headers(json_data),
+			data=json_data)
+		assert rep.status_code is 201
+
+		conference = json.loads(rep.data)
+		print '\nTest get conference file\n'
+		rep = self.client.get(BASEURL + 'conferences/'+ str(conference['id'])+
+			'/get_file/GROUP', headers=self.get_headers(""))
+		assert rep.status_code is 200
+
+		print '\nTest get all profile of conference\n'
+		rep = self.client.get(BASEURL + 'conferences/' + str(conference['id']),
+			headers=self.get_headers(""))
+		assert rep.status_code is 200
