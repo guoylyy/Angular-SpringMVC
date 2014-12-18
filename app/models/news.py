@@ -32,6 +32,10 @@ class News(db.Model):
 
     icon = image_attachment('NewsImage')
 
+    has_video = db.Column(db.Boolean)
+
+    video_link = db.Column(db.String)
+
     topics = db.relationship('Topic', secondary=news_topic, backref=db.backref('news_topics',
             lazy='dynamic'))
 
@@ -49,7 +53,9 @@ class News(db.Model):
                 is_draft = self.is_draft,
                 publisher = self.publisher,
                 id = self.id,
-                icon=self.icon.locate()
+                icon=self.icon.locate(),
+                has_video =self.has_video,
+                video_link = self.video_link
             )
 
     def to_list_dict(self):
@@ -60,7 +66,9 @@ class News(db.Model):
                 create_time = self.create_time.isoformat(),
                 author=self.author,
                 publisher=self.publisher,
-                icon=find_or_create_thumbnail(self,self.icon,100).locate()
+                icon=find_or_create_thumbnail(self,self.icon,100).locate(),
+                has_video =self.has_video,
+                video_link = self.video_link
                 )
 
     def get_files(self):
