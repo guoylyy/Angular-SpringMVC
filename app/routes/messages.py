@@ -4,6 +4,11 @@ from flask import abort, jsonify, request
 import datetime
 import json
 
+
+@app.route('/news/placard/all', methods=['GET'])
+def get_placard():
+    return json.dumps([entity.to_dict() for entity in message.Placard.query.all()],ensure_ascii=False)
+
 @app.route('/news/message/send', methods = ['POST'])
 def send_message():
     token = request.json['token']
@@ -50,7 +55,6 @@ def create_message():
 
 @app.route('/news/messages/<int:id>', methods = ['PUT'])
 def update_message(id):
-    #print request.json['content'] + 'fdsafsda fdsa fsa\n'
     entity = message.Message.query.get(id)
     if not entity:
         abort(404)

@@ -29,3 +29,17 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message %r>' % (self.id)
+
+class Placard(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+
+    title = db.Column(db.String)
+
+    order = db.Column(db.Integer)
+
+    def to_dict(self):
+        return dict(
+            id = self.id,
+            title = self.title,
+            order = self.order
+            )

@@ -64,6 +64,7 @@ class User(db.Model):
         with store_context(fs_store):
             return dict(
                 name = self.name,
+                nickname = self.nickname,
                 id = self.id,
                 header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
             )   

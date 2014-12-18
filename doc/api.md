@@ -1,4 +1,4 @@
-# API 说明文档
+ # API 说明文档
 
 该文档主要是说明 XXX 新闻 APP 客户端后台 API 说明规范，包括数据调用接口 URL、数据调用方式、数据示例类型，帮助开发人员通过 API 获取数据，快速开发和部署。
 
@@ -177,7 +177,7 @@ Response:
 
 这里的会展介绍包含了介绍、交通住宿、组委会、会场布局、会议日程。都是以 HTML 的形式返回到前端，和夏老板讨论了觉得这样更加科学。
 
-* url: conferences/content
+* url: news/conferences/content
 * method: get
 
 ```
@@ -190,7 +190,7 @@ Response:
 
 会议报告和会议PDF都是列表，这里返回列表项目的值和列表内容 PDF 的下载链接。
 
-* url: conferences/<int:id>/get_file/<string:ftype>  
+* url: news/conferences/<int:id>/get_file/<string:ftype>  
 	* id: Integer 会展 ID
 	* ftype: REPORT|PDF
 * method: get
