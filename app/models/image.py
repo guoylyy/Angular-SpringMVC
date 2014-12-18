@@ -38,8 +38,7 @@ class MainPageImage(db.Model):
                 id=self.id,
                 order=self.order,
                 name=self.name,
-                link=self.link,
-                image=self.image.locate()
+                link=self.link
                 )
 
 class MainPageImageStore(db.Model, im):
