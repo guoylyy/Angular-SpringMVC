@@ -23,7 +23,7 @@ def upload_file(id, ftype):
 
 @app.route('/news/conferences/dict', methods=['GET'])
 def get_dict():
-    return json.dumps([dict(data=d) for d in conference.ConferenceAttachmentTypeEnum])
+    return json.dumps([dict(data=d) for d in conference.ConferenceAttachmentTypeEnum],ensure_ascii=False)
 
 @app.route('/news/conferences/<int:id>/get_file/<string:ftype>')
 def get_file(id,ftype):
@@ -31,14 +31,14 @@ def get_file(id,ftype):
         l = conference.ConferenceFile.query.filter(
                 conference.ConferenceFile.conference_id==id,
                 conference.ConferenceFile.file_type==ftype)
-        return json.dumps([e.to_dict() for e in l])
+        return json.dumps([e.to_dict() for e in l],ensure_ascii=False)
     else:
         abort(500)
 
 @app.route('/news/conferences', methods = ['GET'])
 def get_all_conferences():
     entities = conference.Conference.query.all()
-    return json.dumps([entity.to_dict() for entity in entities])
+    return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/conferences/content', methods = ['GET'])
 def get_conference():

@@ -24,7 +24,7 @@ def get_attachments(id):
     entity = news.News.query.get(id)
     if entity is None:
         abort(404)
-    return json.dumps(entity.get_files())
+    return json.dumps(entity.get_files(),ensure_ascii=False)
 
 
 @app.route('/news/topic/add', methods = ['POST'])
@@ -79,12 +79,12 @@ def add_topic_image(id):
 @app.route('/news/topics', methods = ['GET'])
 def get_all_topics():
     topics = news.Topic.query.all()
-    return json.dumps([entity.to_dict() for entity in topics])
+    return json.dumps([entity.to_dict() for entity in topics],ensure_ascii=False)
 
 @app.route('/news/news', methods = ['GET'])
 def get_all_news():
     entities = news.News.query.all()
-    return json.dumps([entity.to_dict() for entity in entities])
+    return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/news/<int:id>', methods = ['GET'])
 def get_news(id):

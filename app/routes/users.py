@@ -66,13 +66,13 @@ def upload_icon():
         Update user's header icon
     """
     filename = files.save(request.files['file']) # get file and save as header icon
-    return jsonify(dict(link=filename))
+    return jsonify(dict(filename=filename))
 
 
 @app.route('/news/users', methods = ['GET'])
 def get_all_users():
     entities = user.User.query.all()
-    return json.dumps([entity.to_dict() for entity in entities])
+    return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/users/<int:id>', methods = ['GET'])
 def get_user(id):
