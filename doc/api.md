@@ -75,7 +75,7 @@ Response:
 
 ```
 Request:
-   "file" : 图片
+   "file" : 图片  //这里post要按照提交文件的方式提交
 ```
 
 ```
