@@ -45,8 +45,9 @@ Response:
 
 ```
 Request
-Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa"}
+Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa","header":"473ec68551790ea32954bdeafa52ed1b_b.jpg"}
 ```
+//注明： header是调用 uoload_icon接口返回的图片名字
 
 ```
 Response:
@@ -67,6 +68,23 @@ Response:
     "token": "1308632dad4990a22f8e1dd8a7414fdc:1418780345"
 }
 ```
+
+### 1.3 上传图像
+* url: news/user/upload_icon
+* method :post
+
+```
+Request:
+   "file" : 图片
+```
+
+```
+Response:
+ {"filename":"fsdfsdaf.jpg"}
+```
+用于填充update_name中的header字段
+
+
 
 ## 2. 主程序广告 API
 

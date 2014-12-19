@@ -30,6 +30,7 @@ class MainPageImage(db.Model):
     order = db.Column(db.Integer)
     name = db.Column(db.String(200))
     link = db.Column(db.String(500))
+    news_id = db.Column(db.Integer)
     image = image_attachment('MainPageImageStore')
 
     def to_dict(self):
@@ -38,7 +39,8 @@ class MainPageImage(db.Model):
                 id=self.id,
                 order=self.order,
                 name=self.name,
-                link=self.link
+                link=self.link,
+                news_id=self.news_id
                 )
 
 class MainPageImageStore(db.Model, im):

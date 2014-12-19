@@ -33,7 +33,7 @@ def add_mainpage_image():
 	try:
 		filename = files.save(request.files['file'])
 		filepath = files.url(filename)
-		entity = image.MainPageImage(link=filepath,name=filename,order=0)
+		entity = image.MainPageImage(link=filepath,name=filename,order=0,news_id=1)
 		db.session.add(entity)
 		db.session.commit()
 		return jsonify(dict(result='success'))

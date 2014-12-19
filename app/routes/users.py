@@ -2,7 +2,7 @@ from app import app, db
 from app.models import user
 from flask import abort, jsonify, request
 from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
-from app.extensions import fs_store
+from app.extensions import fs_store, files
 from requests import get
 import datetime
 import json
@@ -52,24 +52,21 @@ def update_name(id):
         abort(500)
     u.name = request.json['name']
     u.nickname = request.json['nickname']
-    db.session.merge(u)
-    db.session.commit()
+    #header = get('file://'+files.path(request.json['header'])).content
+    with store_context(fs_store):
+        with open(files.path(request.json['header'])) as f:
+            u.header_icon.from_file(f)
+            db.session.merge(u)
+            db.session.commit()
     return jsonify(u.to_dict())
 
-@app.route('/news/user/<int:id>/update_icon', methods = ['POST'])
-def update_icon(id):
+@app.route('/news/user/upload_icon', methods = ['POST'])
+def upload_icon():
     """
         Update user's header icon
     """
-    token = request.json['token']
-    u = user.User.query.filter(user.User.token == token).first()
-    if u is None:
-        abort(404)
-    if u.id != id:
-        print "user id is wrong." #TODO: Support log system
-        abort(500)
     filename = files.save(request.files['file']) # get file and save as header icon
-    return jsonify(dict(result='success'))
+    return jsonify(dict(link=filename))
 
 
 @app.route('/news/users', methods = ['GET'])
