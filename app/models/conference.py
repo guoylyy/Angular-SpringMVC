@@ -42,6 +42,17 @@ class Conference(db.Model):
             id = self.id
         )
 
+    def to_simple_dict(self):
+        return dict(
+            title = self.title,
+            created_time = self.created_time.isoformat(),
+            updated_time = self.updated_time.isoformat(),
+            started_time = self.started_time.isoformat(),
+            view_count = self.view_count,
+            is_draft = self.is_draft,
+            id = self.id           
+            )
+
     def __repr__(self):
         return '<Conference %r>' % (self.id)
 

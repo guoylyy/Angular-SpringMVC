@@ -47,6 +47,14 @@ def get_conference():
         abort(404)
     return jsonify(entity.to_dict())
 
+@app.route('/news/conferences/simple_content', methods = ['GET'])
+def get_simple_conference():
+    entity = conference.Conference.query.first()
+    if not entity:
+        abort(404)
+    return jsonify(entity.to_simple_dict())
+
+
 @app.route('/news/conferences', methods = ['POST'])
 def create_conference():
     """

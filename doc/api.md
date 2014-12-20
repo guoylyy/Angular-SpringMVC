@@ -114,6 +114,37 @@ Response:
 }
 ```
 
+### 1.5 修改姓名和昵称和头像
+
+* url : news/user/<int:id>/update_profile
+* method :post
+
+```
+Request
+Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa","header":"fsdafsadfsa.jpg"}
+```
+
+
+```
+Response:
+{
+    "account": "system2",
+  "password" : "1234",
+    "description": "321312",
+    "email": "3272272993@qq.com",
+    "header_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.480x320.jpe?_ts=20141207013905000000",
+    "is_active": true,
+    "lastlogin_time": "2014-12-22",
+    "myattr": "",
+    "name": "Allen Globit2",
+    "phone_number": "2128543587",
+    "registered_time": "2014-12-01",
+    "role": "admin",
+    "small_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.150x100.jpe?_ts=20141207013905000000",
+    "token": "1308632dad4990a22f8e1dd8a7414fdc:1418780345"
+}
+```
+
 ## 2. 主程序广告 API
 
 ### 2.1 获取广告
@@ -216,6 +247,15 @@ Response:
 {"publisher": 4, "update_time": "2014-12-09T00:00:00", "view_count": 111, "author": "郭", "content": "方法撒地方大舒服撒大哥的撒个的撒个的撒个大使馆撒个放大范德萨发大水范德萨发的发", "create_time": "2014-12-09T00:00:00", "title": "测试", "is_draft": true, "id": 1, "icon": "file:///Users/globit/git/news_api/app/extensions/userimages/news-image/1/0/1.690x460.jpe?_ts=20141209001228000000"}
 ```
 
+### 4.4 获取新闻列表
+
+url: news/simple_news
+method: get
+
+```
+Response:
+{[]"publisher": 4, "update_time": "2014-12-09T00:00:00", "view_count": 111, "author": "郭", "create_time": "2014-12-09T00:00:00", "title": "测试", "is_draft": true, "id": 1, "icon": "file:///Users/globit/git/news_api/app/extensions/userimages/news-image/1/0/1.690x460.jpe?_ts=20141209001228000000"]}
+```
 
 ## 5. 会展 API
 
@@ -223,7 +263,7 @@ Response:
 
 这里的会展介绍包含了介绍、交通住宿、组委会、会场布局、会议日程。都是以 HTML 的形式返回到前端，和夏老板讨论了觉得这样更加科学。
 
-* url: news/conferences/content
+* url: news/conferences/content   news/conferences/simple_content   
 * method: get
 
 ```

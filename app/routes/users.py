@@ -76,6 +76,29 @@ def update_name(id):
     db.session.commit()
     return jsonify(u.to_dict())
 
+@app.route('/news/user/<int:id>/update_profile', methods = ['POST'])
+def update_user_profile(id):
+    """
+        Update user real name
+    """
+    token = request.json['token']
+    u = user.User.query.filter(user.User.token == token).first()
+    if u is None:
+        abort(404)
+    if u.id != id:
+        print "user id is wrong." #TODO: Support log system
+        abort(500)
+    u.name = request.json['name']
+    u.nickname = request.json['nickname']
+    with store_context(fs_store):
+        with open(files.path(request.json['header'])) as f:
+            u.header_icon.from_file(f)
+            db.session.merge(u)
+            db.session.commit()
+    db.session.merge(u)
+    db.session.commit()
+    return jsonify(u.to_dict())
+
 @app.route('/news/user/upload_icon', methods = ['POST'])
 def upload_icon():
     """

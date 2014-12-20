@@ -81,6 +81,12 @@ def get_all_topics():
     topics = news.Topic.query.all()
     return json.dumps([entity.to_dict() for entity in topics],ensure_ascii=False)
 
+
+@app.route('/news/simple_news', methods = ['GET'])
+def get_simple_news():
+    entities = news.News.query.all()
+    return json.dumps([entity.to_list_dict() for entity in entities],ensure_ascii=False)
+
 @app.route('/news/news', methods = ['GET'])
 def get_all_news():
     entities = news.News.query.all()
