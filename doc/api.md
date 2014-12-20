@@ -45,9 +45,9 @@ Response:
 
 ```
 Request
-Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa","header":"473ec68551790ea32954bdeafa52ed1b_b.jpg"}
+Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa"}
 ```
-//注明： header是调用 uoload_icon接口返回的图片名字
+
 
 ```
 Response:
@@ -82,9 +82,37 @@ Request:
 Response:
  {"filename":"fsdfsdaf.jpg"}
 ```
-用于填充update_name中的header字段
+用于填充update_header中的header字段
 
 
+### 1.4 修改用户头像
+* url: news/user/update_header
+* method: post
+
+```
+Request:
+   {"header":"fsdafsadfsa.jpg"}
+   //注明： header是调用 uoload_icon接口返回的图片名字
+```
+
+```
+Response:
+	{
+    "account": "system2",
+    "description": "321312",
+    "email": "3272272993@qq.com",
+    "header_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.480x320.jpe?_ts=20141207013905000000",
+    "is_active": true,
+    "lastlogin_time": "2014-12-22",
+    "myattr": "",
+    "name": "Allen Globit2",
+    "phone_number": "2128543587",
+    "registered_time": "2014-12-01",
+    "role": "admin",
+    "small_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.150x100.jpe?_ts=20141207013905000000",
+    "token": "1308632dad4990a22f8e1dd8a7414fdc:1418780345"
+}
+```
 
 ## 2. 主程序广告 API
 

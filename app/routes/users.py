@@ -38,6 +38,26 @@ def profile():
         abort(404)
     return jsonify(u.to_dict())
 
+@app.route('/news/user/update_header', methods = ['POST'])
+def update_header():
+    """
+        Give a link of image, then update user header icon
+    """
+    token = request.json['token']
+    u = user.User.query.filter(user.User.token == token).first()
+    if u is None:
+        abort(404)
+    try:
+        with store_context(fs_store):
+            with open(files.path(request.json['header'])) as f:
+                u.header_icon.from_file(f)
+                db.session.merge(u)
+                db.session.commit()
+        return jsonify(u.to_dict())
+    except Exception, e:
+        return jsonify(dict(result='fail',message='Can not find image error.'))
+    
+
 @app.route('/news/user/<int:id>/update_name', methods = ['POST'])
 def update_name(id):
     """
@@ -52,12 +72,8 @@ def update_name(id):
         abort(500)
     u.name = request.json['name']
     u.nickname = request.json['nickname']
-    #header = get('file://'+files.path(request.json['header'])).content
-    with store_context(fs_store):
-        with open(files.path(request.json['header'])) as f:
-            u.header_icon.from_file(f)
-            db.session.merge(u)
-            db.session.commit()
+    db.session.merge(u)
+    db.session.commit()
     return jsonify(u.to_dict())
 
 @app.route('/news/user/upload_icon', methods = ['POST'])
