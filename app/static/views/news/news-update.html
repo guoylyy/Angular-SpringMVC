@@ -1,0 +1,55 @@
+ <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header" >
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                        <h4 class="modal-title" id="myNewsLabel"><span>更新</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" ng-if="">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="news.id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>title:</label>
+                    
+                    <input type="text" class="form-control" name="title"
+                           ng-model="news.title" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
+                </div>
+
+                <div class="form-group">
+                    <label>content:</label>
+                    <textarea ckeditor="editorOptions" ng-model="news.content" ng-required="true"></textarea>
+                    <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+
+            
+                <div class="form-group" ng-if="">
+                    <label>创建时间:</label>
+                    <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="conference.created_time" ng-required="true"/>
+                    
+                </div>
+                
+                
+                <div class="form-group">
+                    <label>是否作为草稿:</label>
+                    
+                    <input type="checkbox" name="is_draft"
+                           ng-model="news.is_draft"  ng-required="false"/>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>

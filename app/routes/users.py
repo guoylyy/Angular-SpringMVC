@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from app import app, db
 from app.models import user
 from flask import abort, jsonify, request

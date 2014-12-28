@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import hashlib
 import time as stime
 from app import db
@@ -39,6 +41,10 @@ class User(db.Model):
     
     token = db.Column(db.String(500))
 
+    is_vip = db.Column(db.Boolean)
+
+    company = db.Column(db.String(100))
+
     header_icon = image_attachment('UserHeader')
 
     def to_dict(self):
@@ -57,6 +63,8 @@ class User(db.Model):
                 myattr = self.myattr,
                 token = self.token,
                 id = self.id,
+                is_vip = self.is_vip,
+                company = self.company,
                 header_large = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_LARGE).locate(),
                 header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
             )
@@ -65,6 +73,8 @@ class User(db.Model):
             return dict(
                 name = self.name,
                 nickname = self.nickname,
+                is_vip = self.is_vip,
+                company = self.company,
                 id = self.id,
                 header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
             )   

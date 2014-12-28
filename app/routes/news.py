@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from app import app, db
 from app.models import news
 from flask import abort, jsonify, request
@@ -81,9 +83,9 @@ def get_all_topics():
     topics = news.Topic.query.all()
     return json.dumps([entity.to_dict() for entity in topics],ensure_ascii=False)
 
-
 @app.route('/news/simple_news', methods = ['GET'])
 def get_simple_news():
+    """ 获取所有新闻的预览列表 """
     entities = news.News.query.all()
     return json.dumps([entity.to_list_dict() for entity in entities],ensure_ascii=False)
 
@@ -104,13 +106,12 @@ def create_news():
     entity = news.News(
         title = request.json['title']
         , content = request.json['content']
-        , create_time = datetime.datetime.strptime(request.json['create_time'], "%Y-%m-%d").date()
-        , update_time = datetime.datetime.strptime(request.json['update_time'], "%Y-%m-%d").date()
-        , author = request.json['author']
-        , view_count = request.json['view_count']
         , is_draft = request.json['is_draft']
-        , publisher = request.json['publisher']
     )
+    entity.update_time = datetime.datetime.now()
+    entity.create_time = datetime.datetime.now()
+    entity.author = 'admin'
+    entity.view_count = 0
     image = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
     with store_context(fs_store):
         entity.icon.from_blob(image)
@@ -126,16 +127,13 @@ def update_news(id):
     entity = news.News(
         title = request.json['title'],
         content = request.json['content'],
-        create_time = datetime.datetime.strptime(request.json['create_time'], "%Y-%m-%d").date(),
-        update_time = datetime.datetime.strptime(request.json['update_time'], "%Y-%m-%d").date(),
-        author = request.json['author'],
-        view_count = request.json['view_count'],
         is_draft = request.json['is_draft'],
-        publisher = request.json['publisher'],
         id = id
     )
+    entity.update_time = datetime.datetime.now()
     db.session.merge(entity)
     db.session.commit()
+    entity = news.News.query.get(id)
     return jsonify(entity.to_dict()), 200
 
 @app.route('/news/news/<int:id>', methods = ['DELETE'])
@@ -143,6 +141,7 @@ def delete_news(id):
     entity = news.News.query.get(id)
     if not entity:
         abort(404)
-    db.session.delete(entity)
-    db.session.commit()
-    return '', 204
+    with store_context(fs_store):
+        db.session.delete(entity)
+        db.session.commit()
+        return '', 204

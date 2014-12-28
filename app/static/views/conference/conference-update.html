@@ -1,0 +1,93 @@
+ <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myConferenceLabel">创建一个新的会议</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="conference.id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>主题:</label>
+                    
+                    <input type="text" class="form-control" name="title"
+                           ng-model="conference.title" ng-required="true"
+                           ng-minlength=0 ng-maxlength=200/>
+
+                    <span class="error" ng-show="form.title.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most 200 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>会议开始时间:</label>
+                    
+                    <input type="text" class="form-control" name="started_time" ui-date="started_timeDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="conference.started_time" ng-required="true"/>
+                </div>
+
+                <div class="form-group">
+                    <label>会议介绍:</label>
+                     <textarea ckeditor="editorOptions" ng-model="conference.intro_content" ng-required="true"></textarea>
+                    
+                    <span class="error" ng-show="form.intro_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.intro_content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                
+
+                <div class="form-group">
+                    <label>交通信息:</label>
+                    <textarea ckeditor="editorOptions" ng-model="conference.logistics_content" ng-required="true"></textarea>
+                    
+                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>组委会:</label>
+                    <textarea ckeditor="editorOptions" ng-model="conference.group_content" ng-required="true"></textarea>
+                    
+                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label>会议布局:</label>
+                    <textarea ckeditor="editorOptions" ng-model="conference.layout_content" ng-required="true"></textarea>
+                    
+                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label>会议议程:</label>
+                    <textarea ckeditor="editorOptions" ng-model="conference.agenda_content" ng-required="true"></textarea>
+                    
+                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+              
+                
+                <div class="form-group">
+                    <label>是否只作为草稿:</label>
+                    
+                    <input type="checkbox" name="is_draft"
+                           ng-model="conference.is_draft"/>
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">取消
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">保存</button>
+            </div>
+        </form>

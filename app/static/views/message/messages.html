@@ -1,6 +1,6 @@
 <div>
 
-    <h2>Messages</h2>
+    <h2>用户消息</h2>
 
     <script type = "text/ng-template" id="message-save.html">
         <form name="form" role="form" novalidate
@@ -10,7 +10,7 @@
             <div class="modal-header">
                 <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                <h4 class="modal-title" id="myMessageLabel">Create or edit a Message</h4>
+                <h4 class="modal-title" id="myMessageLabel">消息详情</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -21,7 +21,7 @@
 
                 
                 <div class="form-group">
-                    <label>content:</label>
+                    <label>内容:</label>
                     
                     <input type="text" class="form-control" name="content"
                            ng-model="message.content" ng-required="true"
@@ -31,14 +31,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>created_time:</label>
+                    <label>创建时间:</label>
                     
                     <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
                            ng-model="message.created_time" ng-required="true"/>
                 </div>
                 
                 <div class="form-group">
-                    <label>publisher:</label>
+                    <label>发布者:</label>
                     
                     <input type="text" class="form-control" name="publisher"
                            ng-model="message.publisher" ng-required="false"
@@ -48,7 +48,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>is_active:</label>
+                    <label>不显示:</label>
                     
                     <input type="checkbox" name="is_active"
                            ng-model="message.is_active" ng-required="true"/>
@@ -57,16 +57,16 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                <button type="button" class="btn btn-default" ng-click="cancel()">取消
                 </button>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">保存</button>
             </div>
         </form>
     </script>
-
+<!-- 
     <button class="btn btn-primary btn-lg" ng-click="create()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Message
-    </button>
+    </button> -->
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -74,13 +74,13 @@
             <tr>
                 <th>ID</th>
                 
-                <th>content</th>
+                <th>内容</th>
                 
-                <th>created_time</th>
+                <th>创建时间</th>
                 
-                <th>publisher</th>
+                <th>发布者</th>
                 
-                <th>is_active</th>
+                <th>不显示</th>
                 
             </tr>
             </thead>
@@ -100,12 +100,12 @@
                     <button type="submit"
                             ng-click="update(message.id)"
                             class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                        <span class="glyphicon glyphicon-pencil"></span> 查看详情
                     </button>
                     <button type="submit"
                             ng-click="delete(message.id)"
                             class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        <span class="glyphicon glyphicon-remove-circle"></span> 删除
                     </button>
                 </td>
             </tr>

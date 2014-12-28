@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from app import db
 from app.models.user import User
 from app.tools import _mk_timestamp

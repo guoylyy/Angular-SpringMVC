@@ -1,98 +1,10 @@
 <div>
 
-    <h2>Conferences</h2>
+    <h2>会议内容管理</h2>
 
-    <script type = "text/ng-template" id="conference-save.html">
-        <form name="form" role="form" novalidate
-              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
-              ng-submit="ok()">
-
-            <div class="modal-header">
-                <button type="button" class="close"
-                        ng-click="cancel()">&times;</button>
-                <h4 class="modal-title" id="myConferenceLabel">Create or edit a Conference</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" class="form-control" name="id"
-                           ng-model="conference.id" readonly>
-                </div>
-
-                
-                <div class="form-group">
-                    <label>intro_content:</label>
-                    
-                    <input type="text" class="form-control" name="intro_content"
-                           ng-model="conference.intro_content" ng-required="true"
-                           />
-                    <span class="error" ng-show="form.intro_content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.intro_content.$error.maxlength">Must be at most  characters.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label>logistics_content:</label>
-                    
-                    <input type="text" class="form-control" name="logistics_content"
-                           ng-model="conference.logistics_content" ng-required="true"
-                           />
-                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label>title:</label>
-                    
-                    <input type="text" class="form-control" name="title"
-                           ng-model="conference.title" ng-required="true"
-                           ng-minlength=0 ng-maxlength=200/>
-                    <span class="error" ng-show="form.title.$error.minlength">Must be at least 0 characters.</span>
-                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most 200 characters.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label>created_time:</label>
-                    
-                    <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="conference.created_time" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>updated_time:</label>
-                    
-                    <input type="text" class="form-control" name="updated_time" ui-date="updated_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="conference.updated_time" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>view_count:</label>
-                    
-                    <input type="number" class="form-control" name="view_count"
-                           ng-model="conference.view_count" ng-required="true"
-                           />
-                    <span class="error" ng-show="form.view_count.$error.min">Must be greater than or equal to .</span>
-                    <span class="error" ng-show="form.view_count.$error.max">Must be less than or equal to .</span>
-                </div>
-                
-                <div class="form-group">
-                    <label>is_draft:</label>
-                    
-                    <input type="checkbox" name="is_draft"
-                           ng-model="conference.is_draft" ng-required="true"/>
-                </div>
-                
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
-                </button>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
-            </div>
-        </form>
-    </script>
 
     <button class="btn btn-primary btn-lg" ng-click="create()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Conference
+        <span class="glyphicon glyphicon-flash"></span> 创建一个新的会议
     </button>
 
     <div class="table-responsive">
@@ -101,19 +13,13 @@
             <tr>
                 <th>ID</th>
                 
-                <th>intro_content</th>
+                <th>标题</th>
                 
-                <th>logistics_content</th>
+                <th>创建时间</th>
                 
-                <th>title</th>
+                <th>更新时间</th>
                 
-                <th>created_time</th>
-                
-                <th>updated_time</th>
-                
-                <th>view_count</th>
-                
-                <th>is_draft</th>
+                <th>是否为草稿</th>
                 
             </tr>
             </thead>
@@ -121,17 +27,11 @@
             <tr ng-repeat="conference in conferences">
                 <td>{{conference.id}}</td>
                 
-                <td>{{conference.intro_content }}</td>
-                
-                <td>{{conference.logistics_content }}</td>
-                
                 <td>{{conference.title }}</td>
                 
                 <td>{{conference.created_time  | date:'yyyy-MM-dd'}}</td>
                 
                 <td>{{conference.updated_time  | date:'yyyy-MM-dd'}}</td>
-                
-                <td>{{conference.view_count }}</td>
                 
                 <td>{{conference.is_draft }}</td>
                 

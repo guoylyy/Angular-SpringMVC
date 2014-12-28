@@ -27,8 +27,6 @@ class News(db.Model):
     view_count = db.Column(db.Integer)
     
     is_draft = db.Column(db.Boolean)
-    
-    publisher = db.Column(db.Integer)
 
     icon = image_attachment('NewsImage')
 
@@ -51,7 +49,6 @@ class News(db.Model):
                 author = self.author,
                 view_count = self.view_count,
                 is_draft = self.is_draft,
-                publisher = self.publisher,
                 id = self.id,
                 icon=self.icon.locate(),
                 has_video =self.has_video,
@@ -65,7 +62,6 @@ class News(db.Model):
                 title=self.title,
                 create_time = self.create_time.isoformat(),
                 author=self.author,
-                publisher=self.publisher,
                 icon=find_or_create_thumbnail(self,self.icon,100).locate(),
                 has_video =self.has_video,
                 video_link = self.video_link

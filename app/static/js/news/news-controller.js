@@ -4,22 +4,27 @@ angular.module('news')
   .controller('NewsController', ['$scope', '$modal', 'resolvedNews', 'News',
     function ($scope, $modal, resolvedNews, News) {
 
-      $scope.news = resolvedNews;
+      $scope.newses = resolvedNews;
+
+      $scope.editorOptions = {
+        language: 'ru',
+        uiColor: '#000000'
+      };
 
       $scope.create = function () {
         $scope.clear();
-        $scope.open();
+        $scope.open(undefined,true);
       };
 
       $scope.update = function (id) {
         $scope.news = News.get({id: id});
-        $scope.open(id);
+        $scope.open(id, false);
       };
 
       $scope.delete = function (id) {
         News.delete({id: id},
           function () {
-            $scope.news = News.query();
+            $scope.newses = News.query();
           });
       };
 
@@ -27,13 +32,13 @@ angular.module('news')
         if (id) {
           News.update({id: id}, $scope.news,
             function () {
-              $scope.news = News.query();
+              $scope.newses = News.query();
               $scope.clear();
             });
         } else {
           News.save($scope.news,
             function () {
-              $scope.news = News.query();
+              $scope.newses = News.query();
               $scope.clear();
             });
         }
@@ -54,17 +59,21 @@ angular.module('news')
           
           "view_count": "",
           
-          "is_draft": "",
-          
-          "publisher": "",
+          "is_draft": false,
           
           "id": ""
         };
       };
 
-      $scope.open = function (id) {
+      $scope.open = function (id, is_create) {
+        var template = "views/news/";
+        if (is_create) {
+          template = template + "news-add.html";
+        }else{
+          template = template + "news-update.html";
+        }
         var newsSave = $modal.open({
-          templateUrl: 'news-save.html',
+          templateUrl: template,
           controller: NewsSaveController,
           resolve: {
             news: function () {
@@ -80,20 +89,15 @@ angular.module('news')
       };
     }]);
 
-var NewsSaveController =
+ var NewsSaveController =
   function ($scope, $modalInstance, news) {
     $scope.news = news;
 
-    
     $scope.create_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
-      
-      
     };
     $scope.update_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
-      
-      
     };
 
     $scope.ok = function () {

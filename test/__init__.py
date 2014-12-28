@@ -156,11 +156,6 @@ class E_NewsTest(BaseTest):
 		pass
 
 class F_ConferenceTest(BaseTest):
-	def test_get_conference_dict(self):
-		rep = self.client.get(BASEURL + 'conferences/dict',
-			headers = self.get_headers(""))		
-		assert rep.status_code is 200
-
 	def test_confernce_crud(self):
 		print '\nTest add a conference...\n' 
 		data = dict(
