@@ -123,7 +123,7 @@ angular.module('news')
   ]);
 
 var ConferenceSaveController =
-  function($scope, $modalInstance, conference) {
+  function($scope, $modalInstance, conference, $filter) {
     $scope.conference = conference;
     $scope.created_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
@@ -133,6 +133,11 @@ var ConferenceSaveController =
     };
     $scope.started_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
+    };
+
+    $scope.onTimeSet = function(newDate, oldDate){
+      $scope.conference.started_time = $filter('date')(newDate,
+            'yyyy-MM-dd HH:mm:ss');
     };
 
     $scope.ok = function() {

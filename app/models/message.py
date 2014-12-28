@@ -22,7 +22,7 @@ class Message(db.Model):
     def to_dict(self):
         return dict(
             content = self.content,
-            created_time = _mk_timestamp(self.created_time),
+            created_time = self.created_time.isoformat(),
             publisher = self.publisher,
             is_active = self.is_active,
             id = self.id,

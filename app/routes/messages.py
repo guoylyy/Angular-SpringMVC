@@ -44,33 +44,21 @@ def get_message(id):
         abort(404)
     return jsonify(entity.to_dict())
 
-# @app.route('/news/messages', methods = ['POST'])
-# def create_message():
-#     entity = message.Message(
-#         content = request.json['content']
-#         , created_time = datetime.datetime.strptime(request.json['created_time'], "%Y-%m-%d").date()
-#         , publisher = request.json['publisher']
-#         , is_active = request.json['is_active']
-#     )
-#     db.session.add(entity)
-#     db.session.commit()
-#     return jsonify(entity.to_dict()), 201
-
-# @app.route('/news/messages/<int:id>', methods = ['PUT'])
-# def update_message(id):
-#     entity = message.Message.query.get(id)
-#     if not entity:
-#         abort(404)
-#     entity = message.Message(
-#         content = request.json['content'],
-#         created_time = datetime.datetime.strptime(request.json['created_time'], "%Y-%m-%d").date(),
-#         publisher = request.json['publisher'],
-#         is_active = request.json['is_active'],
-#         id = id
-#     )
-#     db.session.merge(entity)
-#     db.session.commit()
-#     return jsonify(entity.to_dict()), 200
+@app.route('/news/messages/<int:id>', methods = ['PUT'])
+def update_message(id):
+    entity = message.Message.query.get(id)
+    if not entity:
+        abort(404)
+    entity = message.Message(
+        content = request.json['content'],
+        created_time = datetime.datetime.strptime(request.json['created_time'], "%Y-%m-%d %H:%M:%S"),
+        is_active = request.json['is_active'],
+        id = id
+    )
+    db.session.merge(entity)
+    db.session.commit()
+    entity = message.Message.query.get(id)
+    return jsonify(entity.to_dict()), 200
 
 @app.route('/news/messages/<int:id>', methods = ['DELETE'])
 def delete_message(id):

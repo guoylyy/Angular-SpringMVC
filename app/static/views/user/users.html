@@ -1,6 +1,6 @@
 <div>
 
-    <h2>Users</h2>
+    <h2>用户管理</h2>
 
     <script type = "text/ng-template" id="user-save.html">
         <form name="form" role="form" novalidate
@@ -10,7 +10,7 @@
             <div class="modal-header">
                 <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                <h4 class="modal-title" id="myUserLabel">Create or edit a User</h4>
+                <h4 class="modal-title" id="myUserLabel">创建一个新用户</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -141,28 +141,15 @@
             <tr>
                 <th>ID</th>
                 
-                <th>account</th>
+                <th>用户名</th>
                 
-                <th>password</th>
+                <th>名字</th>
                 
-                <th>name</th>
+                <th>角色</th>
                 
-                <th>role</th>
+                <th>邮箱</th>
                 
-                <th>email</th>
-                
-                <th>registered_time</th>
-                
-                <th>is_active</th>
-                
-                <th>phone_number</th>
-                
-                <th>description</th>
-                
-                <th>lastlogin_time</th>
-                
-                <th>myattr</th>
-                
+                <th>是否激活</th>
             </tr>
             </thead>
             <tbody>
@@ -170,26 +157,14 @@
                 <td>{{user.id}}</td>
                 
                 <td>{{user.account }}</td>
-                
-                <td>{{user.password }}</td>
-                
+        
                 <td>{{user.name }}</td>
                 
                 <td>{{user.role }}</td>
                 
                 <td>{{user.email }}</td>
                 
-                <td>{{user.registered_time  | date:'yyyy-MM-dd'}}</td>
-                
                 <td>{{user.is_active }}</td>
-                
-                <td>{{user.phone_number }}</td>
-                
-                <td>{{user.description }}</td>
-                
-                <td>{{user.lastlogin_time  | date:'yyyy-MM-dd'}}</td>
-                
-                <td>{{user.myattr }}</td>
                 
                 <td>
                     <button type="submit"

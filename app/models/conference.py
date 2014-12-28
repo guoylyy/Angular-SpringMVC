@@ -34,9 +34,9 @@ class Conference(db.Model):
             layout_content = self.layout_content,
             agenda_content = self.agenda_content,
             title = self.title,
-            created_time = self.created_time.date().isoformat(),
-            updated_time = self.updated_time.date().isoformat(),
-            started_time = self.started_time.date().isoformat(),
+            created_time = self.created_time.isoformat(),
+            updated_time = self.updated_time.isoformat(),
+            started_time = self.started_time.isoformat(),
             view_count = self.view_count,
             is_draft = self.is_draft,
             id = self.id
@@ -45,9 +45,9 @@ class Conference(db.Model):
     def to_simple_dict(self):
         return dict(
             title = self.title,
-            created_time = self.created_time.date().isoformat(),
-            updated_time = self.updated_time.date().isoformat(),
-            started_time = self.started_time.date().isoformat(),
+            created_time = self.created_time.isoformat(),
+            updated_time = self.updated_time.isoformat(),
+            started_time = self.started_time.isoformat(),
             view_count = self.view_count,
             is_draft = self.is_draft,
             id = self.id           

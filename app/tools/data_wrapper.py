@@ -9,5 +9,5 @@ def _str2time(tstr):
 	tm = [int(t) for t in tstr.split(':')]
 	return time(tm[0],tm[1])
 
-def _mk_timestamp(datetime):
-	return stime.mktime(datetime.timetuple())
+def _mk_timestamp(dt):
+	return stime.mktime(dt.timetuple())
