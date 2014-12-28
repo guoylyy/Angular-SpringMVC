@@ -26,15 +26,18 @@ class A_UserInit(unittest.TestCase):
 			registered_time = "2014-12-01",
 			is_active = True,
 			lastlogin_time = "2014-12-01",
-			phone_number = 1231241241,
+			phone_number = "1231241241",
 			description = 'fdsafsadfa',
 			email = '327272993@qq.com',
-			myattr = 'fsdfsa'
+			myattr = 'fsdfsa',
+			company = "test",
+			is_vip = False
 			)
 		json_data = json.dumps(data)
 		headers = self.get_headers(json_data)
 		rep = self.client.post(BASEURL + 'users', headers = headers,
 			data = json_data)
+		print rep.data
 		assert rep.status_code is 201
 		return json.loads(rep.data)
 

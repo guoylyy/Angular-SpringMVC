@@ -137,6 +137,8 @@ def create_user():
         , lastlogin_time = datetime.datetime.strptime(request.json['lastlogin_time'], "%Y-%m-%d").date()
         , myattr = request.json['myattr']
     )
+    entity.is_vip = False
+    entity.company = 'fsadfs'
     header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
     try:
         with store_context(fs_store):
