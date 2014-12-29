@@ -39,7 +39,7 @@
                     </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                          <datetimepicker data-ng-model="message.created_time" data-datetimepicker-config="{ startView:'day', minView:'hour'}" ></datetimepicker>
+                          <datetimepicker data-ng-model="message.created_time" data-datetimepicker-config="{ startView:'day', minView:'hour'}" data-on-set-time="onTimeSet(newDate, oldDate)"></datetimepicker>
                         </ul>
                     </div>
                     

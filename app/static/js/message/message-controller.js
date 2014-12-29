@@ -85,16 +85,10 @@ var MessageSaveController =
     $scope.created_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
     };
-    $scope.$watch(function(scope) {
-        return scope.message.created_time
-      },
-      function(newValue, oldValue) {
-        if (newValue != undefined) {
-          var n_date = $filter('date')(newValue,
+    $scope.onTimeSet = function(newDate, oldDate){
+      $scope.message.started_time = $filter('date')(newDate,
             'yyyy-MM-dd HH:mm:ss');
-          $scope.message.created_time = n_date;
-        }
-      });
+    };
     $scope.ok = function() {
       $modalInstance.close($scope.message);
     };
