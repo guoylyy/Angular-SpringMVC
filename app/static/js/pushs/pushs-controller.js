@@ -4,7 +4,7 @@ angular.module('news')
   .controller('PushsController', ['$scope', '$modal', 'resolvedPushs', 'Pushs',
     function ($scope, $modal, resolvedPushs, Pushs) {
 
-      $scope.pushs = resolvedPushs;
+      $scope.push_array = resolvedPushs;
 
       $scope.create = function () {
         $scope.clear();
@@ -19,7 +19,7 @@ angular.module('news')
       $scope.delete = function (id) {
         Pushs.delete({id: id},
           function () {
-            $scope.pushs = Pushs.query();
+            $scope.push_array = Pushs.query();
           });
       };
 
@@ -27,13 +27,13 @@ angular.module('news')
         if (id) {
           Pushs.update({id: id}, $scope.pushs,
             function () {
-              $scope.pushs = Pushs.query();
+              $scope.push_array = Pushs.query();
               $scope.clear();
             });
         } else {
           Pushs.save($scope.pushs,
             function () {
-              $scope.pushs = Pushs.query();
+              $scope.push_array = Pushs.query();
               $scope.clear();
             });
         }
@@ -77,8 +77,7 @@ var PushsSaveController =
     
     $scope.created_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
-      
-      
+
     };
 
     $scope.ok = function () {

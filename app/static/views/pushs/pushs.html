@@ -1,6 +1,6 @@
 <div>
 
-    <h2>Pushs</h2>
+    <h2>消息推送</h2>
 
     <script type = "text/ng-template" id="pushs-save.html">
         <form name="form" role="form" novalidate
@@ -10,14 +10,10 @@
             <div class="modal-header">
                 <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                <h4 class="modal-title" id="myPushsLabel">Create or edit a Pushs</h4>
+                <h4 class="modal-title" id="myPushsLabel">创建一个消息推送</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" class="form-control" name="id"
-                           ng-model="pushs.id" readonly>
-                </div>
+
 
                 
                 <div class="form-group">
@@ -30,20 +26,7 @@
                     <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
                 </div>
                 
-                <div class="form-group">
-                    <label>created_time:</label>
-                    
-                    <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="pushs.created_time" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>success:</label>
-                    
-                    <input type="checkbox" name="success"
-                           ng-model="pushs.success" ng-required="true"/>
-                </div>
-                
+              
 
             </div>
             <div class="modal-footer">
@@ -55,25 +38,30 @@
     </script>
 
     <button class="btn btn-primary btn-lg" ng-click="create()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Pushs
+        <span class="glyphicon glyphicon-flash"></span> 创建一个消息推送
     </button>
+                    <!-- <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="pushs.id" readonly>
+                </div> -->
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>编号</th>
                 
-                <th>content</th>
+                <th>内容</th>
                 
-                <th>created_time</th>
+                <th>推送时间</th>
                 
-                <th>success</th>
+                <th>是否成功</th>
                 
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="pushs in pushs">
+            <tr ng-repeat="pushs in push_array">
                 <td>{{pushs.id}}</td>
                 
                 <td>{{pushs.content }}</td>
@@ -82,7 +70,7 @@
                 
                 <td>{{pushs.success }}</td>
                 
-                <td>
+                <!-- <td>
                     <button type="submit"
                             ng-click="update(pushs.id)"
                             class="btn">
@@ -93,7 +81,7 @@
                             class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove-circle"></span> Delete
                     </button>
-                </td>
+                </td> -->
             </tr>
             </tbody>
         </table>

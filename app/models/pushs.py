@@ -3,7 +3,7 @@ from app import db
 class Pushs(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     
-    content = db.Column(db.String)
+    content = db.Column(db.Text)
     
     created_time = db.Column(db.Date)
     

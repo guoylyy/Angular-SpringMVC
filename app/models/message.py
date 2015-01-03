@@ -35,7 +35,7 @@ class Message(db.Model):
 class Placard(db.Model):
     id = db.Column(db.Integer, primary_key = True)
 
-    title = db.Column(db.String)
+    title = db.Column(db.String(100))
 
     order = db.Column(db.Integer)
 

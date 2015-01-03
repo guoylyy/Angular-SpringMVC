@@ -32,7 +32,7 @@ class News(db.Model):
 
     has_video = db.Column(db.Boolean)
 
-    video_link = db.Column(db.String)
+    video_link = db.Column(db.String(200))
 
     topics = db.relationship('Topic', secondary=news_topic, backref=db.backref('news_topics',
             lazy='dynamic'))

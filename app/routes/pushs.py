@@ -1,6 +1,7 @@
 from app import app, db
 from app.models import pushs
 from flask import abort, jsonify, request
+import jpush as jpush
 import datetime
 import json
 
@@ -18,14 +19,24 @@ def get_pushs(id):
 
 @app.route('/news/pushs', methods = ['POST'])
 def create_pushs():
-    entity = pushs.Pushs(
-        content = request.json['content']
-        , created_time = datetime.datetime.strptime(request.json['created_time'], "%Y-%m-%d").date()
-        , success = request.json['success']
-    )
-    db.session.add(entity)
-    db.session.commit()
-    return jsonify(entity.to_dict()), 201
+    _jpush = jpush.JPush(app.config['PUSH_KEY'],app.config['PUSH_SECRET'])
+    push = _jpush.create_push()
+    push.audience = jpush.all_
+    push.notification = jpush.notification(alert=request.json['content'])
+    push.platform = jpush.all_
+    try:
+        push.send()
+        entity = pushs.Pushs(
+            content = request.json['content']
+        )
+        entity.created_time = datetime.datetime.now()
+        entity.success = True
+        db.session.add(entity)
+        db.session.commit()
+        return jsonify(entity.to_dict()), 201
+    except Exception, e:
+        return jsonify(dict(result='fail')), 201
+    
 
 @app.route('/news/pushs/<int:id>', methods = ['PUT'])
 def update_pushs(id):
