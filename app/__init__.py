@@ -18,3 +18,4 @@ from app.routes import users
 from app.routes import messages
 from app.routes import conferences
 from app.routes import pushs
+from app.routes import image

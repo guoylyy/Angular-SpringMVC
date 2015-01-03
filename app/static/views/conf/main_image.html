@@ -1,7 +1,7 @@
 <div>
     <h2>主页图片</h2>
-    <div class="table-responsive">
-       <table class="table table-striped">
+    <div class="">
+       <table class="table">
             <thead>
             <tr>
                 <th>图片</th>
@@ -12,16 +12,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><img src="image/test.jpg" width="200" height="120"></td>
-                
-                <td>1</td>
+            <tr ng-repeat="entity in entities">
+                <td><img src="{{entity.link}}" width="200" height="120"></td>                
+                <td>
+                    <select ng-model="entity.news_id" ng-options="news.id as news.title for news in newses"
+                     ng-change="update_news(entity)">
+                    </select>
+                </td>
 
                 <td>
-                    <button type="submit"
-                            ng-click="update(conference.id)"
-                            class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> 修改
+                    <button class="btn" ng-file-select="" ng-model="picFile" name="file" accept="image/*" ng-file-change="generateThumb(entity.id,$files, $event)" required=""ng-multiple="true" >
+                        <span class="glyphicon glyphicon-pencil"></span> 更换图片
                     </button>
                 </td>
             </tr>

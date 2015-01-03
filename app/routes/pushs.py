@@ -7,7 +7,7 @@ import json
 
 @app.route('/news/pushs', methods = ['GET'])
 def get_all_pushs():
-    entities = pushs.Pushs.query.all()
+    entities = pushs.Pushs.query.order_by(pushs.Pushs.id.desc()).all()
     return json.dumps([entity.to_dict() for entity in entities])
 
 @app.route('/news/pushs/<int:id>', methods = ['GET'])
