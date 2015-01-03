@@ -1,0 +1,101 @@
+<div>
+
+    <h2>Pushs</h2>
+
+    <script type = "text/ng-template" id="pushs-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myPushsLabel">Create or edit a Pushs</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="pushs.id" readonly>
+                </div>
+
+                
+                <div class="form-group">
+                    <label>content:</label>
+                    
+                    <input type="text" class="form-control" name="content"
+                           ng-model="pushs.content" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>created_time:</label>
+                    
+                    <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="pushs.created_time" ng-required="true"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>success:</label>
+                    
+                    <input type="checkbox" name="success"
+                           ng-model="pushs.success" ng-required="true"/>
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
+
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Pushs
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                
+                <th>content</th>
+                
+                <th>created_time</th>
+                
+                <th>success</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pushs in pushs">
+                <td>{{pushs.id}}</td>
+                
+                <td>{{pushs.content }}</td>
+                
+                <td>{{pushs.created_time  | date:'yyyy-MM-dd'}}</td>
+                
+                <td>{{pushs.success }}</td>
+                
+                <td>
+                    <button type="submit"
+                            ng-click="update(pushs.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(pushs.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

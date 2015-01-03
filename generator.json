@@ -237,6 +237,32 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "pushs",
+			"attrs": [
+				{
+					"attrName": "content",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "created_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "success",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				}
+			]
 		}
 	],
 	"resources": []
