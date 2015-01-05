@@ -52,7 +52,6 @@ def update_mainpage_image(id):
 		db.session.commit()
 		return jsonify(dict(result='success'))
 	except Exception, e:
-		raise e
 		return jsonify(dict(result='error'))
 
 @app.route('/news/update_news_link/<int:id>', methods=['POST'])
@@ -69,3 +68,12 @@ def update_image_news_link(id):
 	except Exception, e:
 		raise e
 		return jsonify(dict(result='fail'))
+
+@app.route('/news/upload_image', methods= ['POST'])
+def upload_image():
+	try:
+		filename = files.save(request.files['file'])
+		filepath = files.url(filename)
+		return jsonify(dict(path=filepath))
+	except Exception, e:
+		abort(500)

@@ -50,6 +50,7 @@ angular.module('news')
         ]
       };
 
+
       $scope.create = function() {
         $scope.clear();
         $scope.open(undefined, true);
@@ -136,8 +137,24 @@ angular.module('news')
   ]);
 
 var NewsSaveController =
-  function($scope, $modalInstance, news) {
+  function($scope, $modalInstance, news, $upload) {
     $scope.news = news;
+
+    $scope.uploadFile = function(fx,event) {
+      var file = fx[0];
+      $upload.upload({
+        url: 'news/upload_image',
+        file: file
+      }).progress(function(evt) {}).success(function(data, status, headers, config) {
+        console.log('success');
+        alert('上传成功！');
+        $scope.news.content = $scope.news.content + getImageHTML(data.path);
+      });
+    };
+
+    function getImageHTML(path){
+      return '<img src="'+path +'" width="100%"></img>';
+    }
 
     $scope.create_timeDateOptions = {
       dateFormat: 'yy-mm-dd',

@@ -123,8 +123,24 @@ angular.module('news')
   ]);
 
 var ConferenceSaveController =
-  function($scope, $modalInstance, conference, $filter) {
+  function($scope, $modalInstance, conference, $filter, $upload) {
   $scope.conference = conference;
+
+  $scope.uploadFile = function(key,fx,event) {
+      var file = fx[0];
+      $upload.upload({
+        url: 'news/upload_image',
+        file: file
+      }).progress(function(evt) {}).success(function(data, status, headers, config) {
+        console.log('success');
+        alert('上传成功！');
+        $scope.conference[key] = $scope.conference[key] + getImageHTML(data.path);
+      });
+  };
+  function getImageHTML(path){
+    return '<img src="'+path +'" width="100%"></img>';
+  }
+
   $scope.created_timeDateOptions = {
     dateFormat: 'yy-mm-dd',
   };

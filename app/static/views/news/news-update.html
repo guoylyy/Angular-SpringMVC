@@ -25,6 +25,11 @@
 
                 <div class="form-group">
                     <label>内容:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/>
+                    </span>
+                    
                     <textarea ckeditor="editorOptions" ng-model="news.content" ng-required="true"></textarea>
                     <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
                     <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>

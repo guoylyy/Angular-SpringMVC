@@ -82,9 +82,9 @@ def create_conference():
     entity = conference.Conference(
          intro_content = request.json['intro_content']
         , logistics_content = request.json['logistics_content']
-        , layout_content = request.json['logistics_content']
-        , agenda_content = request.json['logistics_content']
-        , group_content = request.json['logistics_content']
+        , layout_content = request.json['layout_content']
+        , agenda_content = request.json['agenda_content']
+        , group_content = request.json['group_content']
         , title = request.json['title']
         , started_time = datetime.datetime.strptime(request.json['started_time'], "%Y-%m-%d %H:%M:%S")
         , is_draft = request.json['is_draft']
@@ -106,9 +106,9 @@ def update_conference(id):
     entity = conference.Conference(
         intro_content = request.json['intro_content']
         , logistics_content = request.json['logistics_content']
-        , layout_content = request.json['logistics_content']
-        , agenda_content = request.json['logistics_content']
-        , group_content = request.json['logistics_content'],
+        , layout_content = request.json['layout_content']
+        , agenda_content = request.json['agenda_content']
+        , group_content = request.json['group_content'],
         title = request.json['title'],
         started_time = datetime.datetime.strptime(request.json['started_time'], "%Y-%m-%d %H:%M:%S"),
         is_draft = request.json['is_draft'],
