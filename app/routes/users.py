@@ -151,21 +151,23 @@ def create_user():
         , nickname = request.json['nickname']
         , description = request.json['description']
     )
-    entity.registered_time = datetime.datetime.now();
-    entity.lastlogin_time = datetime.datetime.now();
+    entity.registered_time = datetime.datetime.now().date();
+    entity.lastlogin_time = datetime.datetime.now().date();
     entity.myattr = ''
     entity.is_active = True
     entity.role = 'user'
     entity.company = ''
-    header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
+    #header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
     try:
         with store_context(fs_store):
-            entity.generate_token()
-            entity.header_icon.from_blob(header)
-            db.session.add(entity)
-            db.session.commit()
-            return jsonify(entity.to_dict()), 201
+            with open('app/static/image/default_header.jpg') as f:
+                entity.generate_token()
+                entity.header_icon.from_file(f)
+                db.session.add(entity)
+                db.session.commit()
+                return jsonify(entity.to_dict()), 201
     except Exception, e:
+        raise e
         abort(500)
 
 @app.route('/news/users/<int:id>', methods = ['PUT'])
@@ -195,6 +197,7 @@ def delete_user(id):
     entity = user.User.query.get(id)
     if not entity:
         abort(404)
-    db.session.delete(entity)
-    db.session.commit()
-    return '', 204
+    with store_context(fs_store):
+        db.session.delete(entity)
+        db.session.commit()
+        return '', 204
