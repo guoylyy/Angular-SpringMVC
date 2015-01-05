@@ -8,12 +8,12 @@ angular.module('news')
 
       $scope.create = function () {
         $scope.clear();
-        $scope.open();
+        $scope.open('', true);
       };
 
       $scope.update = function (id) {
         $scope.user = User.get({id: id});
-        $scope.open(id);
+        $scope.open(id, false);
       };
 
       $scope.delete = function (id) {
@@ -49,6 +49,10 @@ angular.module('news')
           "name": "",
           
           "role": "",
+
+          "is_vip" : false,
+
+          "nickname" : "",
           
           "email": "",
           
@@ -68,9 +72,14 @@ angular.module('news')
         };
       };
 
-      $scope.open = function (id) {
+      $scope.open = function (id, is_create) {
+        var template = 'user-save.html';
+        if(is_create){
+          template = 'user-create.html';
+        }
+
         var userSave = $modal.open({
-          templateUrl: 'user-save.html',
+          templateUrl: template,
           controller: UserSaveController,
           resolve: {
             user: function () {

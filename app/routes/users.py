@@ -131,7 +131,7 @@ def upload_icon():
 
 @app.route('/news/users', methods = ['GET'])
 def get_all_users():
-    entities = user.User.query.all()
+    entities = user.User.query.order_by(user.User.id.desc()).all()
     return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/users/<int:id>', methods = ['GET'])
@@ -147,17 +147,16 @@ def create_user():
         account = request.json['account']
         , password = request.json['password']
         , name = request.json['name']
-        , role = request.json['role']
-        , email = request.json['email']
-        , registered_time = datetime.datetime.strptime(request.json['registered_time'], "%Y-%m-%d").date()
-        , is_active = request.json['is_active']
-        , phone_number = request.json['phone_number']
+        , is_vip = request.json['is_vip']
+        , nickname = request.json['nickname']
         , description = request.json['description']
-        , lastlogin_time = datetime.datetime.strptime(request.json['lastlogin_time'], "%Y-%m-%d").date()
-        , myattr = request.json['myattr']
     )
-    entity.is_vip = False
-    entity.company = 'fsadfs'
+    entity.registered_time = datetime.datetime.now();
+    entity.lastlogin_time = datetime.datetime.now();
+    entity.myattr = ''
+    entity.is_active = True
+    entity.role = 'user'
+    entity.company = ''
     header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
     try:
         with store_context(fs_store):
@@ -176,24 +175,20 @@ def update_user(id):
         abort(404)
     entity = user.User(
         account = request.json['account'],
-        password = request.json['password'],
         name = request.json['name'],
-        role = request.json['role'],
         email = request.json['email'],
-        registered_time = datetime.datetime.strptime(request.json['registered_time'], "%Y-%m-%d").date(),
-        is_active = request.json['is_active'],
         phone_number = request.json['phone_number'],
         description = request.json['description'],
-        lastlogin_time = datetime.datetime.strptime(request.json['lastlogin_time'], "%Y-%m-%d").date(),
-        myattr = request.json['myattr'],
+        nickname = request.json['nickname'],
+        is_vip = request.json['is_vip'],
         id = id
     )
-    header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
+    
     with store_context(fs_store):
-        entity.header_icon.from_blob(header)
         db.session.merge(entity)
         db.session.commit()
-    return jsonify(entity.to_dict()), 200
+        entity = user.User.query.get(id)
+        return jsonify(entity.to_dict()), 200
 
 @app.route('/news/users/<int:id>', methods = ['DELETE'])
 def delete_user(id):

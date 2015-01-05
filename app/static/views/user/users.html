@@ -2,6 +2,92 @@
 <div>
 
     <h2>用户管理</h2>
+    
+    <script type = "text/ng-template" id="user-create.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myUserLabel">创建一个新用户</h4>
+            </div>
+            <div class="modal-body">
+                
+                
+                <div class="form-group">
+                    <label>账号:</label>
+                    
+                    <input type="text" class="form-control" name="account"
+                           ng-model="user.account" ng-required="true"
+                           ng-minlength=0 ng-maxlength=200/>
+                    <span class="error" ng-show="form.account.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.account.$error.maxlength">Must be at most 200 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>密码:</label>
+                    
+                    <input type="text" class="form-control" name="password"
+                           ng-model="user.password" ng-required="true"
+                           ng-minlength=0 ng-maxlength=500/>
+                    <span class="error" ng-show="form.password.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.password.$error.maxlength">Must be at most 500 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>姓名:</label>
+                    
+                    <input type="text" class="form-control" name="name"
+                           ng-model="user.name" ng-required="true"
+                           ng-minlength=0 ng-maxlength=100/>
+                    <span class="error" ng-show="form.name.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.name.$error.maxlength">Must be at most 100 characters.</span>
+                </div>
+
+                 <div class="form-group">
+                    <label>公司名:</label>
+                    
+                    <input type="text" class="form-control" name="nickname"
+                           ng-model="user.nickname" ng-required="true"
+                           ng-minlength=0 ng-maxlength=100/>
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label>是否是 VIP:</label>
+                    
+                    <input type="checkbox" class="form-control" name="is_vip"
+                           ng-model="user.is_vip" ng-required="false"
+                           ng-minlength=0 ng-maxlength=20/>
+                    
+                </div>
+               
+                
+              
+                
+                <div class="form-group">
+                    <label>备注:</label>
+                    
+                    <textarea type="text" class="form-control" name="description"
+                           ng-model="user.description" ng-required="false"
+                           ng-minlength=0 ng-maxlength=500/>
+                    <span class="error" ng-show="form.description.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.description.$error.maxlength">Must be at most 500 characters.</span>
+                </div>
+                
+               
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
 
     <script type = "text/ng-template" id="user-save.html">
         <form name="form" role="form" novalidate
@@ -15,14 +101,14 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>ID</label>
+                    <label>编号</label>
                     <input type="text" class="form-control" name="id"
                            ng-model="user.id" readonly>
                 </div>
 
                 
                 <div class="form-group">
-                    <label>account:</label>
+                    <label>账号:</label>
                     
                     <input type="text" class="form-control" name="account"
                            ng-model="user.account" ng-required="true"
@@ -30,19 +116,10 @@
                     <span class="error" ng-show="form.account.$error.minlength">Must be at least 0 characters.</span>
                     <span class="error" ng-show="form.account.$error.maxlength">Must be at most 200 characters.</span>
                 </div>
+               
                 
                 <div class="form-group">
-                    <label>password:</label>
-                    
-                    <input type="text" class="form-control" name="password"
-                           ng-model="user.password" ng-required="true"
-                           ng-minlength=0 ng-maxlength=500/>
-                    <span class="error" ng-show="form.password.$error.minlength">Must be at least 0 characters.</span>
-                    <span class="error" ng-show="form.password.$error.maxlength">Must be at most 500 characters.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label>name:</label>
+                    <label>姓名:</label>
                     
                     <input type="text" class="form-control" name="name"
                            ng-model="user.name" ng-required="true"
@@ -50,19 +127,27 @@
                     <span class="error" ng-show="form.name.$error.minlength">Must be at least 0 characters.</span>
                     <span class="error" ng-show="form.name.$error.maxlength">Must be at most 100 characters.</span>
                 </div>
-                
-                <div class="form-group">
-                    <label>role:</label>
+
+                 <div class="form-group">
+                    <label>公司名:</label>
                     
-                    <input type="text" class="form-control" name="role"
-                           ng-model="user.role" ng-required="true"
-                           ng-minlength=0 ng-maxlength=20/>
-                    <span class="error" ng-show="form.role.$error.minlength">Must be at least 0 characters.</span>
-                    <span class="error" ng-show="form.role.$error.maxlength">Must be at most 20 characters.</span>
+                    <input type="text" class="form-control" name="nickname"
+                           ng-model="user.nickname" ng-required="true"
+                           ng-minlength=0 ng-maxlength=100/>
+                    
                 </div>
                 
                 <div class="form-group">
-                    <label>email:</label>
+                    <label>是否是 VIP:</label>
+                    
+                    <input type="checkbox" class="form-control" name="is_vip"
+                           ng-model="user.is_vip" ng-required="false"
+                           ng-minlength=0 ng-maxlength=20/>
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label>邮箱:</label>
                     
                     <input type="text" class="form-control" name="email"
                            ng-model="user.email" ng-required="false"
@@ -72,56 +157,24 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>registered_time:</label>
-                    
-                    <input type="text" class="form-control" name="registered_time" ui-date="registered_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="user.registered_time" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>is_active:</label>
-                    
-                    <input type="checkbox" name="is_active"
-                           ng-model="user.is_active" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>phone_number:</label>
+                    <label>电话号码:</label>
                     
                     <input type="text" class="form-control" name="phone_number"
-                           ng-model="user.phone_number" ng-required="true"
+                           ng-model="user.phone_number" ng-required="false"
                            ng-minlength=0 ng-maxlength=50/>
                     <span class="error" ng-show="form.phone_number.$error.minlength">Must be at least 0 characters.</span>
                     <span class="error" ng-show="form.phone_number.$error.maxlength">Must be at most 50 characters.</span>
                 </div>
                 
                 <div class="form-group">
-                    <label>description:</label>
+                    <label>备注:</label>
                     
-                    <input type="text" class="form-control" name="description"
+                    <textarea type="text" class="form-control" name="description"
                            ng-model="user.description" ng-required="false"
                            ng-minlength=0 ng-maxlength=500/>
                     <span class="error" ng-show="form.description.$error.minlength">Must be at least 0 characters.</span>
                     <span class="error" ng-show="form.description.$error.maxlength">Must be at most 500 characters.</span>
                 </div>
-                
-                <div class="form-group">
-                    <label>lastlogin_time:</label>
-                    
-                    <input type="text" class="form-control" name="lastlogin_time" ui-date="lastlogin_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="user.lastlogin_time" ng-required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label>myattr:</label>
-                    
-                    <input type="text" class="form-control" name="myattr"
-                           ng-model="user.myattr" ng-required="false"
-                           />
-                    <span class="error" ng-show="form.myattr.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.myattr.$error.maxlength">Must be at most  characters.</span>
-                </div>
-                
 
             </div>
             <div class="modal-footer">
@@ -133,7 +186,7 @@
     </script>
 
     <button class="btn btn-primary btn-lg" ng-click="create()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new User
+        <span class="glyphicon glyphicon-flash"></span> 创建一个新用户
     </button>
 
     <div class="table-responsive">
@@ -146,11 +199,11 @@
                 
                 <th>名字</th>
                 
-                <th>角色</th>
+                <th>是否是 VIP </th>
                 
-                <th>邮箱</th>
+                <th>备注</th>
                 
-                <th>是否激活</th>
+                <th>公司</th>
             </tr>
             </thead>
             <tbody>
@@ -161,22 +214,22 @@
         
                 <td>{{user.name }}</td>
                 
-                <td>{{user.role }}</td>
+                <td>{{user.is_vip }}</td>
                 
-                <td>{{user.email }}</td>
+                <td>{{user.description }}</td>
                 
-                <td>{{user.is_active }}</td>
+                <td>{{user.nickname }}</td>
                 
                 <td>
                     <button type="submit"
                             ng-click="update(user.id)"
                             class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                        <span class="glyphicon glyphicon-pencil"></span> 编辑
                     </button>
                     <button type="submit"
                             ng-click="delete(user.id)"
                             class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        <span class="glyphicon glyphicon-remove-circle"></span> 删除
                     </button>
                 </td>
             </tr>
