@@ -150,7 +150,7 @@ def update_news(id):
     
     try:
         with store_context(fs_store):
-            if('temp_image' in request.args and request.json['temp_image'] is not None):
+            if('temp_image' in request.json.keys() and request.json['temp_image'] is not None):
                 with open(files.path(request.json['temp_image'])) as f:
                     entity.icon.from_file(f)
                     db.session.merge(entity)
