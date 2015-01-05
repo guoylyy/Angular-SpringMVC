@@ -124,27 +124,37 @@ angular.module('news')
 
 var ConferenceSaveController =
   function($scope, $modalInstance, conference, $filter) {
-    $scope.conference = conference;
-    $scope.created_timeDateOptions = {
-      dateFormat: 'yy-mm-dd',
-    };
-    $scope.updated_timeDateOptions = {
-      dateFormat: 'yy-mm-dd',
-    };
-    $scope.started_timeDateOptions = {
-      dateFormat: 'yy-mm-dd',
-    };
-
-    $scope.onTimeSet = function(newDate, oldDate){
-      $scope.conference.started_time = $filter('date')(newDate,
-            'yyyy-MM-dd HH:mm:ss');
-    };
-
-    $scope.ok = function() {
-      $modalInstance.close($scope.conference);
-    };
-
-    $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
-    };
+  $scope.conference = conference;
+  $scope.created_timeDateOptions = {
+    dateFormat: 'yy-mm-dd',
   };
+  $scope.updated_timeDateOptions = {
+    dateFormat: 'yy-mm-dd',
+  };
+  $scope.started_timeDateOptions = {
+    dateFormat: 'yy-mm-dd',
+  };
+
+  $scope.$watch(function() {
+      return $scope.conference.started_time;
+    },
+    function(newValue, oldValue) {
+      if (newValue != undefined && newValue.indexOf('T') > -1) {
+        $scope.conference.started_time = $filter('date')(newValue,
+          'yyyy-MM-dd HH:mm:ss');
+      };
+    });
+
+  $scope.onTimeSet = function(newDate, oldDate) {
+    $scope.conference.started_time = $filter('date')(newDate,
+      'yyyy-MM-dd HH:mm:ss');
+  };
+
+  $scope.ok = function() {
+    $modalInstance.close($scope.conference);
+  };
+
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+};

@@ -2,95 +2,141 @@
 
 angular.module('news')
   .controller('NewsController', ['$scope', '$modal', 'resolvedNews', 'News',
-    function ($scope, $modal, resolvedNews, News) {
+    function($scope, $modal, resolvedNews, News) {
 
       $scope.newses = resolvedNews;
 
       $scope.editorOptions = {
         language: 'ru',
-        uiColor: '#000000'
+        uiColor: '#000000',
+        enterMode: CKEDITOR.ENTER_BR,
+        shiftEnterMode: CKEDITOR.ENTER_BR,
+        pasteFromWordRemoveStyles: true,
+        filebrowserImageUploadUrl: "private/pic/picUpload",
+        removePlugins: 'save',
+        toolbarGroups: [{
+            name: 'clipboard',
+            groups: ['clipboard', 'undo']
+          }, {
+            name: 'editing',
+            groups: ['find', 'selection', 'spellchecker']
+          }, {
+            name: 'links'
+          }, {
+            name: 'insert'
+          }, {
+            name: 'forms'
+          }, {
+            name: 'tools'
+          }, {
+            name: 'document',
+            groups: ['mode', 'document', 'doctools']
+          }, {
+            name: 'others'
+          },
+          '/', {
+            name: 'basicstyles',
+            groups: ['basicstyles', 'cleanup']
+          }, {
+            name: 'paragraph',
+            groups: ['list', 'indent', 'blocks', 'align', 'bidi']
+          }, {
+            name: 'styles'
+          }, {
+            name: 'colors'
+          }, {
+            name: 'about'
+          }
+        ]
       };
 
-      $scope.create = function () {
+      $scope.create = function() {
         $scope.clear();
-        $scope.open(undefined,true);
+        $scope.open(undefined, true);
       };
 
-      $scope.update = function (id) {
-        $scope.news = News.get({id: id});
+      $scope.update = function(id) {
+        $scope.news = News.get({
+          id: id
+        });
         $scope.open(id, false);
       };
 
-      $scope.delete = function (id) {
-        News.delete({id: id},
-          function () {
+      $scope.delete = function(id) {
+        News.delete({
+            id: id
+          },
+          function() {
             $scope.newses = News.query();
           });
       };
 
-      $scope.save = function (id) {
+      $scope.save = function(id) {
         if (id) {
-          News.update({id: id}, $scope.news,
-            function () {
+          News.update({
+              id: id
+            }, $scope.news,
+            function() {
               $scope.newses = News.query();
               $scope.clear();
             });
         } else {
           News.save($scope.news,
-            function () {
+            function() {
               $scope.newses = News.query();
               $scope.clear();
             });
         }
       };
 
-      $scope.clear = function () {
+      $scope.clear = function() {
         $scope.news = {
-          
+
           "title": "",
-          
+
           "content": "",
-          
+
           "create_time": "",
-          
+
           "update_time": "",
-          
+
           "author": "",
-          
+
           "view_count": "",
-          
+
           "is_draft": false,
-          
+
           "id": ""
         };
       };
 
-      $scope.open = function (id, is_create) {
+      $scope.open = function(id, is_create) {
         var template = "views/news/";
         if (is_create) {
           template = template + "news-add.html";
-        }else{
+        } else {
           template = template + "news-update.html";
         }
         var newsSave = $modal.open({
           templateUrl: template,
           controller: NewsSaveController,
           resolve: {
-            news: function () {
+            news: function() {
               return $scope.news;
             }
           }
         });
 
-        newsSave.result.then(function (entity) {
+        newsSave.result.then(function(entity) {
           $scope.news = entity;
           $scope.save(id);
         });
       };
-    }]);
+    }
+  ]);
 
- var NewsSaveController =
-  function ($scope, $modalInstance, news) {
+var NewsSaveController =
+  function($scope, $modalInstance, news) {
     $scope.news = news;
 
     $scope.create_timeDateOptions = {
@@ -100,11 +146,11 @@ angular.module('news')
       dateFormat: 'yy-mm-dd',
     };
 
-    $scope.ok = function () {
+    $scope.ok = function() {
       $modalInstance.close($scope.news);
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     };
   };

@@ -15,3 +15,4 @@ flask/bin/pip install flup
 flask/bin/pip install flask-uploads
 flask/bin/pip install mysql-python
 flask/bin/pip install simplejson
+flask/bin/pip install jpush

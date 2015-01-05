@@ -40,8 +40,6 @@ angular.module('news')
     	};
 
 
-
-
     	$scope.update_news = function(entity){
     		$http({
     			url:'news/update_news_link/'+entity.id,

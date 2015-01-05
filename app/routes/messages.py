@@ -44,6 +44,23 @@ def get_message(id):
         abort(404)
     return jsonify(entity.to_dict())
 
+@app.route('/news/messages', methods = ['POST'])
+def admin_create():
+    entity = message.Message(
+        content = request.json['content'],
+        is_active = True
+        )
+    entity.created_time = datetime.datetime.now()
+    entity.publisher = '管理员'
+    u = user.User.query.filter(user.User.role == 'admin').first()
+    if not u:
+        abort(404)
+    entity.user_id = u.id
+    db.session.add(entity)
+    db.session.commit()
+    return jsonify(entity.to_dict()), 201
+
+
 @app.route('/news/messages/<int:id>', methods = ['PUT'])
 def update_message(id):
     entity = message.Message.query.get(id)

@@ -1,21 +1,21 @@
 'use strict';
 
 angular.module('news')
-  .controller('MessageController', ['$scope', '$modal', 'resolvedMessage', 'Message',
-    function($scope, $modal, resolvedMessage, Message) {
+  .controller('MessageController', ['$scope', '$modal', 'resolvedMessage', 'Message', '$filter',
+    function($scope, $modal, resolvedMessage, Message, $filter) {
 
       $scope.messages = resolvedMessage;
 
       $scope.create = function() {
         $scope.clear();
-        $scope.open();
+        $scope.open(null, true);
       };
 
       $scope.update = function(id) {
         $scope.message = Message.get({
           id: id
         });
-        $scope.open(id);
+        $scope.open(id, false);
       };
 
       $scope.delete = function(id) {
@@ -60,9 +60,13 @@ angular.module('news')
         };
       };
 
-      $scope.open = function(id) {
+      $scope.open = function(id, is_create) {
+        var template = 'message-save.html';
+        if(is_create){
+          template = 'message-create.html';
+        }
         var messageSave = $modal.open({
-          templateUrl: 'message-save.html',
+          templateUrl: template,
           controller: MessageSaveController,
           resolve: {
             message: function() {
@@ -73,6 +77,8 @@ angular.module('news')
 
         messageSave.result.then(function(entity) {
           $scope.message = entity;
+          // $scope.message.started_time = $filter('date')($scope.message.started_time,
+          //    'yyyy-MM-dd HH:mm:ss');
           $scope.save(id);
         });
       };
@@ -82,12 +88,22 @@ angular.module('news')
 var MessageSaveController =
   function($scope, $modalInstance, message, $filter) {
     $scope.message = message;
+    $scope.$watch(function() {
+        return $scope.message.created_time;
+      },
+      function(newValue, oldValue) {
+        if(newValue != undefined && newValue.indexOf('T')> -1){
+          $scope.message.created_time = $filter('date')(newValue,
+          'yyyy-MM-dd HH:mm:ss');
+        };
+      });
+
     $scope.created_timeDateOptions = {
       dateFormat: 'yy-mm-dd',
     };
-    $scope.onTimeSet = function(newDate, oldDate){
-      $scope.message.started_time = $filter('date')(newDate,
-            'yyyy-MM-dd HH:mm:ss');
+    $scope.onTimeSet = function(newDate, oldDate) {
+      $scope.message.created_time = $filter('date')(newDate,
+        'yyyy-MM-dd HH:mm:ss');
     };
     $scope.ok = function() {
       $modalInstance.close($scope.message);

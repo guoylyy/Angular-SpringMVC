@@ -10,6 +10,25 @@ import datetime
 import json
 import hashlib
 
+@app.route('/news/admin_login', methods = ['POST'])
+def admin_login():
+    """
+        Administrator login to backend
+    """
+    account = request.json['account']
+    password = request.json['password']
+    u = user.User.query.filter(user.User.account == account).first()
+    if not u:
+        abort(404)
+    if u.password == password and u.role == 'admin':
+        if u.token is None:
+            u.generate_token()
+            db.session.merge(u)
+            db.session.commit()
+        return jsonify(u.to_dict())
+    else:
+        abort(500)
+
 @app.route('/news/login', methods= ['POST'])
 def login():
     """
