@@ -5,14 +5,10 @@
             <div class="modal-header">
                 <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                <h4 class="modal-title" id="myConferenceLabel">更新会议内容信息</h4>
+                <h4 class="modal-title" id="myConferenceLabel">创建会议内容信息</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" class="form-control" name="id"
-                           ng-model="conference.id" readonly>
-                </div>
+                
                 <div class="form-group">
                     <label>主题:</label>
                     
@@ -41,6 +37,11 @@
 
                 <div class="form-group">
                     <label>会议介绍:</label>
+
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('intro_content',$files, $event)" name="file" accept="image/*"/>
+                    </span>
                      <textarea ckeditor="editorOptions" ng-model="conference.intro_content" ng-required="true"></textarea>
                     
                     <span class="error" ng-show="form.intro_content.$error.minlength">Must be at least  characters.</span>
@@ -51,6 +52,10 @@
 
                 <div class="form-group">
                     <label>交通信息:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('logistics_content',$files, $event)" name="file" accept="image/*"/>
+                    </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.logistics_content" ng-required="true"></textarea>
                     
                     <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
@@ -59,28 +64,40 @@
                 
                 <div class="form-group">
                     <label>组委会:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('group_content',$files, $event)" name="file" accept="image/*"/>
+                    </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.group_content" ng-required="true"></textarea>
                     
-                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                    <span class="error" ng-show="form.group_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.group_content.$error.maxlength">Must be at most  characters.</span>
                 </div>
                 
                 
                 <div class="form-group">
                     <label>会议布局:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('layout_content',$files, $event)" name="file" accept="image/*"/>
+                    </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.layout_content" ng-required="true"></textarea>
                     
-                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                    <span class="error" ng-show="form.layout_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.layout_content.$error.maxlength">Must be at most  characters.</span>
                 </div>
                 
                 
                 <div class="form-group">
                     <label>会议议程:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('agenda_content',$files, $event)" name="file" accept="image/*"/>
+                    </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.agenda_content" ng-required="true"></textarea>
                     
-                    <span class="error" ng-show="form.logistics_content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.logistics_content.$error.maxlength">Must be at most  characters.</span>
+                    <span class="error" ng-show="form.agenda_content.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.agenda_content.$error.maxlength">Must be at most  characters.</span>
                 </div>
               
                 

@@ -1,0 +1,113 @@
+<header></header>
+<div>
+
+    <h2>视频资源管理</h2>
+
+    <script type = "text/ng-template" id="movie-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myMovieLabel">创建一个视频</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>编号</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="movie.id" readonly></div>
+
+                <div class="form-group">
+                    <label>视频名:</label>
+                    
+
+                    <input type="text" class="form-control" name="name"
+                           ng-model="movie.name" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.name.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.name.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>链接:</label>  
+                    
+                    <input type="text" class="form-control" name="url"
+                           ng-model="movie.url" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.url.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.url.$error.maxlength">Must be at most  characters.</span>
+                </div>
+                
+                    <span class="btn btn-primary btn-file">
+                        插入视频 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/>
+                    </span>
+                
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
+   <!--  <div class="form-group">
+        <label>大小:</label>
+
+        <input type="number" step="any" class="form-control" name="size"
+                           ng-model="movie.size" ng-required="false"
+                           />
+        <span class="error" ng-show="form.size.$error.min">Must be greater than or equal to .</span>
+        <span class="error" ng-show="form.size.$error.max">Must be less than or equal to .</span>
+    </div> -->
+    
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span>
+        创建一个视频
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>编号</th>
+
+                    <th>视频名</th>
+
+                    <th>链接</th>
+
+                    <th>大小</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="movie in movies">
+                    <td>{{movie.id}}</td>
+
+                    <td>{{movie.name }}</td>
+
+                    <td><a href="{{movie.url }}" target="_blank">{{movie.url }}</a></td>
+
+                    <td>{{movie.size }} mb</td>
+
+                    <td>
+                        <button type="submit"
+                            ng-click="update(movie.id)"
+                            class="btn">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Edit
+                        </button>
+                        <button type="submit"
+                            ng-click="delete(movie.id)"
+                            class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

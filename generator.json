@@ -263,6 +263,35 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "movie",
+			"attrs": [
+				{
+					"attrName": "name",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "url",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "size",
+					"attrType": "Float",
+					"min": "",
+					"max": "",
+					"enumValues": [],
+					"required": false
+				}
+			]
 		}
 	],
 	"resources": []

@@ -110,14 +110,28 @@ def create_news():
     )
     entity.update_time = datetime.datetime.now()
     entity.create_time = datetime.datetime.now()
-    entity.author = 'admin'
+    entity.author = '管理员'
     entity.view_count = 0
-    image = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
-    with store_context(fs_store):
-        entity.icon.from_blob(image)
-        db.session.add(entity)
-        db.session.commit()
-        return jsonify(entity.to_dict()), 201
+    if(len(request.json['video_link']) is not None):
+        entity.has_video = True
+        entity.video_link = request.json['video_link']
+    else:
+        entity.has_video = False
+
+    try:
+        with store_context(fs_store):
+            if(request.json['temp_image'] is not None):
+                with open(files.path(request.json['temp_image'])) as f:
+                    entity.icon.from_file(f)
+                    db.session.add(entity)
+                    db.session.commit()
+                    return jsonify(entity.to_dict()), 201
+            else:
+                abort(500)
+    except Exception, e:
+        raise e
+        abort(500)
+
 
 @app.route('/news/news/<int:id>', methods = ['PUT'])
 def update_news(id):
@@ -130,6 +144,13 @@ def update_news(id):
         is_draft = request.json['is_draft'],
         id = id
     )
+    if(request.json['video_link'] is not None and len(request.json['video_link']) > 0):
+        entity.has_video = True
+        entity.video_link = request.json['video_link']
+    else:
+        entity.has_video = False
+        entity.video_link = None
+    
     entity.update_time = datetime.datetime.now()
     db.session.merge(entity)
     db.session.commit()

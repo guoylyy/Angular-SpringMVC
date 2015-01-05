@@ -44,7 +44,7 @@
 
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('intro_content',$files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('intro_content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                      <textarea ckeditor="editorOptions" ng-model="conference.intro_content" ng-required="true"></textarea>
                     
@@ -58,7 +58,7 @@
                     <label>交通信息:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('logistics_content',$files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('logistics_content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.logistics_content" ng-required="true"></textarea>
                     
@@ -70,7 +70,7 @@
                     <label>组委会:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('group_content',$files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('group_content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.group_content" ng-required="true"></textarea>
                     
@@ -83,7 +83,7 @@
                     <label>会议布局:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('layout_content',$files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('layout_content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.layout_content" ng-required="true"></textarea>
                     
@@ -96,7 +96,7 @@
                     <label>会议议程:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('agenda_content',$files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('agenda_content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                     <textarea ckeditor="editorOptions" ng-model="conference.agenda_content" ng-required="true"></textarea>
                     

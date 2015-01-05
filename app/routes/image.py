@@ -74,6 +74,6 @@ def upload_image():
 	try:
 		filename = files.save(request.files['file'])
 		filepath = files.url(filename)
-		return jsonify(dict(path=filepath))
+		return jsonify(dict(path=filepath,filename=filename))
 	except Exception, e:
 		abort(500)

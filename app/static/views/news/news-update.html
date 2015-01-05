@@ -5,7 +5,7 @@
             <div class="modal-header" >
                 <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                        <h4 class="modal-title" id="myNewsLabel"><span>更新</span></h4>
+                        <h4 class="modal-title" id="myNewsLabel"><span>更新咨询</span></h4>
             </div>
             <div class="modal-body">
                 <div class="form-group" ng-if="">
@@ -27,29 +27,40 @@
                     <label>内容:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/>
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('content',$files, $event)" name="file" accept="image/*"/>
                     </span>
                     
                     <textarea ckeditor="editorOptions" ng-model="news.content" ng-required="true"></textarea>
                     <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
                     <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
                 </div>
-
-            
-                <div class="form-group" ng-if="">
-                    <label>创建时间:</label>
-                    <input type="text" class="form-control" name="created_time" ui-date="created_timeDateOptions" ui-date-format="yy-mm-dd" 
-                           ng-model="conference.created_time" ng-required="true"/>
-                    
+                
+                <div class="form-group">
+                    <label >广告图片</label>
+                    <br>
+                    <span class="btn btn-primary btn-file" styles="padding-top:5px;">
+                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('icon',$files, $event)" name="file" accept="image/*"/>
+                    </span>
+                    <br>
+                    <img ng-src="{{news.icon}}" width="250" styles="margin-top:5px;">
                 </div>
-                
-                
+
                 <div class="form-group">
                     <label>是否作为草稿:</label>
                     
                     <input type="checkbox" name="is_draft"
                            ng-model="news.is_draft"  ng-required="false"/>
                 </div>
+                <br>
+                <div class="form-group" >
+                    <label>视频链接（可不加）:</label>
+                    <input type="text" class="form-control" name="video_link" 
+                           ng-model="news.video_link" ng-required="false"/>
+                    
+                </div>
+                 <span class="btn btn-primary btn-file">
+                        插入视频 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/>
+                    </span>
                 
             </div>
             <div class="modal-footer">

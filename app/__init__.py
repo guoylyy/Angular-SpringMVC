@@ -11,6 +11,7 @@ from app.models import user
 from app.models import message
 from app.models import conference
 from app.models import pushs
+from app.models import movie
 from app.routes import index
 
 from app.routes import news
@@ -19,3 +20,4 @@ from app.routes import messages
 from app.routes import conferences
 from app.routes import pushs
 from app.routes import image
+from app.routes import movies

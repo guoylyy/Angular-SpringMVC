@@ -105,7 +105,13 @@ angular.module('news')
 
           "view_count": "",
 
+          "temp_image":"",
+
+          "icon":"",
+
           "is_draft": false,
+
+          "video_link": "",
 
           "id": ""
         };
@@ -148,9 +154,29 @@ var NewsSaveController =
       }).progress(function(evt) {}).success(function(data, status, headers, config) {
         console.log('success');
         alert('上传成功！');
-        $scope.news.content = $scope.news.content + getImageHTML(data.path);
+          $scope.news.video_link = data.path;
+        
       });
     };
+
+    $scope.uploadImage = function(key,fx,event) {
+      var file = fx[0];
+      $upload.upload({
+        url: 'news/upload_image',
+        file: file
+      }).progress(function(evt) {}).success(function(data, status, headers, config) {
+        console.log('success');
+        alert('上传成功！');
+        if(key == 'content'){
+           $scope.news.content = $scope.news.content + getImageHTML(data.path);
+        }else{
+           $scope.news.icon = data.path;
+           $scope.news.temp_image = data.filename;
+        }
+       
+      });
+    };
+
 
     function getImageHTML(path){
       return '<img src="'+path +'" width="100%"></img>';
