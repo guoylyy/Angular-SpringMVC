@@ -27,7 +27,6 @@ def send_message():
     db.session.commit()
     return jsonify(m.to_dict()), 201
 
-
 @app.route('/news/messages', methods = ['GET'])
 def get_all_messages():
     """

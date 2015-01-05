@@ -145,7 +145,7 @@ angular.module('news')
 var NewsSaveController =
   function($scope, $modalInstance, news, $upload) {
     $scope.news = news;
-
+    
     $scope.uploadFile = function(fx,event) {
       var file = fx[0];
       $upload.upload({
@@ -155,7 +155,6 @@ var NewsSaveController =
         console.log('success');
         alert('上传成功！');
           $scope.news.video_link = data.path;
-        
       });
     };
 
@@ -190,6 +189,7 @@ var NewsSaveController =
     };
 
     $scope.ok = function() {
+      
       $modalInstance.close($scope.news);
     };
 

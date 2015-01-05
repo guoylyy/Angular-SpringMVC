@@ -117,7 +117,6 @@ def create_news():
         entity.video_link = request.json['video_link']
     else:
         entity.has_video = False
-
     try:
         with store_context(fs_store):
             if(request.json['temp_image'] is not None):
@@ -138,12 +137,10 @@ def update_news(id):
     entity = news.News.query.get(id)
     if not entity:
         abort(404)
-    entity = news.News(
-        title = request.json['title'],
-        content = request.json['content'],
-        is_draft = request.json['is_draft'],
-        id = id
-    )
+
+    entity.title = request.json['title']
+    entity.content = request.json['content']
+    entity.is_draft = request.json['is_draft']
     if(request.json['video_link'] is not None and len(request.json['video_link']) > 0):
         entity.has_video = True
         entity.video_link = request.json['video_link']
@@ -151,11 +148,21 @@ def update_news(id):
         entity.has_video = False
         entity.video_link = None
     
-    entity.update_time = datetime.datetime.now()
-    db.session.merge(entity)
-    db.session.commit()
-    entity = news.News.query.get(id)
-    return jsonify(entity.to_dict()), 200
+    try:
+        with store_context(fs_store):
+            if('temp_image' in request.args and request.json['temp_image'] is not None):
+                with open(files.path(request.json['temp_image'])) as f:
+                    entity.icon.from_file(f)
+                    db.session.merge(entity)
+                    db.session.commit()
+            else:
+                db.session.merge(entity)
+                db.session.commit()
+            return jsonify(entity.to_dict()), 200
+    except Exception, e:
+        raise e
+        abort(500)
+
 
 @app.route('/news/news/<int:id>', methods = ['DELETE'])
 def delete_news(id):
