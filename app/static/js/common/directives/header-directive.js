@@ -14,6 +14,10 @@ angular.module('news')
 					$location.url('login');
 					inform.add('请登录！', error_conf);
 				}
+				$scope.logout = function(){
+					$localStorage.token = undefined;
+					$location.url('/login');
+				};
 			}
 		};
 	});
