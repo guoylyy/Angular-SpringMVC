@@ -15,5 +15,5 @@ flask\Scripts\pip install flask-uploads
 flask\Scripts\pip install mysql-python
 flask\Scripts\pip install simplejson
 flask\Scripts\pip install jpush
-flask\Scripts\pip install install sqlalchemy_imageattach
+flask\Scripts\pip install sqlalchemy_imageattach
 
