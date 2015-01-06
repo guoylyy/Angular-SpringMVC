@@ -14,10 +14,26 @@ angular.module('news')
 					$location.url('login');
 					inform.add('请登录！', error_conf);
 				}
-				$scope.logout = function(){
+				$scope.logout = function() {
 					$localStorage.token = undefined;
 					$location.url('/login');
 				};
 			}
 		};
-	});
+	}).directive('ngConfirmClick', [
+		function() {
+			return {
+				priority: -1,
+				restrict: 'A',
+				link: function(scope, element, attrs) {
+					element.bind('click', function(e) {
+						var message = attrs.ngConfirmClick;
+						if (message && !confirm(message)) {
+							e.stopImmediatePropagation();
+							e.preventDefault();
+						}
+					});
+				}
+			}
+		}
+	]);;

@@ -122,7 +122,7 @@
                                     <span style="line-height:30px;">{{pdf.file_name}}</span> 
                                 </td>
                                 <td>
-                                    <label class="btn btn-danger" ng-click="delete_pdf(pdf.id)">删除</label>
+                                    <label class="btn btn-danger" ng-click="delete_pdf(pdf.id)" ng-confirm-click="你确定要删除么?">删除</label>
                                 </td>
                             </tr>
                         </tbody>
