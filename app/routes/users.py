@@ -131,7 +131,8 @@ def upload_icon():
 
 @app.route('/news/users', methods = ['GET'])
 def get_all_users():
-    entities = user.User.query.order_by(user.User.id.desc()).all()
+    #entities = user.User.query.order_by(user.User.id.desc()).all()
+    entities = user.User.query.order_by(user.User.id.desc()).filter(user.User.role != 'admin')
     return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/users/<int:id>', methods = ['GET'])
