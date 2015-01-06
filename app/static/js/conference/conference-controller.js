@@ -16,18 +16,18 @@ angular.module('news')
         uiColor: '#000000'
       };
       $scope.create = function() {
-        if(countActiveConference() >= 1){
+        if (countActiveConference() >= 1) {
           alert('已经有一个激活的会议内容了！');
-        }else{
+        } else {
           $scope.clear();
-          $scope.open("",true);
+          $scope.open("", true);
         }
       };
 
-      function countActiveConference(){
+      function countActiveConference() {
         var count = 0;
         for (var i = 0; i < $scope.conferences.length; i++) {
-          if(!$scope.conferences[i].is_draft){
+          if (!$scope.conferences[i].is_draft) {
             count++;
           }
         };
@@ -75,11 +75,11 @@ angular.module('news')
 
           "logistics_content": "",
 
-          "group_content":"",
+          "group_content": "",
 
           "layout_content": "",
 
-          "agenda_content" :"",
+          "agenda_content": "",
 
           "title": "",
 
@@ -99,9 +99,9 @@ angular.module('news')
 
       $scope.open = function(id, is_create) {
         var base_url = "views/conference/";
-        if(is_create){
+        if (is_create) {
           base_url = base_url + "conference-add.html";
-        }else{
+        } else {
           base_url = base_url + "conference-update.html";
         }
         var conferenceSave = $modal.open({
@@ -123,54 +123,100 @@ angular.module('news')
   ]);
 
 var ConferenceSaveController =
-  function($scope, $modalInstance, conference, $filter, $upload) {
-  $scope.conference = conference;
+  function($scope, $modalInstance, conference, $filter, $upload, $http) {
+    $scope.conference = conference;
+    $scope.requested_pdf = false;
+    $scope.pdfs = [];
+    //request the list of conference pdf
 
-  $scope.uploadFile = function(key,fx,event) {
-      var file = fx[0];
-      $upload.upload({
-        url: 'news/upload_image',
-        file: file
-      }).progress(function(evt) {}).success(function(data, status, headers, config) {
-        console.log('success');
-        alert('上传成功！');
-        $scope.conference[key] = $scope.conference[key] + getImageHTML(data.path);
-      });
-  };
-  function getImageHTML(path){
-    return '<img src="'+path +'" width="100%"></img>';
-  }
+    if ($scope.conference.id != undefined && !$scope.requested_pdf) {
+      $scope.requested_pdf == true;
+      request_pdf();
+    };
 
-  $scope.created_timeDateOptions = {
-    dateFormat: 'yy-mm-dd',
-  };
-  $scope.updated_timeDateOptions = {
-    dateFormat: 'yy-mm-dd',
-  };
-  $scope.started_timeDateOptions = {
-    dateFormat: 'yy-mm-dd',
-  };
-
-  $scope.$watch(function() {
-      return $scope.conference.started_time;
-    },
-    function(newValue, oldValue) {
-      if (newValue != undefined && newValue.indexOf('T') > -1) {
-        $scope.conference.started_time = $filter('date')(newValue,
-          'yyyy-MM-dd HH:mm:ss');
-      };
+    $scope.$watch(function() {
+        return $scope.conference.id;
+      },
+      function(newValue, oldValue) {
+        if(oldValue == undefined && newValue != undefined && $scope.requested_pdf == false){
+          request_pdf();
+        }
     });
 
-  $scope.onTimeSet = function(newDate, oldDate) {
-    $scope.conference.started_time = $filter('date')(newDate,
-      'yyyy-MM-dd HH:mm:ss');
-  };
+    function request_pdf() {
+      $http.get('news/conferences/' + $scope.conference.id + '/get_file/PDF')
+        .success(function(data) {
+          $scope.pdfs = data;
+        })
+        .error(function() {});
+    };
 
-  $scope.ok = function() {
-    $modalInstance.close($scope.conference);
-  };
+    $scope.delete_pdf = function(id){
+      $http.post('/news/conferences/file/'+id)
+        .success(function(data){
+          request_pdf();
+        })
+        .error(function(data){
+          alert('删除失败！');
+        });
+    };
 
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    $scope.uploadFile = function(key, fx, event) {
+      var file = fx[0];
+      if (key == 'pdf') {
+        $upload.upload({
+          url: '/news/conferences/' + $scope.conference.id + '/file_upload/PDF',
+          file: file
+        }).progress(function(evt) {}).success(function(data, status, headers, config) {
+          console.log('success');
+          request_pdf();
+        });
+      } else {
+        $upload.upload({
+          url: 'news/upload_image',
+          file: file
+        }).progress(function(evt) {}).success(function(data, status, headers, config) {
+          console.log('success');
+          alert('上传成功！');
+          $scope.conference[key] = $scope.conference[key] + getImageHTML(data.path);
+        });
+      }
+    };
+
+    function getImageHTML(path) {
+      return '<img src="' + path + '" width="100%"></img>';
+    }
+
+    $scope.created_timeDateOptions = {
+      dateFormat: 'yy-mm-dd',
+    };
+    $scope.updated_timeDateOptions = {
+      dateFormat: 'yy-mm-dd',
+    };
+    $scope.started_timeDateOptions = {
+      dateFormat: 'yy-mm-dd',
+    };
+
+    $scope.$watch(function() {
+        return $scope.conference.started_time;
+      },
+      function(newValue, oldValue) {
+        if (newValue != undefined && newValue.indexOf('T') > -1) {
+          $scope.conference.started_time = $filter('date')(newValue,
+            'yyyy-MM-dd HH:mm:ss');
+        };
+      });
+
+    $scope.onTimeSet = function(newDate, oldDate) {
+      $scope.conference.started_time = $filter('date')(newDate,
+        'yyyy-MM-dd HH:mm:ss');
+    };
+
+    $scope.ok = function() {
+      $modalInstance.close($scope.conference);
+    };
+
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel');
+    };
   };
-};

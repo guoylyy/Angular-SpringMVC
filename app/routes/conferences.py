@@ -24,7 +24,7 @@ def upload_file(id, ftype):
     else:
         abort(500)
 
-@app.route('/news/conferences/file/<int:id>', methods=['DELETE'])
+@app.route('/news/conferences/file/<int:id>', methods=['POST'])
 def delete_uploaded_file(id):
     "删除上传的文件"
     entity = conference.ConferenceFile.query.get(id)

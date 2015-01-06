@@ -53,7 +53,6 @@ def get_topic(id):
         abort(404)
     return jsonify(entity.list())
 
-
 @app.route('/news/topic/<int:id>/add_news/<int:nid>', methods = ['GET'])
 def add_topic_news(id,nid):
     topic = news.Topic.query.get(id)
@@ -64,7 +63,6 @@ def add_topic_news(id,nid):
     db.session.add(topic)
     db.session.commit()
     return jsonify(dict(result='success'))
-
 
 @app.route('/news/topic/<int:id>/upload_image',methods = ['POST'])
 def add_topic_image(id):
@@ -86,12 +84,12 @@ def get_all_topics():
 @app.route('/news/simple_news', methods = ['GET'])
 def get_simple_news():
     """ 获取所有新闻的预览列表 """
-    entities = news.News.query.all()
+    entities = news.News.query.order_by(news.News.update_time.desc()).all()
     return json.dumps([entity.to_list_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/news', methods = ['GET'])
 def get_all_news():
-    entities = news.News.query.all()
+    entities = news.News.query.order_by(news.News.update_time.desc()).all()
     return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/news/<int:id>', methods = ['GET'])
@@ -106,8 +104,8 @@ def create_news():
     entity = news.News(
         title = request.json['title']
         , content = request.json['content']
-        , is_draft = request.json['is_draft']
     )
+    entity.is_draft = False
     entity.update_time = datetime.datetime.now()
     entity.create_time = datetime.datetime.now()
     entity.author = '管理员'
@@ -137,10 +135,8 @@ def update_news(id):
     entity = news.News.query.get(id)
     if not entity:
         abort(404)
-
     entity.title = request.json['title']
     entity.content = request.json['content']
-    entity.is_draft = request.json['is_draft']
     if(request.json['video_link'] is not None and len(request.json['video_link']) > 0):
         entity.has_video = True
         entity.video_link = request.json['video_link']

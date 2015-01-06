@@ -103,7 +103,32 @@
                     <span class="error" ng-show="form.agenda_content.$error.minlength">Must be at least  characters.</span>
                     <span class="error" ng-show="form.agenda_content.$error.maxlength">Must be at most  characters.</span>
                 </div>
-              
+                
+                 <div class="form-group">
+                    <label>会议相关 PDF:</label>
+                    <br>
+                    <span class="btn btn-primary btn-file">
+                        上传 pdf <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('pdf',$files, $event)" name="file" accept="pdf/*"/>
+                    </span>
+                    <br>
+                    <table class="table table-bordered" style="margin-top:10px;"> 
+                        <thead>
+                            <th>文件名</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="pdf in pdfs">
+                                <td>
+                                    <span style="line-height:30px;">{{pdf.file_name}}</span> 
+                                </td>
+                                <td>
+                                    <label class="btn btn-danger" ng-click="delete_pdf(pdf.id)">删除</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 
                 <div class="form-group">
                     <label>是否只作为草稿:</label>
