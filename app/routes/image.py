@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from app import app, db
 from app.models import image
+from app.tools import _rename_file
 from flask import abort, jsonify, request, send_file
 from app.extensions import fs_store, files
 import datetime
@@ -17,7 +18,9 @@ def mockimage():
 def update_mockimage():
 	"""修改 app 开启页面"""
 	try:
-		filename = files.save(request.files['file'])
+		o_file = request.files['file']
+		o_file.filename = _rename_file(o_file.filename)
+		filename = files.save(o_file)
 		filepath = files.url(filename)
 		mockimages = image.MockImage.query.all()
 		if len(mockimages) > 0:
@@ -41,7 +44,9 @@ def main_page_images():
 def update_mainpage_image(id):
 	"""添加主页广告图片"""
 	try:
-		filename = files.save(request.files['file'])
+		o_file = request.files['file']
+		o_file.filename = _rename_file(o_file.filename)
+		filename = files.save(o_file)
 		filepath = files.url(filename)
 		en = image.MainPageImage.query.get(id)
 		if not en:
@@ -72,7 +77,9 @@ def update_image_news_link(id):
 @app.route('/news/upload_image', methods= ['POST'])
 def upload_image():
 	try:
-		filename = files.save(request.files['file'])
+		o_file = request.files['file']
+		o_file.filename = _rename_file(o_file.filename)
+		filename = files.save(o_file)
 		filepath = files.url(filename)
 		return jsonify(dict(path=filepath,filename=filename))
 	except Exception, e:

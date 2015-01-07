@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from app import app, db
 from app.models import conference
+from app.tools import _rename_file
 from flask import abort, jsonify, request
 from app.extensions import files
 from werkzeug.utils import secure_filename
@@ -16,7 +17,9 @@ def upload_file(id, ftype):
         abort(404)
     if ftype in conference.ConferenceAttachmentTypeEnum:
         realname = request.files['file'].filename.encode('utf-8')
-        filename = files.save(request.files['file'])
+        o_file = request.files['file']
+        o_file.filename = _rename_file(o_file.filename) 
+        filename = files.save(o_file)
         c = conference.ConferenceFile(conference_id=entity.id,
                 file_name=realname,file_path=files.url(filename),
                 file_type=ftype)
@@ -94,7 +97,6 @@ def create_conference():
     entity.created_time = datetime.datetime.now()
     entity.updated_time = datetime.datetime.now()
     entity.view_count = 0
-
     db.session.add(entity)
     db.session.commit()
     return jsonify(entity.to_dict()), 201

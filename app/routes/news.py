@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from app import app, db
 from app.models import news
+from app.tools import _rename_file
 from flask import abort, jsonify, request
 from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
 from app.extensions import fs_store, files
@@ -110,7 +111,7 @@ def create_news():
     entity.create_time = datetime.datetime.now()
     entity.author = '管理员'
     entity.view_count = 0
-    if(len(request.json['video_link']) is not None):
+    if(len(request.json['video_link']) != 0):
         entity.has_video = True
         entity.video_link = request.json['video_link']
     else:
