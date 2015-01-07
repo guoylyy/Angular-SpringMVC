@@ -5,7 +5,7 @@ angular.module('news')
     function($scope, $modal, resolvedNews, News) {
 
       $scope.newses = resolvedNews;
-
+      
       $scope.editorOptions = {
         language: 'ru',
         uiColor: '#000000',

@@ -1,7 +1,7 @@
 // Declare app level module which depends on filters, and services
 angular.module('news', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date',
     'ui.bootstrap.datetimepicker', 'ngCkeditor', 'angularFileUpload', 'ngStorage',
-    'inform'
+    'inform','datatables'
   ])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider

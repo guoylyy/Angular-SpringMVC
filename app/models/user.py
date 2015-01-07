@@ -54,6 +54,7 @@ class User(db.Model):
                 name = self.name,
                 role = self.role,
                 email = self.email,
+                password = self.password,
                 nickname=self.nickname,
                 registered_time = self.registered_time.isoformat(),
                 is_active = self.is_active,

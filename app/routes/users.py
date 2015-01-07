@@ -180,6 +180,7 @@ def update_user(id):
         account = request.json['account'],
         name = request.json['name'],
         email = request.json['email'],
+        password = request.json['password'],
         phone_number = request.json['phone_number'],
         description = request.json['description'],
         nickname = request.json['nickname'],

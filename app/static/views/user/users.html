@@ -1,8 +1,6 @@
 <header></header>
 <div>
-
     <h2>用户管理</h2>
-    
     <script type = "text/ng-template" id="user-create.html">
         <form name="form" role="form" novalidate
               class="ng-scope ng-invalid ng-invalid-required ng-dirty"
@@ -117,6 +115,15 @@
                     <span class="error" ng-show="form.account.$error.maxlength">Must be at most 200 characters.</span>
                 </div>
                
+               <div class="form-group">
+                    <label>密码:</label>
+                    
+                    <input type="text" class="form-control" name="password"
+                           ng-model="user.password" ng-required="true"
+                           ng-minlength=0 ng-maxlength=500/>
+                    <span class="error" ng-show="form.password.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.password.$error.maxlength">Must be at most 500 characters.</span>
+                </div>
                 
                 <div class="form-group">
                     <label>姓名:</label>
@@ -189,8 +196,8 @@
         <span class="glyphicon glyphicon-flash"></span> 创建一个新用户
     </button>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive" style="margin-top:20px;">
+        <table class="table table-striped" datatable="">
             <thead>
             <tr>
                 <th>ID</th>
@@ -204,6 +211,8 @@
                 <th>备注</th>
                 
                 <th>公司</th>
+
+                <th></th>
             </tr>
             </thead>
             <tbody>
