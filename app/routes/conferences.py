@@ -4,6 +4,7 @@ from app import app, db
 from app.models import conference
 from flask import abort, jsonify, request
 from app.extensions import files
+from werkzeug.utils import secure_filename
 import datetime
 import json
 
@@ -14,9 +15,10 @@ def upload_file(id, ftype):
     if entity is None:
         abort(404)
     if ftype in conference.ConferenceAttachmentTypeEnum:
+        realname = request.files['file'].filename.encode('utf-8')
         filename = files.save(request.files['file'])
         c = conference.ConferenceFile(conference_id=entity.id,
-                file_name=filename,file_path=files.url(filename),
+                file_name=realname,file_path=files.url(filename),
                 file_type=ftype)
         db.session.add(c)
         db.session.commit()
