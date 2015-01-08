@@ -1,0 +1,78 @@
+<header></header>
+<div>
+
+    <h2>首页通知</h2>
+
+    <script type = "text/ng-template" id="inform-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myInformLabel">新建一个通知</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group">
+                    <label>内容:</label>
+                    
+                    <textarea type="text" class="form-control" name="title"
+                           ng-model="inform.title" ng-required="true"
+                           />
+                    <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">取消
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">保存</button>
+            </div>
+        </form>
+    </script>
+
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span> 新建一个首页通知
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>编号</th>
+                
+                <th>内容</th>
+                
+                <th>创建时间</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="inform in informs">
+                <td>{{inform.id}}</td>
+                
+                <td>{{inform.title }}</td>
+                
+                <td>{{inform.create_time  | date:'yyyy-MM-dd'}}</td>
+                
+                <td>
+                    <button type="submit"
+                            ng-click="update(inform.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> 编辑
+                    </button>
+                   <!--  <button type="submit"
+                            ng-click="delete(inform.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button> -->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

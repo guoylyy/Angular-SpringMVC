@@ -292,6 +292,26 @@
 					"required": false
 				}
 			]
+		},
+		{
+			"name": "inform",
+			"attrs": [
+				{
+					"attrName": "title",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "create_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				}
+			]
 		}
 	],
 	"resources": []

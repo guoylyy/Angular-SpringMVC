@@ -6,10 +6,10 @@ from flask import abort, jsonify, request
 import datetime
 import json
 
-@app.route('/news/placard/all', methods=['GET'])
-def get_placard():
-    """获取公告 TODO:添加和删除公告，我擦啦"""
-    return json.dumps([entity.to_dict() for entity in message.Placard.query.all()],ensure_ascii=False)
+# @app.route('/news/placard/all', methods=['GET'])
+# def get_placard():
+#     """获取公告 TODO:添加和删除公告，我擦啦"""
+#     return json.dumps([entity.to_dict() for entity in message.Placard.query.all()],ensure_ascii=False)
 
 @app.route('/news/message/send', methods = ['POST'])
 def send_message():
