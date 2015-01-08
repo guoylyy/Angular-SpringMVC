@@ -161,7 +161,7 @@ def create_user():
     #header = get('http://ww3.sinaimg.cn/mw690/63ea4d33gw1ejhpwui71sj20u00k045s.jpg').content
     try:
         with store_context(fs_store):
-            with open('app/static/image/default_header.jpg') as f:
+            with open('app/static/image/default_header.png') as f:
                 entity.generate_token()
                 entity.header_icon.from_file(f)
                 db.session.add(entity)
