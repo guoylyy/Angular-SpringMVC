@@ -144,7 +144,7 @@ def update_news(id):
     else:
         entity.has_video = False
         entity.video_link = None
-    
+    entity.update_time = datetime.datetime.now()
     try:
         with store_context(fs_store):
             if('temp_image' in request.json.keys() and request.json['temp_image'] is not None):
