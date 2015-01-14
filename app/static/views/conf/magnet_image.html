@@ -5,7 +5,7 @@
    <button  class="btn btn-primary btn-lg" ng-file-select="" ng-model="picFile" name="file" accept="image/*" ng-file-change="generateThumb()" required="" ng-multiple="false"  >上传一个新图片</button> 
 	<i ng-show="myForm.file.$error.required">*required</i>
 	  	<br>
-    <p>注明：图片分辨率必须是 1024*512</p>
+    <p>注明：图片分辨率必须是 512*1024</p>
     <div class="table-responsive" style="padding-top:10px;">
        	<img src="{{entity.url}}">
     </div>
