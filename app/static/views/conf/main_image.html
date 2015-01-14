@@ -10,6 +10,8 @@
                 
                 <th>链接到文章</th>
                 
+                <th>显示</th>
+
 				<th>操作</th>
             </tr>
             </thead>
@@ -18,10 +20,13 @@
                 <td><img src="{{entity.link}}" width="200" height="120"></td>                
                 <td>
                     <select ng-model="entity.news_id" ng-options="news.id as news.title for news in newses"
-                     ng-change="update_news(entity)">
+                     ng-change="update_news(entity)" style="max-width:120px;">
                     </select>
                 </td>
-
+                <td>
+                    
+                <select ng-model="entity.visiable"  ng-change="update_news(entity)" ng-options="o.v as o.n for o in [{ n: '否', v: false }, { n: '是', v: true }]"></select>
+                </td>
                 <td>
                     <button class="btn" ng-file-select="" ng-model="picFile" name="file" accept="image/*" ng-file-change="generateThumb(entity.id,$files, $event)" required=""ng-multiple="true" >
                         <span class="glyphicon glyphicon-pencil"></span> 更换图片

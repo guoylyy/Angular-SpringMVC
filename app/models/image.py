@@ -42,6 +42,7 @@ class MainPageImage(db.Model):
     name = db.Column(db.String(200))
     link = db.Column(db.String(500))
     news_id = db.Column(db.Integer)
+    visiable = db.Column(db.Boolean)
     image = image_attachment('MainPageImageStore')
 
     def to_dict(self):
@@ -51,7 +52,8 @@ class MainPageImage(db.Model):
                 order=self.order,
                 name=self.name,
                 link=self.link,
-                news_id=self.news_id
+                news_id=self.news_id,
+                visiable = self.visiable
                 )
 
 class MainPageImageStore(db.Model, im):

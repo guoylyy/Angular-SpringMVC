@@ -37,8 +37,15 @@ def update_mockimage():
 @app.route('/news/mainpage_images', methods=['GET'])
 def main_page_images():
 	"""获取主页滚动的广告图片列表"""
+	images = image.MainPageImage.query.filter(image.MainPageImage.visiable==True)
+	return json.dumps([im.to_dict() for im in images],ensure_ascii=False)
+
+@app.route('/news/mainpage_images/backend', methods=['GET'])
+def backend_main_page_images():
 	images = image.MainPageImage.query.all()
 	return json.dumps([im.to_dict() for im in images],ensure_ascii=False)
+
+
 
 @app.route('/news/update_mainpage_image/<int:id>', methods=['POST'])
 def update_mainpage_image(id):
@@ -67,6 +74,7 @@ def update_image_news_link(id):
 		if not en:
 			abort(404)
 		en.news_id = news_id
+		en.visiable = request.json['visiable']
 		db.session.merge(en)
 		db.session.commit()
 		return jsonify(dict(result='success'))

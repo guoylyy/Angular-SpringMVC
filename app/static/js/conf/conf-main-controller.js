@@ -5,7 +5,7 @@ angular.module('news')
     function ($scope, $modal, $http ,$upload) {
     	$scope.idd = 1;
     	function load_entities(){
-    		$http.get('news/mainpage_images').
+    		$http.get('news/mainpage_images/backend').
     			success(function(data){
     				$scope.entities = data;
     			}).
@@ -44,7 +44,7 @@ angular.module('news')
     		$http({
     			url:'news/update_news_link/'+entity.id,
     			method: 'POST',
-    			data:{'news_id':entity.news_id}
+    			data:{'news_id':entity.news_id,'visiable':entity.visiable}
     		}).then(function(data){
     			console.log(data);
     		}, function(data){
