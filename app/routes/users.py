@@ -38,7 +38,7 @@ def login():
           account = request.json['account']
         , password = request.json['password'])
     u = user.User.query.filter(user.User.account == entity.account).first()
-    if not u:
+    if not u or not u.is_active:
         abort(404)
     if entity.password == u.password:
         if u.token is None:
@@ -132,7 +132,7 @@ def upload_icon():
 @app.route('/news/users', methods = ['GET'])
 def get_all_users():
     #entities = user.User.query.order_by(user.User.id.desc()).all()
-    entities = user.User.query.order_by(user.User.id.desc()).filter(user.User.role != 'admin')
+    entities = user.User.query.order_by(user.User.id.desc()).filter(user.User.role != 'admin').filter(user.User.is_active==True)
     return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
 @app.route('/news/users/<int:id>', methods = ['GET'])
@@ -200,6 +200,7 @@ def delete_user(id):
     if not entity:
         abort(404)
     with store_context(fs_store):
-        db.session.delete(entity)
+        entity.is_active = False
+        db.session.merge(entity)
         db.session.commit()
         return '', 204
