@@ -3,7 +3,7 @@
 该文档主要是说明 XXX 新闻 APP 客户端后台 API 说明规范，包括数据调用接口 URL、数据调用方式、数据示例类型，帮助开发人员通过 API 获取数据，快速开发和部署。
 
 ```
-请求 BASEURL: http://10.60.43.10:5000/
+请求 BASEURL: http://aero.wisdomriver.com.cn/
 请求发送数据头部: Content-Type="application/json;odata=verbose"
 
 ```
@@ -23,7 +23,7 @@ Post: {"account":"xxx", "password":"fdsfa"}
 Response:
 {
     "account": "system2",
-  "password" : "1234",
+    "password" : "1234",
     "description": "321312",
     "email": "3272272993@qq.com",
     "header_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.480x320.jpe?_ts=20141207013905000000",
@@ -53,7 +53,7 @@ Post: {"name":"xxx", "nickname":"xxx","token":"fdsafsa"}
 Response:
 {
     "account": "system2",
-  "password" : "1234",
+    "password" : "1234",
     "description": "321312",
     "email": "3272272993@qq.com",
     "header_large": "file:///Users/globit/git/news_api/app/extensions/userimages/user-header/1/0/1.480x320.jpe?_ts=20141207013905000000",
@@ -263,12 +263,12 @@ Response:
 
 这里的会展介绍包含了介绍、交通住宿、组委会、会场布局、会议日程。都是以 HTML 的形式返回到前端，和夏老板讨论了觉得这样更加科学。
 
-* url: news/conferences/content   news/conferences/simple_content   
+* url: news/conferences/content  |  news/conferences/simple_content   
 * method: get
 
 ```
 Response:
-
+//请查看返回的列表
 ```
 
 
@@ -283,6 +283,6 @@ Response:
 
 ```
 Response:
-
+//查看返回的列表
 ```
 
