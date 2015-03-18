@@ -73,6 +73,7 @@ Response:
 * url: news/user/upload_icon
 * method :post
 
+这里要去掉 content-type
 ```
 Request:
    "file" : 图片  //这里post要按照提交文件的方式提交

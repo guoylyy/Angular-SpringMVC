@@ -47,6 +47,11 @@ class User(db.Model):
 
     header_icon = image_attachment('UserHeader')
 
+    #department = db.Column(db.String(100))
+    #title = db.Column(db.String(100))
+    #work_phone = db.Column(db.String(100))
+    #zone = db.Column
+
     def to_dict(self):
         with store_context(fs_store):
             return dict(
