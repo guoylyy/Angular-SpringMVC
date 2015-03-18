@@ -29,6 +29,39 @@ def admin_login():
     else:
         abort(500)
 
+@app.route('/news/register', methods= ['POST'])
+def register():
+    """
+        User registeration
+        #TODO duplicative code 
+    """
+    if user.User.query.filter(user.User.name == request.json['name']).count() > 0:
+        abort(500)
+    entity = user.User(
+        account = request.json['account']
+        , password = request.json['password']
+        , name = request.json['name']
+        , zone = request.json['zone'] #地区
+        , company = request.json['company']
+        , phone_number = request.json['phone_number']
+    )
+    entity.registered_time = datetime.datetime.now().date();
+    entity.lastlogin_time = datetime.datetime.now().date();
+    entity.myattr = ''  #无用字段
+    entity.is_active = True
+    entity.is_vip = False
+    entity.role = 'user'
+    try:
+        with store_context(fs_store):
+            with open('app/static/image/default_header.png') as f:
+                entity.generate_token()
+                entity.header_icon.from_file(f)
+                db.session.add(entity)
+                db.session.commit()
+                return jsonify(entity.to_dict()), 201
+    except Exception, e:
+        abort(500)
+
 @app.route('/news/login', methods= ['POST'])
 def login():
     """
@@ -144,6 +177,8 @@ def get_user(id):
 
 @app.route('/news/users', methods = ['POST'])
 def create_user():
+    if user.User.query.filter(user.User.name == request.json['name']).count() > 0:
+        abort(500)
     entity = user.User(
         account = request.json['account']
         , password = request.json['password']
@@ -168,7 +203,6 @@ def create_user():
                 db.session.commit()
                 return jsonify(entity.to_dict()), 201
     except Exception, e:
-        raise e
         abort(500)
 
 @app.route('/news/users/<int:id>', methods = ['PUT'])

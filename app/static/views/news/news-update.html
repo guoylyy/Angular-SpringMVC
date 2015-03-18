@@ -2,70 +2,81 @@
               class="ng-scope ng-invalid ng-invalid-required ng-dirty"
               ng-submit="ok()">
 
-            <div class="modal-header" >
-                <button type="button" class="close"
+     <div class="modal-header" >
+         <button type="button" class="close"
                         ng-click="cancel()">&times;</button>
-                        <h4 class="modal-title" id="myNewsLabel"><span>更新咨询</span></h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" ng-if="">
-                    <label>编号</label>
-                    <input type="text" class="form-control" name="id"
-                           ng-model="news.id" readonly>
-                </div>
-                <div class="form-group">
-                    <label>标题:</label>
-                    
-                    <input type="text" class="form-control" name="title"
+         <h4 class="modal-title" id="myNewsLabel">
+             <span>更新咨询</span>
+         </h4>
+     </div>
+     <div class="modal-body">
+         <div class="form-group" ng-if="">
+             <label>编号</label>
+             <input type="text" class="form-control" name="id"
+                           ng-model="news.id" readonly></div>
+         <div class="form-group">
+             <label>标题:</label>
+
+             <input type="text" class="form-control" name="title"
                            ng-model="news.title" ng-required="true"
-                           />
-                    <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
-                </div>
+                           /> 
+             <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
+             <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
+         </div>
 
-                <div class="form-group">
-                    <label>内容:</label>
-                    <br>
-                    <span class="btn btn-primary btn-file">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('content',$files, $event)" name="file" accept="image/*"/>
-                    </span>
-                    
-                    <textarea ckeditor="editorOptions" ng-model="news.content" ng-required="true"></textarea>
-                    <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
-                    <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label >缩略图(必填)</label>
-                    <br>
-                    <span class="btn btn-primary btn-file" styles="padding-top:5px;">
-                        插入图片 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('icon',$files, $event)" name="file" accept="image/*" />
-                    </span>
-                    <br>
-                    <img ng-src="{{news.icon}}" width="250" styles="margin-top:5px;">
-                </div>
+         <div class="form-group">
+             <label>语言:</label>
 
-<!--                 <div class="form-group">
-                    <label>是否作为草稿:</label>
-                    
-                    <input type="checkbox" name="is_draft"
-                           ng-model="news.is_draft"  ng-required="false"/>
-                </div> -->
-                <br>
-                <div class="form-group" >
-                    <label>视频链接（可不加）:</label>
-                    <input type="text" class="form-control" name="video_link" 
-                           ng-model="news.video_link" ng-required="false"/>
-                    
-                </div>
-                 <span class="btn btn-primary btn-file">
-                        插入视频 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/>
-                    </span>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="cancel()">取消
-                </button>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">保存</button>
-            </div>
-        </form>
+             <select ng-options="entity.name for entity in languages track by entity.value" ng-model="select.language"></select>
+             <span class="error" ng-show="form.title.$error.minlength">Must be at least  characters.</span>
+             <span class="error" ng-show="form.title.$error.maxlength">Must be at most  characters.</span>
+         </div>
+
+         <div class="form-group">
+             <label>内容:</label>
+             <br> 
+             <span class="btn btn-primary btn-file">
+                 插入图片
+                 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('content',$files, $event)" name="file" accept="image/*"/> 
+             </span>
+
+             <textarea ckeditor="editorOptions" ng-model="news.content" ng-required="true"></textarea>
+             <span class="error" ng-show="form.content.$error.minlength">Must be at least  characters.</span>
+             <span class="error" ng-show="form.content.$error.maxlength">Must be at most  characters.</span>
+         </div>
+
+         <div class="form-group">
+             <label >缩略图(必填)</label>
+             <br> 
+             <span class="btn btn-primary btn-file" styles="padding-top:5px;">
+                 插入图片
+                 <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadImage('icon',$files, $event)" name="file" accept="image/*" /> 
+             </span>
+             <br> 
+             <img ng-src="{{news.icon}}" width="250" styles="margin-top:5px;"></div>
+
+         <!--                 <div class="form-group"> 
+         <label>是否作为草稿:</label>
+
+         <input type="checkbox" name="is_draft"
+                           ng-model="news.is_draft"  ng-required="false"/> 
+     </div>
+     -->
+     <br> 
+     <div class="form-group" >
+         <label>视频链接（可不加）:</label>
+         <input type="text" class="form-control" name="video_link" 
+                           ng-model="news.video_link" ng-required="false"/> 
+
+     </div>
+     <span class="btn btn-primary btn-file">
+         插入视频
+         <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile($files, $event)" name="file"/> 
+     </span>
+
+ </div>
+ <div class="modal-footer">
+     <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">保存</button>
+ </div>
+ </form>

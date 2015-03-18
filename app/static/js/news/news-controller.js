@@ -145,7 +145,35 @@ angular.module('news')
 var NewsSaveController =
   function($scope, $modalInstance, news, $upload) {
     $scope.news = news;
-    
+    $scope.languages = [
+      {
+        name:'中文',
+        value:'zh'
+      },
+      {
+        name:'英文',
+        value:'en'
+      },
+      {
+        name:'中英文',
+        value:'zhen'
+      }
+    ];
+    $scope.select = {
+      language : null
+    };
+    if($scope.news.news_language == null || $scope.news.news_language == undefined){
+      $scope.select.language = $scope.languages[0];
+    }else{
+      for (var i = 0; i < $scope.languages.length; i++) {
+        var entity = $scope.languages[i];
+        if(entity.value == $scope.news.news_language){
+          $scope.select.language = entity;
+          break;
+        }
+      };
+    }
+
     $scope.uploadFile = function(fx,event) {
       var file = fx[0];
       $upload.upload({
@@ -189,7 +217,7 @@ var NewsSaveController =
     };
 
     $scope.ok = function() {
-      
+      $scope.news['news_language'] = $scope.select.language.value;
       $modalInstance.close($scope.news);
     };
 

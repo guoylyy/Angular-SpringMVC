@@ -23,7 +23,15 @@
                 
                 <th>创建时间</th>
                 
-                <th>是否为草稿</th>
+                <th>是否显示</th>
+
+                <th>
+                    安卓设备显示
+                    <br>
+                    <span style="font-size:11px;">(只能显示一个)</span>
+                </th>
+
+                <th>苹果设备显示</th>
                 
             </tr>
             </thead>
@@ -39,7 +47,10 @@
                 
                
                 
-                <td>{{conference.is_draft }}</td>
+                <td>{{conference.is_draft | DraftFilter}}</td>
+
+                <td>{{conference.is_show_android | deviceFilter }}</td>
+                <td>{{conference.is_show_ios | deviceFilter }}</td>
                 
                 <td>
                     <button type="submit"

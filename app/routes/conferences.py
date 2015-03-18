@@ -55,10 +55,18 @@ def get_all_conferences():
     entities = conference.Conference.query.all()
     return json.dumps([entity.to_dict() for entity in entities],ensure_ascii=False)
 
+@app.route('/news/conferences/list/ios', methods = ['GET'])
+def get_all_active_conferences():
+    entities = conference.Conference.query.filter(conference.Conference.is_draft==False,
+        conference.Conference.is_show_ios == True).order_by(conference.Conference.started_time.desc())
+    return json.dumps([entity.to_simple_dict() for entity in entities],ensure_ascii=False)
+
+
 @app.route('/news/conferences/content', methods = ['GET'])
 def get_conference():
     "获取会议所有详情"
-    entity = conference.Conference.query.first()
+    entity = conference.Conference.query.filter(conference.Conference.is_draft==False
+        ,conference.Conference.is_show_android==True).first()
     if not entity:
         abort(404)
     return jsonify(entity.to_dict())
@@ -66,7 +74,8 @@ def get_conference():
 @app.route('/news/conferences/simple_content', methods = ['GET'])
 def get_simple_conference():
     "获取会议的简介(不带详情版本)"
-    entity = conference.Conference.query.first()
+    entity = conference.Conference.query.first(conference.Conference.is_draft==False
+        ,conference.Conference.is_show_android==True).first()
     if not entity:
         abort(404)
     return jsonify(entity.to_simple_dict())
@@ -93,6 +102,8 @@ def create_conference():
         , title = request.json['title']
         , started_time = datetime.datetime.strptime(request.json['started_time'], "%Y-%m-%d %H:%M:%S")
         , is_draft = request.json['is_draft']
+        , is_show_android = request.json['is_show_android']
+        , is_show_ios = request.json['is_show_ios']
     )
     entity.created_time = datetime.datetime.now()
     entity.updated_time = datetime.datetime.now()
@@ -112,11 +123,13 @@ def update_conference(id):
         , logistics_content = request.json['logistics_content']
         , layout_content = request.json['layout_content']
         , agenda_content = request.json['agenda_content']
-        , group_content = request.json['group_content'],
-        title = request.json['title'],
-        started_time = datetime.datetime.strptime(request.json['started_time'], "%Y-%m-%d %H:%M:%S"),
-        is_draft = request.json['is_draft'],
-        id = id
+        , group_content = request.json['group_content']
+        , title = request.json['title']
+        , started_time = datetime.datetime.strptime(request.json['started_time'], "%Y-%m-%d %H:%M:%S")
+        , is_draft = request.json['is_draft']
+        , is_show_android = request.json['is_show_android']
+        , is_show_ios = request.json['is_show_ios']
+        , id = id
     )
     entity.updated_time = datetime.datetime.now()
     db.session.merge(entity)

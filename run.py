@@ -1,2 +1,2 @@
 from app import app
-app.run(threaded=True)
+app.run(debug=True)

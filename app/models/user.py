@@ -47,10 +47,13 @@ class User(db.Model):
 
     header_icon = image_attachment('UserHeader')
 
-    #department = db.Column(db.String(100))
-    #title = db.Column(db.String(100))
-    #work_phone = db.Column(db.String(100))
-    #zone = db.Column
+    department = db.Column(db.String(100))
+
+    title = db.Column(db.String(100))
+
+    work_phone = db.Column(db.String(100))
+
+    zone = db.Column(db.String(100))
 
     def to_dict(self):
         with store_context(fs_store):
@@ -70,6 +73,10 @@ class User(db.Model):
                 token = self.token,
                 id = self.id,
                 is_vip = self.is_vip,
+                zone = self.zone,
+                work_phone = self.work_phone,
+                title = self.title,
+                department = self.department,
                 company = self.company,
                 header_large = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_LARGE).locate(),
                 header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),

@@ -16,12 +16,8 @@ angular.module('news')
         uiColor: '#000000'
       };
       $scope.create = function() {
-        if (countActiveConference() >= 1) {
-          alert('已经有一个激活的会议内容了！');
-        } else {
           $scope.clear();
           $scope.open("", true);
-        }
       };
 
       function countActiveConference() {

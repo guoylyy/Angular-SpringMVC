@@ -25,6 +25,8 @@ class News(db.Model):
     author = db.Column(db.String(100))
     
     view_count = db.Column(db.Integer)
+
+    awesome_count = db.Column(db.Integer)
     
     is_draft = db.Column(db.Boolean)
 
@@ -39,6 +41,8 @@ class News(db.Model):
 
     files = db.relationship('NewsFile', backref="news", lazy="dynamic")
 
+    news_language = db.Column(db.String(10))
+
     def to_dict(self):
         with store_context(fs_store):
             return dict(
@@ -48,11 +52,13 @@ class News(db.Model):
                 update_time = self.update_time.isoformat(),
                 author = self.author,
                 view_count = self.view_count,
+                awesome_count = self.awesome_count,
                 is_draft = self.is_draft,
                 id = self.id,
                 icon=self.icon.locate(),
                 has_video =self.has_video,
-                video_link = self.video_link
+                video_link = self.video_link,
+                news_language = self.news_language
             )
 
     def to_list_dict(self):
@@ -62,9 +68,12 @@ class News(db.Model):
                 title=self.title,
                 create_time = self.create_time.isoformat(),
                 author=self.author,
+                awesome_count =self.awesome_count,
+                view_count = self.view_count,
                 icon=find_or_create_thumbnail(self,self.icon,100).locate(),
                 has_video =self.has_video,
-                video_link = self.video_link
+                video_link = self.video_link,
+                news_language = self.news_language
                 )
 
     def get_files(self):

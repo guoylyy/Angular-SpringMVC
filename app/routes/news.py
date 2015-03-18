@@ -100,17 +100,40 @@ def get_news(id):
         abort(404)
     return json.dumps(entity.to_dict(),ensure_ascii=False)
 
+@app.route('/news/news/<int:id>/view', methods=['POST'])
+def view_news(id):
+    entity = news.News.query.get(id)
+    if not entity:
+        abort(404)
+    entity.view_count = entity.view_count + 1
+    db.session.add(entity)
+    db.session.commit()
+    return jsonify({'view_count':entity.view_count,'id':entity.id}),200
+
+@app.route('/news/news/<int:id>/awesome', methods=['POST'])
+def awesome_news(id):
+    entity = news.News.query.get(id)
+    if not entity:
+        abort(404)
+    entity.awesome_count = entity.awesome_count + 1
+    db.session.add(entity)
+    db.session.commit()
+    return jsonify({'awesome_count':entity.awesome_count,'id':entity.id}),200  
+
+
 @app.route('/news/news', methods = ['POST'])
 def create_news():
     entity = news.News(
         title = request.json['title']
         , content = request.json['content']
+        , news_language = request.json['news_language']
     )
     entity.is_draft = False
     entity.update_time = datetime.datetime.now()
     entity.create_time = datetime.datetime.now()
     entity.author = '管理员'
     entity.view_count = 0
+    entity.awesome_count = 0
     if(len(request.json['video_link']) != 0):
         entity.has_video = True
         entity.video_link = request.json['video_link']
@@ -138,6 +161,7 @@ def update_news(id):
         abort(404)
     entity.title = request.json['title']
     entity.content = request.json['content']
+    entity.news_language = request.json['news_language']
     if(request.json['video_link'] is not None and len(request.json['video_link']) > 0):
         entity.has_video = True
         entity.video_link = request.json['video_link']

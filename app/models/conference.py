@@ -24,8 +24,12 @@ class Conference(db.Model):
     
     view_count = db.Column(db.Integer)
     
-    is_draft = db.Column(db.Boolean)
+    is_draft = db.Column(db.Boolean) 
     
+    is_show_ios = db.Column(db.Boolean) #show or not in ios device
+
+    is_show_android = db.Column(db.Boolean) # show or not in android
+
     def to_dict(self):
         return dict(
             intro_content = self.intro_content,
@@ -39,6 +43,8 @@ class Conference(db.Model):
             started_time = self.started_time.isoformat(),
             view_count = self.view_count,
             is_draft = self.is_draft,
+            is_show_ios = self.is_show_ios,
+            is_show_android = self.is_show_android,
             id = self.id
         )
 
@@ -50,6 +56,8 @@ class Conference(db.Model):
             started_time = self.started_time.isoformat(),
             view_count = self.view_count,
             is_draft = self.is_draft,
+            is_show_ios = self.is_show_ios,
+            is_show_android = self.is_show_android,
             id = self.id           
             )
 
