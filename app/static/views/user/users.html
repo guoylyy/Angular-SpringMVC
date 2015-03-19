@@ -11,6 +11,7 @@
                         ng-click="cancel()">&times;</button>
                 <h4 class="modal-title" id="myUserLabel">创建一个新用户</h4>
             </div>
+             
             <div class="modal-body">
                 
                 
@@ -195,6 +196,11 @@
     <button class="btn btn-primary btn-lg" ng-click="create()">
         <span class="glyphicon glyphicon-flash"></span> 创建一个新用户
     </button>
+    <a href="/news/users/user_list_csv">
+    <button class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-user"></span>  导出用户列表
+    </button>
+    </a>
 
     <div class="table-responsive" style="margin-top:20px;">
         <table class="table table-striped" datatable="ng">

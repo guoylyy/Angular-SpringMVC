@@ -9,6 +9,8 @@ SQLALCHEMY_ECHO = False
 UPLOADED_FILES_DEST = os.path.join(basedir, 'app/dynamic/files')
 UPLOADS_DEFAULT_URL = 'http://localhost:5000'
 
+CSV_FILES_DEST = os.path.join(basedir, 'app/dynamic/files/csv')
+
 
 PUSH_KEY = 'fb9fa4e5061cd5e0cfb97041'
 PUSH_SECRET = '591789ee0088bb5778a6af87'

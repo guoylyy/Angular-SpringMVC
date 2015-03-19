@@ -30,7 +30,6 @@ def update_mockimage():
 		db.session.commit()
 		return jsonify(dict(result='success'))
 	except Exception, e:
-		raise e
 		return jsonify(dict(result='fail'))
 
 
@@ -79,7 +78,6 @@ def update_image_news_link(id):
 		db.session.commit()
 		return jsonify(dict(result='success'))
 	except Exception, e:
-		raise e
 		return jsonify(dict(result='fail'))
 
 @app.route('/news/upload_image', methods= ['POST'])

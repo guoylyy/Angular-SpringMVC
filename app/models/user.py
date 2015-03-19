@@ -81,6 +81,19 @@ class User(db.Model):
                 header_large = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_LARGE).locate(),
                 header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
             )
+    def to_csv_dict(self):
+        return dict(
+                account = self.account,
+                name = self.name,
+                role = self.role,
+                nickname = self.nickname,
+                phone_number = self.phone_number,
+                work_phone = self.work_phone,
+                title = self.title,
+                department = self.department,
+                company = self.company
+            )
+
     def to_header_dict(self):
         with store_context(fs_store):
             return dict(

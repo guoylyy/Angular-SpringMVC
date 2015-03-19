@@ -2,13 +2,42 @@
 # -*- coding: utf-8 -*-
 from app import app, db
 from app.models import user
-from flask import abort, jsonify, request
+from app.tools import _rename_file
+from flask import abort, jsonify, request, send_file
 from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
 from app.extensions import fs_store, files
 from requests import get
 import datetime
 import json
 import hashlib
+import csv
+
+@app.route('/news/users/user_list_csv', methods=['GET'])
+def user_list_csv():
+    """
+        admin can generate a user csv which contains all user info
+    """
+    us = user.User.query.all()
+    filename = 'xxx.csv'
+    csv_name = _rename_file(filename)
+    url =  app.config['CSV_FILES_DEST'] + '/' + csv_name
+    with open(url, 'wb') as csvfile:
+        #fieldnames = ['账号', '姓名', '描述', '角色', '邮箱', '电话', '工作电话', '公司', '部门', '职位']
+        fieldnames = []
+        if len(us) > 0:
+            fieldnames = us[0].to_csv_dict().keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for u in us:
+            dct = u.to_csv_dict()
+            n_items = {}
+            for name in fieldnames:
+                if dct[name] is not None:
+                    n_items[name] = dct[name].encode('utf-8')
+                else:
+                    n_items[name] = ''
+            writer.writerow(n_items)
+    return send_file(url)
 
 @app.route('/news/admin_login', methods = ['POST'])
 def admin_login():

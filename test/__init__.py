@@ -1,4 +1,4 @@
-from app import create_test_app
+from app import app#create_test_app, app
 from datetime import datetime
 import simplejson as json
 import unittest
@@ -12,7 +12,7 @@ TESTUSERPASS = 'tu_' + str(random.randint(1,1000))
 
 class A_UserInit(unittest.TestCase):
 	def setUp(self):
-		self.app = create_test_app()
+		self.app = app#create_test_app()
 		self.client = self.app.test_client()
 
 	def create_user(self):
@@ -55,7 +55,7 @@ class A_UserInit(unittest.TestCase):
 
 class BaseTest(unittest.TestCase):
 	def setUp(self):
-		self.app = create_test_app()
+		self.app = app#create_test_app()
 		self.client = self.app.test_client()
 		self.u = self.login()
 		self.token = self.u['token'] 
