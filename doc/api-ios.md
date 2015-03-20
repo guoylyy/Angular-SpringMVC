@@ -382,7 +382,7 @@ Response:
 ## 6 通用 api
 
 ### 6.1 获取3个系统通知
-* url
+* url: /news/informs
 * method:get
 
 ```
