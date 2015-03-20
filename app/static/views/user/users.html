@@ -117,10 +117,10 @@
                 </div>
                
                <div class="form-group">
-                    <label>密码:</label>
+                    <label>密码:(不更改可置为空)</label>
                     
                     <input type="text" class="form-control" name="password"
-                           ng-model="user.password" ng-required="true"
+                           ng-model="user.password" 
                            ng-minlength=0 ng-maxlength=500/>
                     <span class="error" ng-show="form.password.$error.minlength">Must be at least 0 characters.</span>
                     <span class="error" ng-show="form.password.$error.maxlength">Must be at most 500 characters.</span>

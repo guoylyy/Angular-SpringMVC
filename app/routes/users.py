@@ -243,14 +243,15 @@ def update_user(id):
         account = request.json['account'],
         name = request.json['name'],
         email = request.json['email'],
-        password = request.json['password'],
         phone_number = request.json['phone_number'],
         description = request.json['description'],
         nickname = request.json['nickname'],
         is_vip = request.json['is_vip'],
         id = id
     )
-    
+
+    if request.json['password'] !=  None and request.json['password'] != '':
+        entity.password = request.json['password']
     with store_context(fs_store):
         db.session.merge(entity)
         db.session.commit()

@@ -98,6 +98,9 @@ def get_news(id):
     entity = news.News.query.get(id)
     if not entity:
         abort(404)
+    entity.view_count = entity.view_count + 1
+    db.session.merge(entity)
+    db.session.commit()
     return json.dumps(entity.to_dict(),ensure_ascii=False)
 
 @app.route('/news/news/<int:id>/view', methods=['POST'])
