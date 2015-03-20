@@ -4,6 +4,9 @@ from flask import abort, jsonify, request
 import datetime
 import json
 
+@app.route('/news/system_time', methods = ['GET'])
+def get_system_time():
+    return jsonify({'system_time':datetime.datetime.now().isoformat()})
 
 @app.route('/news/informs', methods = ['GET'])
 @app.route('/news/placard/all', methods=['GET'])

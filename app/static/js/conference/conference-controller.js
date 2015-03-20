@@ -23,12 +23,12 @@ angular.module('news')
       function countActiveConference() {
         var count = 0;
         for (var i = 0; i < $scope.conferences.length; i++) {
-          if (!$scope.conferences[i].is_draft) {
+          if ($scope.conferences[i].is_show_android) {
             count++;
           }
         };
         return count;
-      }
+      };
 
       $scope.update = function(id) {
         $scope.conference = Conference.get({
@@ -47,6 +47,7 @@ angular.module('news')
       };
 
       $scope.save = function(id) {
+
         if (id) {
           Conference.update({
               id: id
@@ -105,7 +106,11 @@ angular.module('news')
           controller: ConferenceSaveController,
           resolve: {
             conference: function() {
-              return $scope.conference;
+              var entity = {
+                'conference':$scope.conference,
+                'android_active_count':countActiveConference()
+              };
+              return entity;
             }
           }
         });
@@ -120,7 +125,8 @@ angular.module('news')
 
 var ConferenceSaveController =
   function($scope, $modalInstance, conference, $filter, $upload, $http) {
-    $scope.conference = conference;
+    $scope.conference = conference.conference;
+    $scope.android_active_count = conference.android_active_count;
     $scope.requested_pdf = false;
     $scope.pdfs = [];
     //request the list of conference pdf
@@ -209,7 +215,11 @@ var ConferenceSaveController =
     };
 
     $scope.ok = function() {
-      $modalInstance.close($scope.conference);
+      if($scope.android_active_count>=1 && $scope.conference.is_show_android == true){
+        alert('安卓设备只支持一个会议，请设置安卓设备为隐藏再保存！');
+      }else{
+        $modalInstance.close($scope.conference);
+      }
     };
 
     $scope.cancel = function() {

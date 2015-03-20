@@ -138,7 +138,7 @@ Response:
 
 ## 2. 主程序广告 API
 
-### 2.1 获取广告
+### 2.1 获取广告图片
 
 url: news/mockimage
 method:get
@@ -182,8 +182,8 @@ Response:
 ```
 
 ### 3.2 提交留言
-url: news/message/send
-method: post
+* url: news/message/send
+* method: post
 
 ```
 Request:
@@ -310,7 +310,7 @@ Response:
 列出所有 active 的会展
 
 * url :/news/conferences/list/ios
-
+* method:get
 
 ```
 [
@@ -379,3 +379,40 @@ Response:
 //查看返回的列表
 ```
 
+## 6 通用 api
+
+### 6.1 获取3个系统通知
+* url
+* method:get
+
+```
+[
+    {
+        "create_time": "2015-01-12T17:52:13",
+        "id": 10,
+        "title": "场馆信息已经更新，您可在“会展”版块进行查询。Venue info has been updated, and you can check it in \"Conference\" section."
+    },
+    {
+        "create_time": "2015-01-08T23:51:40",
+        "id": 9,
+        "title": "Shanghai VisionMC will join the forum with LDRA in UK and AbsInt in Germany."
+    },
+    {
+        "create_time": "2015-01-08T23:51:15",
+        "id": 8,
+        "title": "上周服务器维护更新，现已恢复正常。The server has been  maintained and updated last week, while it gets back to normal now."
+    }
+]
+```
+
+
+### 6.2 获取系统时间
+* url :/news/system_time
+* method:get
+
+```
+{
+    "system_time": "2015-03-20T11:41:54.394987"
+}
+
+```
