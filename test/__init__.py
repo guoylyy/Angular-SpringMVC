@@ -1,4 +1,4 @@
-from app import app#create_test_app, app
+from app import create_test_app, app
 from datetime import datetime
 import simplejson as json
 import unittest
@@ -12,7 +12,7 @@ TESTUSERPASS = 'tu_' + str(random.randint(1,1000))
 
 class A_UserInit(unittest.TestCase):
 	def setUp(self):
-		self.app = app#create_test_app()
+		self.app = create_test_app()
 		self.client = self.app.test_client()
 
 	def create_user(self):
@@ -37,7 +37,7 @@ class A_UserInit(unittest.TestCase):
 		headers = self.get_headers(json_data)
 		rep = self.client.post(BASEURL + 'users', headers = headers,
 			data = json_data)
-		print rep.data
+		#print rep.data
 		assert rep.status_code is 201
 		return json.loads(rep.data)
 
@@ -55,7 +55,7 @@ class A_UserInit(unittest.TestCase):
 
 class BaseTest(unittest.TestCase):
 	def setUp(self):
-		self.app = app#create_test_app()
+		self.app = create_test_app()
 		self.client = self.app.test_client()
 		self.u = self.login()
 		self.token = self.u['token'] 
@@ -105,7 +105,7 @@ class B_MessageTest(BaseTest):
 class C_UserApiTest(BaseTest):
 	def test_get_userprofile(self):
 		"""
-			Test user profile getter
+			获取用户信息测试
 		"""
 		data = dict(
 			token=self.token)
@@ -117,7 +117,7 @@ class C_UserApiTest(BaseTest):
 
 	def test_update_username_nickname(self):
 		"""
-			Test update username and nickname
+			更新用户姓名和头像
 		"""
 		name = 'user' + str(random.randint(1,10000))
 		self.u['name'] = name
@@ -128,6 +128,18 @@ class C_UserApiTest(BaseTest):
 			data=json_data)
 		assert json.loads(rep.data)['name'] == name
 
+	def test_update_user_profile(self):
+		"""
+			更新用户头像和信息
+		"""
+		pass
+
+
+	def register_a_new_user(self):
+		"""
+			注册一个新用户
+		"""
+		pass
 
 class D_ImageTest(BaseTest):
 	def test_get_mockimage(self):
@@ -152,11 +164,15 @@ class E_NewsTest(BaseTest):
 		assert rep.status_code is 201
 		self.news = json.loads(rep.data)
 
+	def test_get_news(self):
+		"""
+			
+		"""
+		pass
+
 	def test_news_crud(self):
 		pass
 
-	def test_topic(self):
-		pass
 
 class F_ConferenceTest(BaseTest):
 	def test_confernce_crud(self):

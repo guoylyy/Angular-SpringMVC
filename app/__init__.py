@@ -5,6 +5,10 @@ app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+def create_test_app():
+	app.config.from_object('test_config')
+	db  = SQLAlchemy(app)
+	return app
 
 from app.models import news
 from app.models import user

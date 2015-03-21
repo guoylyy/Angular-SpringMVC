@@ -208,7 +208,7 @@ Response:
 
 ## 4. 新闻 API
 
-### 4.1 获取主题列表
+### 4.1 获取主题列表 (弃用)
 
 url: news/topics
 method: get
@@ -218,9 +218,9 @@ Response:
 [{"images": "file:///Users/globit/git/news_api/app/extensions/userimages/topic-image-store/1/0/1.100x66.jpe?_ts=20141209000645000000", "id": 1, "title": "test topic"}]
 ```
 
-### 4.2 获取一个主题的内容
-url: news/topic/<int:id>
-method: get
+### 4.2 获取一个主题的内容（弃用）
+* url: news/topic/<int:id>
+* method: get
 
 ```
 Response:
@@ -230,8 +230,8 @@ Response:
 
 ### 4.3 获取一个新闻的内容
 
-url: news/news/<int:id>
-method: get
+* url: news/news/<int:id>
+* method: get
 
 ```
 Response:
