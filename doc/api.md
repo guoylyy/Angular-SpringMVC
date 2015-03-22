@@ -150,8 +150,14 @@ Response:
 
 ### 2.1 获取广告
 
-url: news/mockimage
-method:get
+* url: news/mockimage
+* method:get
+
+
+### 2.2 获取首页三张图片广告
+
+* url：news/mainpage_images
+* method: get
 
 
 ## 3. 留言 API

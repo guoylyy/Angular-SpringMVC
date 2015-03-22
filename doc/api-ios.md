@@ -140,8 +140,13 @@ Response:
 
 ### 2.1 获取广告图片
 
-url: news/mockimage
-method:get
+* url: news/mockimage
+* method:get
+
+### 2.2 获取主页滚动的广告图片列表
+* url: news/mainpage_images
+* method: get
+
 
 
 ## 3. 留言 API
