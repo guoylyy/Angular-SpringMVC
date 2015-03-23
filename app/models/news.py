@@ -63,6 +63,11 @@ class News(db.Model):
 
     def to_list_dict(self):
         with store_context(fs_store):
+            icon_url = ''
+            try:
+                icon_url = find_or_create_thumbnail(self,self.icon,100).locate()
+            except Exception, e:
+                pass
             return dict(
                 id=self.id,
                 title=self.title,
@@ -70,7 +75,7 @@ class News(db.Model):
                 author=self.author,
                 awesome_count =self.awesome_count,
                 view_count = self.view_count,
-                icon=find_or_create_thumbnail(self,self.icon,100).locate(),
+                icon=icon_url,
                 has_video =self.has_video,
                 video_link = self.video_link,
                 news_language = self.news_language
