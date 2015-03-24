@@ -57,6 +57,13 @@ class User(db.Model):
 
     def to_dict(self):
         with store_context(fs_store):
+            header_large_url = ''
+            header_small_url = ''
+            try:
+                header_large_url = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_LARGE).locate()
+                header_small_url = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate()
+            except Exception, e:
+                pass
             return dict(
                 account = self.account,
                 name = self.name,
@@ -78,8 +85,8 @@ class User(db.Model):
                 title = self.title,
                 department = self.department,
                 company = self.company,
-                header_large = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_LARGE).locate(),
-                header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
+                header_large = header_large_url,
+                header_small = header_small_url
             )
     def to_csv_dict(self):
         return dict(
@@ -97,13 +104,18 @@ class User(db.Model):
 
     def to_header_dict(self):
         with store_context(fs_store):
+            header_small_url = ''
+            try:
+                header_small_url = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate()
+            except Exception, e:
+                pass
             return dict(
                 name = self.name,
                 nickname = self.nickname,
                 is_vip = self.is_vip,
                 company = self.company,
                 id = self.id,
-                header_small = find_or_create_thumbnail(self, self.header_icon, HEADER_SIZE_SMALL).locate(),
+                header_small = header_small_url
             )   
 
     def __repr__(self):
