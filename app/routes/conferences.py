@@ -74,7 +74,7 @@ def get_conference():
 @app.route('/news/conferences/simple_content', methods = ['GET'])
 def get_simple_conference():
     "获取会议的简介(不带详情版本)"
-    entity = conference.Conference.query.first(conference.Conference.is_draft==False
+    entity = conference.Conference.query.filter(conference.Conference.is_draft==False
         ,conference.Conference.is_show_android==True).first()
     if not entity:
         abort(404)
