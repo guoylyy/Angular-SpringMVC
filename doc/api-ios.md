@@ -175,7 +175,7 @@ Response:
 * method: get
 
 ### 2.3 获取视频流文件
-* url: /news/send_file/<string:filename>  //视频url最后的那个文件名 如 xxx.mp4
+* url: /news/send_video/<string:filename>  //视频url最后的那个文件名，目前只有MP4可以 
 * method: get
 
 
