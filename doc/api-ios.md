@@ -25,7 +25,8 @@ Post:
   "name":"test99",
   "company":"fdfa",
   "phone_number" : "12312421312",
-  "zone":"fdsfa"
+  "email":"fdsfa",
+  "title":"副总"
 }
 ```
 
@@ -140,7 +141,6 @@ Response:
 
 * url: news/user/<int:id>/update_user_profile
 * method: post
-* wait test
 
 ```
 Request
@@ -163,7 +163,7 @@ Response:
 
 
 
-## 2. 主程序广告 API
+## 2. 广告 API 和获取文件
 
 ### 2.1 获取广告图片
 
@@ -173,6 +173,11 @@ Response:
 ### 2.2 获取主页滚动的广告图片列表
 * url: news/mainpage_images
 * method: get
+
+### 2.3 获取视频流文件
+* url: /news/send_file/<string:filename>  //视频url最后的那个文件名 如 xxx.mp4
+* method: get
+
 
 
 
