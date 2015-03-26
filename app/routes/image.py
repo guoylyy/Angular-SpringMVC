@@ -4,16 +4,17 @@ from app import app, db
 from app.models import image
 from app.tools import _rename_file
 from werkzeug.wrappers import Request, Response
-from flask import abort, jsonify, request, send_file
+from flask import abort, jsonify, request, send_file, render_template
 from app.extensions import fs_store, files
 import datetime
 import json
 
-@app.route('/news/send_file/<string:name>', methods= ['GET'])
+@app.route('/news/send_video/<string:name>', methods= ['GET'])
 def send(name):
-	baseurl = app.config['UPLOADED_FILES_DEST'] + '/' +  str(name)
-	g = file(baseurl)
-	return Response(g,direct_passthrough=True)
+	# baseurl = app.config['UPLOADED_FILES_DEST'] + '/' +  str(name)
+	# g = file(baseurl)
+	url = files.url(name)
+	return render_template('video.html',url=url)
 
 @app.route('/news/mockimage', methods= ['GET'])
 def mockimage():
