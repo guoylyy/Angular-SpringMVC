@@ -13,7 +13,8 @@ import json
 def send(name):
 	# baseurl = app.config['UPLOADED_FILES_DEST'] + '/' +  str(name)
 	# g = file(baseurl)
-	url = files.url(name)
+	# url = files.url(name)
+	url = "http://aero.wisdomriver.com.cn:5002/" + str(name)
 	return render_template('video.html',url=url)
 
 @app.route('/news/mockimage', methods= ['GET'])
