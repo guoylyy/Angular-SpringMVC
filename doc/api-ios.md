@@ -416,6 +416,28 @@ Response:
 //查看返回的列表
 ```
 
+### 5.4 获取作为倒计时的会议
+
+* url:/news/conferences/in_time_conference
+* method: get
+
+```
+{
+    "view_count": 111,
+    "is_show_android": true,
+    "started_time": "2015-04-21T00:00:00",
+    "title": "CAIF2015民用飞机航电国际论坛",
+    "updated_time": "2015-03-18T17:14:34",
+    "is_show_ios": true,
+    "created_time": "2014-12-10T00:00:00",
+    "is_draft": false,
+    "id": 1,
+    "is_show_in_time": true
+}
+
+```
+
+
 ## 6 通用 api
 
 ### 6.1 获取3个系统通知
