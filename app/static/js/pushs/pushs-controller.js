@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('news')
-  .controller('PushsController', ['$scope', '$modal', 'resolvedPushs', 'Pushs',
-    function ($scope, $modal, resolvedPushs, Pushs) {
+  .controller('PushsController', ['$scope', '$modal', 'resolvedPushs', 'Pushs','DTOptionsBuilder', 'DTColumnDefBuilder',
+    function ($scope, $modal, resolvedPushs, Pushs, DTOptionsBuilder, DTColumnDefBuilder) {
+      $scope.dtOptions = DTOptionsBuilder.newOptions()
+          .withOption('order',[0,'desc']);
 
+      $scope.dtColumnDefs = [
+ 
+      ];
       $scope.push_array = resolvedPushs;
 
       $scope.create = function () {

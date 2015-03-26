@@ -21,14 +21,26 @@ angular.module('news')
       };
 
       function countActiveConference() {
-        var count = 0;
+       
         for (var i = 0; i < $scope.conferences.length; i++) {
           if ($scope.conferences[i].is_show_android) {
-            count++;
+            return $scope.conferences[i];
+            break;
           }
         };
-        return count;
+        return null;
       };
+
+      function countInTimeConference() {
+        for (var i = 0; i < $scope.conferences.length; i++) {
+          if($scope.conferences[i].is_show_in_time){
+            return $scope.conferences[i];
+            break;
+          }
+        };
+        return null;
+      };
+
 
       $scope.update = function(id) {
         $scope.conference = Conference.get({
@@ -108,7 +120,8 @@ angular.module('news')
             conference: function() {
               var entity = {
                 'conference':$scope.conference,
-                'android_active_count':countActiveConference()
+                'android_active_count':countActiveConference(),
+                'in_time_count':countInTimeConference()
               };
               return entity;
             }
@@ -118,6 +131,7 @@ angular.module('news')
         conferenceSave.result.then(function(entity) {
           $scope.conference = entity;
           $scope.save(id);
+          $scope.conferences = resolvedConference;
         });
       };
     }
@@ -127,10 +141,10 @@ var ConferenceSaveController =
   function($scope, $modalInstance, conference, $filter, $upload, $http) {
     $scope.conference = conference.conference;
     $scope.android_active_count = conference.android_active_count;
+    $scope.in_time_count = conference.in_time_count;
     $scope.requested_pdf = false;
     $scope.pdfs = [];
     //request the list of conference pdf
-
     if ($scope.conference.id != undefined && !$scope.requested_pdf) {
       $scope.requested_pdf == true;
       request_pdf();
@@ -215,8 +229,12 @@ var ConferenceSaveController =
     };
 
     $scope.ok = function() {
-      if($scope.android_active_count>=1 && $scope.conference.is_show_android == true){
+      if($scope.android_active_count != null && $scope.conference.is_show_android == true &&
+        $scope.android_active_count.id != $scope.conference.id){
         alert('安卓设备只支持一个会议，请设置安卓设备为隐藏再保存！');
+      }else if($scope.in_time_count != null && $scope.conference.is_show_in_time == true &&
+        $scope.in_time_count.id != $scope.conference.id){
+        alert('已经有一个作为倒计时的会议拉！请关闭倒计时选项！');
       }else{
         $modalInstance.close($scope.conference);
       }

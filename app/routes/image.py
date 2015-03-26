@@ -3,10 +3,17 @@
 from app import app, db
 from app.models import image
 from app.tools import _rename_file
+from werkzeug.wrappers import Request, Response
 from flask import abort, jsonify, request, send_file
 from app.extensions import fs_store, files
 import datetime
 import json
+
+@app.route('/news/send_file/<string:name>', methods= ['GET'])
+def send(name):
+	baseurl = app.config['UPLOADED_FILES_DEST'] + '/' +  str(name)
+	g = file(baseurl)
+	return Response(g,direct_passthrough=True)
 
 @app.route('/news/mockimage', methods= ['GET'])
 def mockimage():

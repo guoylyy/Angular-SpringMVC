@@ -8,25 +8,31 @@
     </button>
 
     <div class="table-responsive" style="margin-top:20px;">
-        <table class="table table-striped" id="news-table" datatable="ng" >
+        <table class="table table-striped" id="news-table" datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" >
             <thead>
             <tr>
+                 
+
                 <th>ID</th>
                 
                 <th>标题</th>
                 
                 <th>创建时间</th>
                 
-                <th>最后更新时间</th>
+               <th>最后更新时间</th>
                 
-                <!-- <th>点击量</th>
-                 -->
+                <th>点击量</th>
+
+                <th>点赞量</th>
+               
                <!--  <th>草稿</th> -->
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="obj in newses">
+                
+
                 <td>{{obj.id}}</td>
                 
                 <td>{{obj.title }}</td>
@@ -35,9 +41,9 @@
                 
                 <td>{{obj.update_time  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 
-               <!--  <td>{{obj.view_count }}</td> -->
+                <td>{{obj.view_count }}</td> 
                 
-                <!-- <td>{{obj.is_draft }}</td> -->
+                 <td>{{obj.awesome_count }}</td> 
                 
                 <td>
                     <button type="submit"

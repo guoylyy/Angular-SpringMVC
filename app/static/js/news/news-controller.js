@@ -1,8 +1,21 @@
 'use strict';
 
 angular.module('news')
-  .controller('NewsController', ['$scope', '$modal', 'resolvedNews', 'News',
-    function($scope, $modal, resolvedNews, News) {
+  .controller('NewsController', ['$scope',  '$modal', 'resolvedNews', 'News', 'DTOptionsBuilder', 'DTColumnDefBuilder',
+    function($scope, $modal, resolvedNews, News, DTOptionsBuilder, DTColumnDefBuilder) {
+
+      
+      $scope.dtOptions = DTOptionsBuilder.newOptions()
+          .withOption('order',[3,'desc']);
+
+      $scope.dtColumnDefs = [
+          DTColumnDefBuilder.newColumnDef(0),
+          DTColumnDefBuilder.newColumnDef(1),
+          DTColumnDefBuilder.newColumnDef(2).notSortable(),
+          DTColumnDefBuilder.newColumnDef(3),
+          DTColumnDefBuilder.newColumnDef(4),
+          DTColumnDefBuilder.newColumnDef(5)
+      ];
 
       $scope.newses = resolvedNews;
       
@@ -141,6 +154,8 @@ angular.module('news')
       };
     }
   ]);
+
+
 
 var NewsSaveController =
   function($scope, $modalInstance, news, $upload) {

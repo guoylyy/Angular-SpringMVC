@@ -29,12 +29,16 @@ angular.module('news')
             function () {
               $scope.users = User.query();
               $scope.clear();
+            },function(e){
+              alert('该用户名已存在，更新用户失败！');
             });
         } else {
           User.save($scope.user,
             function () {
               $scope.users = User.query();
               $scope.clear();
+            },function(e){
+              alert('该用户名已存在，添加用户失败！');
             });
         }
       };

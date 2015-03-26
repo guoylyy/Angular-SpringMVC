@@ -1,8 +1,20 @@
 'use strict';
 
 angular.module('news')
-  .controller('MessageController', ['$scope', '$modal', 'resolvedMessage', 'Message', '$filter',
-    function($scope, $modal, resolvedMessage, Message, $filter) {
+  .controller('MessageController', ['$scope', '$modal', 'resolvedMessage', 'Message', '$filter','DTOptionsBuilder', 'DTColumnDefBuilder',
+    function($scope, $modal, resolvedMessage, Message, $filter,  DTOptionsBuilder, DTColumnDefBuilder) {
+
+      $scope.dtOptions = DTOptionsBuilder.newOptions()
+          .withOption('order',[0,'desc']);
+
+      $scope.dtColumnDefs = [
+          DTColumnDefBuilder.newColumnDef(0),
+          DTColumnDefBuilder.newColumnDef(1),
+          DTColumnDefBuilder.newColumnDef(2).notSortable(),
+          DTColumnDefBuilder.newColumnDef(3),
+          DTColumnDefBuilder.newColumnDef(4),
+          DTColumnDefBuilder.newColumnDef(5)
+      ];
 
       $scope.messages = resolvedMessage;
 

@@ -80,6 +80,15 @@ def get_simple_conference():
         abort(404)
     return jsonify(entity.to_simple_dict())
 
+@app.route('/news/conferences/in_time_conference', methods = ['GET'])
+def get_in_time_conference():
+    "获取作为倒计时的会议"
+    entity = conference.Conference.query.filter(conference.Conference.is_draft==False
+        ,conference.Conference.is_show_in_time==True).first()
+    if not entity:
+        return jsonify({'result':None})
+    return jsonify(entity.to_simple_dict())
+
 @app.route('/news/conferences/<int:id>', methods = ['GET'])
 def get_conference_by_id(id):
     entity = conference.Conference.query.get(id)
@@ -104,6 +113,7 @@ def create_conference():
         , is_draft = request.json['is_draft']
         , is_show_android = request.json['is_show_android']
         , is_show_ios = request.json['is_show_ios']
+        , is_show_in_time = request.json['is_show_in_time']
     )
     entity.created_time = datetime.datetime.now()
     entity.updated_time = datetime.datetime.now()
@@ -129,6 +139,7 @@ def update_conference(id):
         , is_draft = request.json['is_draft']
         , is_show_android = request.json['is_show_android']
         , is_show_ios = request.json['is_show_ios']
+        , is_show_in_time = request.json['is_show_in_time']
         , id = id
     )
     entity.updated_time = datetime.datetime.now()

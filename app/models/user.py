@@ -19,7 +19,7 @@ class User(db.Model):
     
     password = db.Column(db.String(200))
     
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(100),unique = True)
 
     nickname=db.Column(db.String(100))
     
@@ -89,11 +89,15 @@ class User(db.Model):
                 header_small = header_small_url
             )
     def to_csv_dict(self):
+        user_is_vip = 'no'
+        if self.is_vip:
+            user_is_vip = 'yes'
+
         return dict(
                 account = self.account,
                 name = self.name,
                 role = self.role,
-                is_vip = self.is_vip,
+                is_vip = user_is_vip,
                 nickname = self.nickname,
                 phone_number = self.phone_number,
                 work_phone = self.work_phone,

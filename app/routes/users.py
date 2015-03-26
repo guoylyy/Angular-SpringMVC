@@ -70,9 +70,10 @@ def register():
         account = request.json['account']
         , password = request.json['password']
         , name = request.json['name']
-        , zone = request.json['zone'] #地区
         , company = request.json['company']
         , phone_number = request.json['phone_number']
+        , email = request.json['email']
+        , title = request.json['title']
     )
     entity.registered_time = datetime.datetime.now().date();
     entity.lastlogin_time = datetime.datetime.now().date();
@@ -181,6 +182,28 @@ def update_user_profile(id):
     db.session.merge(u)
     db.session.commit()
     return jsonify(u.to_dict())
+
+@app.route('/news/user/<int:id>/update_user_profile', methods = ['POST'])
+def update_user_profile_deep(id):
+    """
+        Update user real name
+    """
+    token = request.json['token']
+    u = user.User.query.filter(user.User.token == token).first()
+    if u is None:
+        abort(404)
+    if u.id != id:
+        print "user id is wrong." #TODO: Support log system
+        abort(500)
+    u.name = request.json['name']
+    u.title = request.json['title']
+    u.company = request.json['company']
+    u.phone_number = request.json['phone_number']
+    u.email = request.json['email']
+    db.session.merge(u)
+    db.session.commit()
+    return jsonify(u.to_dict())
+
 
 @app.route('/news/user/upload_icon', methods = ['POST'])
 def upload_icon():

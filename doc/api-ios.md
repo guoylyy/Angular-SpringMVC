@@ -136,6 +136,33 @@ Response:
 同1.1
 ```
 
+### 1.6 修改用户基本信息
+
+* url: news/user/<int:id>/update_user_profile
+* method: post
+* wait test
+
+```
+Request
+Post: 
+{
+  "name":"xxx", 
+  "title":"xxx",
+  "token":"fdsafsa",
+  "company":"fsdafsadfsa.jpg"
+  "phone_number":"fsdafsadfsa.jpg"
+  "email":"fsdafsadfsa.jpg"
+}
+```
+
+```
+Response:
+同1.1
+
+```
+
+
+
 ## 2. 主程序广告 API
 
 ### 2.1 获取广告图片

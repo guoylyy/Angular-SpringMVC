@@ -30,6 +30,8 @@ class Conference(db.Model):
 
     is_show_android = db.Column(db.Boolean) # show or not in android
 
+    is_show_in_time = db.Column(db.Boolean) # show or not in start time
+
     def to_dict(self):
         return dict(
             intro_content = self.intro_content,
@@ -45,6 +47,7 @@ class Conference(db.Model):
             is_draft = self.is_draft,
             is_show_ios = self.is_show_ios,
             is_show_android = self.is_show_android,
+            is_show_in_time = self.is_show_in_time,
             id = self.id
         )
 
@@ -58,6 +61,7 @@ class Conference(db.Model):
             is_draft = self.is_draft,
             is_show_ios = self.is_show_ios,
             is_show_android = self.is_show_android,
+            is_show_in_time = self.is_show_in_time,
             id = self.id           
             )
 

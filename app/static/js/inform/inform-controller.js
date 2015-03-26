@@ -1,8 +1,20 @@
 'use strict';
 
 angular.module('news')
-  .controller('InformController', ['$scope', '$modal', 'resolvedInform', 'Inform',
-    function ($scope, $modal, resolvedInform, Inform) {
+  .controller('InformController', ['$scope', '$modal', 'resolvedInform', 'Inform','DTOptionsBuilder', 'DTColumnDefBuilder',
+    function ($scope, $modal, resolvedInform, Inform, DTOptionsBuilder, DTColumnDefBuilder) {
+
+      $scope.dtOptions = DTOptionsBuilder.newOptions()
+          .withOption('order',[0,'desc']);
+
+      $scope.dtColumnDefs = [
+          DTColumnDefBuilder.newColumnDef(0),
+          DTColumnDefBuilder.newColumnDef(1),
+          DTColumnDefBuilder.newColumnDef(2).notSortable(),
+          DTColumnDefBuilder.newColumnDef(3),
+          DTColumnDefBuilder.newColumnDef(4),
+          DTColumnDefBuilder.newColumnDef(5)
+      ];
 
       $scope.informs = resolvedInform;
 

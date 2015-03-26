@@ -32,6 +32,7 @@
                 </th>
 
                 <th>苹果设备显示</th>
+                <th>作为倒计时</th>
                 
             </tr>
             </thead>
@@ -51,6 +52,7 @@
 
                 <td>{{conference.is_show_android | deviceFilter }}</td>
                 <td>{{conference.is_show_ios | deviceFilter }}</td>
+                <td>{{conference.is_show_in_time | deviceFilter }}</td>
                 
                 <td>
                     <button type="submit"
