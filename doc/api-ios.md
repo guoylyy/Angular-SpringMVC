@@ -112,7 +112,9 @@ Response:
 
 ```
 Request:
-   {"header":"fsdafsadfsa.jpg"}
+   {"header":"fsdafsadfsa.jpg"
+   	 "token":"fadsfsadfa:fdsafasd"
+   }
    //注明： header是调用 uoload_icon接口返回的图片名字
 ```
 
