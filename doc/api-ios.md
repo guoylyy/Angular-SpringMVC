@@ -330,7 +330,7 @@ Response:
 ### 4.5 点赞
 
 * url: news/news/<int:id>/awesome
-* method:get
+* method:post
 
 ```
 {
