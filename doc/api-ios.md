@@ -151,9 +151,10 @@ Post:
   "name":"xxx", 
   "title":"xxx",
   "token":"fdsafsa",
-  "company":"fsdafsadfsa.jpg"
-  "phone_number":"fsdafsadfsa.jpg"
-  "email":"fsdafsadfsa.jpg"
+  "company":"fsdafsadfsa.jpg",
+  "phone_number":"fsdafsadfsa.jpg",
+  "email":"fsdafsadfsa.jpg",
+  "password":"fdsfafs"
 }
 ```
 

@@ -200,6 +200,8 @@ def update_user_profile_deep(id):
     u.company = request.json['company']
     u.phone_number = request.json['phone_number']
     u.email = request.json['email']
+    if request.json['password'] !=  None and request.json['password'] != '':
+        u.password = request.json['password']
     db.session.merge(u)
     db.session.commit()
     return jsonify(u.to_dict())
