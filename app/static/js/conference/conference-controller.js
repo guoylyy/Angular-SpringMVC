@@ -102,6 +102,12 @@ angular.module('news')
 
           "is_draft": false,
 
+          "is_show_android" : false,
+
+          "is_show_ios" : false,
+
+          "is_show_in_time": false,
+
           "id": ""
         };
       };
