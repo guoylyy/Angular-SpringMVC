@@ -34,7 +34,7 @@ def user_list_csv():
             n_items = {}
             for name in fieldnames:
                 if dct[name] is not None:
-                    n_items[name] = dct[name].encode('utf-8')
+                    n_items[name] = dct[name]
                 else:
                     n_items[name] = ''
             writer.writerow(n_items)
