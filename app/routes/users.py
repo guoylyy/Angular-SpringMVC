@@ -12,6 +12,7 @@ import json
 import hashlib
 import csv
 import codecs
+import unicodecsv
 
 @app.route('/news/users/user_list_csv', methods=['GET'])
 def user_list_csv():
@@ -22,13 +23,13 @@ def user_list_csv():
     filename = 'xxx.csv'
     csv_name = _rename_file(filename)
     url =  app.config['CSV_FILES_DEST'] + '/' + csv_name
-    with codecs.open(url, 'wb', encoding='utf8') as csvfile:
+    with codecs.open(url, 'wb') as csvfile:
         #fieldnames = ['账号', '姓名', '描述', '角色', '邮箱', '电话', '工作电话', '公司', '部门', '职位']
         fieldnames = []
         if len(us) > 0:
             fieldnames = us[0].to_csv_dict().keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
+        writer = unicodecsv.writer(csvfile, encoding='utf-8-sig')
+        writer.writerow(fieldnames)
         for u in us:
             dct = u.to_csv_dict()
             n_items = {}
@@ -37,7 +38,7 @@ def user_list_csv():
                     n_items[name] = dct[name]
                 else:
                     n_items[name] = ''
-            writer.writerow(n_items)
+            writer.writerow(n_items.values())
     return send_file(url)
 
 @app.route('/news/admin_login', methods = ['POST'])

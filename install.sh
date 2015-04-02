@@ -18,3 +18,4 @@ flask/bin/pip install simplejson
 flask/bin/pip install jpush
 flask/bin/pip install sqlalchemy_imageattach
 flask/bin/pip install requests
+flask/bin/pip install unicodecsv
