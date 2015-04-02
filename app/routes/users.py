@@ -11,6 +11,7 @@ import datetime
 import json
 import hashlib
 import csv
+import codecs
 
 @app.route('/news/users/user_list_csv', methods=['GET'])
 def user_list_csv():
@@ -21,7 +22,7 @@ def user_list_csv():
     filename = 'xxx.csv'
     csv_name = _rename_file(filename)
     url =  app.config['CSV_FILES_DEST'] + '/' + csv_name
-    with open(url, 'wb') as csvfile:
+    with codecs.open(url, 'wb', encoding='utf8') as csvfile:
         #fieldnames = ['账号', '姓名', '描述', '角色', '邮箱', '电话', '工作电话', '公司', '部门', '职位']
         fieldnames = []
         if len(us) > 0:
