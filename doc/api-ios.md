@@ -411,7 +411,7 @@ Response:
 
 * url: news/conferences/<int:id>/get_file/<string:ftype>  
 	* id: Integer 会展 ID
-	* ftype: REPORT|PDF
+	* ftype: PDF
 * method: get
 
 ```
