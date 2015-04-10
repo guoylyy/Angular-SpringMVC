@@ -1,7 +1,7 @@
 from flask import jsonify
 from app import db
 from app.extensions import fs_store
-from app.tools import find_or_create_thumbnail
+from app.tools import find_or_create_thumbnail, removeHTMLWidth
 from sqlalchemy_imageattach.entity import Image, image_attachment, store_context
 from sqlalchemy_imageattach.stores.fs import HttpExposedFileSystemStore, FileSystemStore
 import json
@@ -47,7 +47,7 @@ class News(db.Model):
         with store_context(fs_store):
             return dict(
                 title = self.title,
-                content = self.content,
+                content = removeHTMLWidth(self.content),
                 create_time = self.create_time.isoformat(),
                 update_time = self.update_time.isoformat(),
                 author = self.author,

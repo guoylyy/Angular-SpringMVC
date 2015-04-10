@@ -1,4 +1,5 @@
 from app import db
+from app.tools import removeHTMLWidth
 
 class Conference(db.Model):
     __tablename__ = 'conference'
@@ -35,10 +36,10 @@ class Conference(db.Model):
     def to_dict(self):
         return dict(
             intro_content = self.intro_content,
-            logistics_content = self.logistics_content,
-            group_content = self.group_content,
-            layout_content = self.layout_content,
-            agenda_content = self.agenda_content,
+            logistics_content = removeHTMLWidth(self.logistics_content),
+            group_content = removeHTMLWidth(self.group_content),
+            layout_content = removeHTMLWidth(self.layout_content),
+            agenda_content = removeHTMLWidth(self.agenda_content),
             title = self.title,
             created_time = self.created_time.isoformat(),
             updated_time = self.updated_time.isoformat(),

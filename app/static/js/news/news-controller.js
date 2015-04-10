@@ -120,6 +120,8 @@ angular.module('news')
 
           "temp_image":"",
 
+          "company" :"",
+
           "icon":"",
 
           "is_draft": false,

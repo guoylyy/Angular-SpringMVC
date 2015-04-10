@@ -68,6 +68,8 @@ def register():
     """
     if user.User.query.filter(user.User.name == request.json['name']).count() > 0:
         abort(500)
+    if user.User.query.filter(user.User.account == request.json['account']).count() > 0:
+        abort(500)
     entity = user.User(
         account = request.json['account']
         , password = request.json['password']
@@ -235,6 +237,8 @@ def get_user(id):
 def create_user():
     if user.User.query.filter(user.User.name == request.json['name']).count() > 0:
         abort(500)
+    if user.User.query.filter(user.User.account == request.json['account']).count() > 0:
+        abort(500)
     entity = user.User(
         account = request.json['account']
         , password = request.json['password']
@@ -274,6 +278,7 @@ def update_user(id):
         description = request.json['description'],
         nickname = request.json['nickname'],
         is_vip = request.json['is_vip'],
+        title = request.json['title'],
         id = id
     )
 

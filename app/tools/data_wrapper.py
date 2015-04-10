@@ -1,6 +1,16 @@
+#! /usr/bin/python
+# -*- coding:utf-8 -*-
 import time as stime
 import random
+import re
 from datetime import datetime, timedelta, time , date
+
+def removeHTMLWidth(html):
+	dr = re.compile('width[^>]*px',re.S)
+	dr2 = re.compile('width[^>]*%',re.S)
+	htmlStr = re.sub(dr,'',html)
+	htmlStr = re.sub(dr2,'',htmlStr)
+	return htmlStr
 
 def _str2date(dstr):
 	ym = [int(d) for d in dstr.split('-')]
@@ -23,5 +33,6 @@ def _rename_file(filename):
 	return final_name
 
 if __name__ == '__main__':
-	s = 'test.pdf'
-	print _rename_file(s)
+	#s = 'test.pdf'
+	#print _rename_file(s)
+	print removeHTMLWidth('<p><img src="http://aero.wisdomriver.com.cn/_uploads/files/74801033.jpg" style="width:100px" /></p>')

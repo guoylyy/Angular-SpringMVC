@@ -1,11 +1,21 @@
 'use strict';
 
 angular.module('news')
-  .controller('UserController', ['$scope', '$modal', 'resolvedUser', 'User',
-    function ($scope, $modal, resolvedUser, User) {
+  .controller('UserController', ['$scope', '$modal', 'resolvedUser', 'User', 'DTOptionsBuilder', 'DTColumnDefBuilder',
+    function ($scope, $modal, resolvedUser, User, DTOptionsBuilder, DTColumnDefBuilder) {
 
       $scope.users = resolvedUser;
+      $scope.dtOptions = DTOptionsBuilder.newOptions()
+          .withOption('order',[0,'desc']);
 
+      $scope.dtColumnDefs = [
+          DTColumnDefBuilder.newColumnDef(0),
+          DTColumnDefBuilder.newColumnDef(1),
+          DTColumnDefBuilder.newColumnDef(2),
+          DTColumnDefBuilder.newColumnDef(3),
+          DTColumnDefBuilder.newColumnDef(4).notSortable(),
+          DTColumnDefBuilder.newColumnDef(5).notSortable()
+      ];
       $scope.create = function () {
         $scope.clear();
         $scope.open('', true);
@@ -59,6 +69,8 @@ angular.module('news')
           "nickname" : "",
           
           "email": "",
+
+          "title": "",
           
           "registered_time": "",
           

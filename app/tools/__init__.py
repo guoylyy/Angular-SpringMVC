@@ -1,2 +1,2 @@
-from data_wrapper import _mk_timestamp, _rename_file
+from data_wrapper import _mk_timestamp, _rename_file, removeHTMLWidth
 from image_helper import find_or_create_thumbnail
