@@ -190,16 +190,23 @@ var NewsSaveController =
         }
       };
     }
-
+    $scope.video_percent = '';
     $scope.uploadFile = function(fx,event) {
       var file = fx[0];
       $upload.upload({
         url: 'news/upload_image',
         file: file
-      }).progress(function(evt) {}).success(function(data, status, headers, config) {
-        console.log('success');
+      }).progress(function(evt) {
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        $scope.video_percent = progressPercentage + '%';
+      }).success(function(data, status, headers, config) {
+        //console.log('success');
         alert('上传成功！');
-          $scope.news.video_link = data.path;
+        $scope.news.video_link = data.path;
+        $scope.video_percent = '';
+      }).fail(function(e){
+        alert('上传失败！');
+        $scope.video_percent = '';
       });
     };
 
@@ -208,7 +215,9 @@ var NewsSaveController =
       $upload.upload({
         url: 'news/upload_image',
         file: file
-      }).progress(function(evt) {}).success(function(data, status, headers, config) {
+      }).progress(function(evt) {
+
+      }).success(function(data, status, headers, config) {
         console.log('success');
         alert('上传成功！');
         if(key == 'content'){

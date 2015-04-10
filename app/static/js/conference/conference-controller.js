@@ -150,6 +150,7 @@ var ConferenceSaveController =
     $scope.in_time_count = conference.in_time_count;
     $scope.requested_pdf = false;
     $scope.pdfs = [];
+    $scope.pdf_percent = '';
     //request the list of conference pdf
     if ($scope.conference.id != undefined && !$scope.requested_pdf) {
       $scope.requested_pdf == true;
@@ -189,15 +190,26 @@ var ConferenceSaveController =
         $upload.upload({
           url: '/news/conferences/' + $scope.conference.id + '/file_upload/PDF',
           file: file
-        }).progress(function(evt) {}).success(function(data, status, headers, config) {
-          console.log('success');
+        }).progress(function(evt) {
+          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          $scope.pdf_percent = progressPercentage + '%';
+        }).success(function(data, status, headers, config) {
+          //console.log('success');
+          alert('上传成功');
+          $scope.pdf_percent = '';
           request_pdf();
+        }).fail(function(e){
+          $scope.pdf_percent = '';
+          alert('上传失败');
         });
       } else {
         $upload.upload({
           url: 'news/upload_image',
           file: file
-        }).progress(function(evt) {}).success(function(data, status, headers, config) {
+        }).progress(function(evt) {
+          //var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          //$scope.percent = progressPercentage + '%';
+        }).success(function(data, status, headers, config) {
           console.log('success');
           alert('上传成功！');
           $scope.conference[key] = $scope.conference[key] + getImageHTML(data.path);

@@ -108,8 +108,9 @@
                     <label>会议相关 PDF:</label>
                     <br>
                     <span class="btn btn-primary btn-file">
-                        上传 pdf <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('pdf',$files, $event)" name="file" accept="pdf/*"/>
+                        上传 pdf <input type="file" ng-file-select="" ng-model="picFile" ng-file-change="uploadFile('pdf',$files, $event)" name="file" accept="pdf/*"/> 
                     </span>
+                    <span style="padding-left:20px;color:red;">{{pdf_percent}}</span>
                     <br>
                     <table class="table table-bordered" style="margin-top:10px;"> 
                         <thead>
