@@ -74,7 +74,8 @@ def register():
         account = request.json['account']
         , password = request.json['password']
         , name = request.json['name']
-        , company = request.json['company']
+        , company = request.json['nickname']
+        , nickname = request.json['nickname']
         , phone_number = request.json['phone_number']
         , email = request.json['email']
         , title = request.json['title']
@@ -160,6 +161,7 @@ def update_name(id):
         abort(500)
     u.name = request.json['name']
     u.nickname = request.json['nickname']
+    u.company = request.json['nickname']
     db.session.merge(u)
     db.session.commit()
     return jsonify(u.to_dict())
@@ -178,6 +180,7 @@ def update_user_profile(id):
         abort(500)
     u.name = request.json['name']
     u.nickname = request.json['nickname']
+    u.company = request.json['nickname']
     with store_context(fs_store):
         with open(files.path(request.json['header'])) as f:
             u.header_icon.from_file(f)
@@ -202,6 +205,7 @@ def update_user_profile_deep(id):
     u.name = request.json['name']
     u.title = request.json['title']
     u.company = request.json['company']
+    u.nickname = request.json['company']
     u.phone_number = request.json['phone_number']
     u.email = request.json['email']
     if request.json['password'] !=  None and request.json['password'] != '':
@@ -245,6 +249,7 @@ def create_user():
         , name = request.json['name']
         , is_vip = request.json['is_vip']
         , nickname = request.json['nickname']
+        , company = request.json['nickname']
         , description = request.json['description']
     )
     entity.registered_time = datetime.datetime.now().date();
@@ -277,6 +282,7 @@ def update_user(id):
         phone_number = request.json['phone_number'],
         description = request.json['description'],
         nickname = request.json['nickname'],
+        company = request.json['nickname'],
         is_vip = request.json['is_vip'],
         title = request.json['title'],
         id = id
