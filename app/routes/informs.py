@@ -37,6 +37,7 @@ def update_inform(id):
     if not entity:
         abort(404)
     entity.title = request.json['title']
+    entity.create_time = datetime.datetime.now()
     db.session.merge(entity)
     db.session.commit()
     return jsonify(entity.to_dict()), 200
