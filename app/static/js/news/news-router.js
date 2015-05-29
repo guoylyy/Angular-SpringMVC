@@ -7,8 +7,8 @@ angular.module('news')
         templateUrl: 'views/news/news.html',
         controller: 'NewsController',
         resolve:{
-          resolvedNews: ['News', function (News) {
-            return News.query();
+          resolvedNews: ['SimpleNews', function (SimpleNews) {
+            return SimpleNews.query();
           }]
         }
       })

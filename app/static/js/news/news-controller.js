@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('news')
-  .controller('NewsController', ['$scope',  '$modal', 'resolvedNews', 'News', 'DTOptionsBuilder', 'DTColumnDefBuilder',
-    function($scope, $modal, resolvedNews, News, DTOptionsBuilder, DTColumnDefBuilder) {
+  .controller('NewsController', ['$scope',  '$modal', 'resolvedNews', 'News', 'SimpleNews', 'DTOptionsBuilder', 'DTColumnDefBuilder',
+    function($scope, $modal, resolvedNews, News, SimpleNews, DTOptionsBuilder, DTColumnDefBuilder) {
 
       
       $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -81,7 +81,7 @@ angular.module('news')
             id: id
           },
           function() {
-            $scope.newses = News.query();
+            $scope.newses = SimpleNews.query();
           });
       };
 
@@ -91,13 +91,13 @@ angular.module('news')
               id: id
             }, $scope.news,
             function() {
-              $scope.newses = News.query();
+              $scope.newses = SimpleNews.query();
               $scope.clear();
             });
         } else {
           News.save($scope.news,
             function() {
-              $scope.newses = News.query();
+              $scope.newses = SimpleNews.query();
               $scope.clear();
             });
         }

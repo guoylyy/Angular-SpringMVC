@@ -72,6 +72,7 @@ class News(db.Model):
                 id=self.id,
                 title=self.title,
                 create_time = self.create_time.isoformat(),
+                update_time = self.update_time.isoformat(),
                 author=self.author,
                 awesome_count =self.awesome_count,
                 view_count = self.view_count,
